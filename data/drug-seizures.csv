@@ -25,7 +25,6 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2015,Cannabis,Marijuana (herb),"78,262",Pound,ARQ,
 2015,Cannabis,Marijuana (herb),17.4,Kilogram,ARQ,Medical marijuana
 2015,Cannabis,Marijuana (herb),"2,817",Pill,ARQ,Medical marijuana
-2015,Cocaine,,,,,
 2015,Cocaine,Coca leaf,151.65,Kilogram,ARQ,
 2015,Cocaine,Coca paste/cocaine base,268.88,Kilogram,ARQ,Coca paste
 2015,Cocaine,Coca paste/cocaine base,213.3,Kilogram,ARQ,Cocaine base
@@ -80,7 +79,6 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2015,Substances not under international control,Synthetic cannabioids (Spice),"33,033",Pill,ARQ,
 2015,Substances not under international control,Synthetic cathinones,156.33,Kilogram,ARQ,Bath salts (Mephedrone)
 2015,Substances not under international control,Synthetic cathinones,292,Pill,ARQ,Bath salts (Mephedrone)
-2014,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,ATS,Amphetamine,976,Pill,ARQ,
 2014,ATS,Amphetamine,"4,291",Kilogram,ARQ,
 2014,ATS,Amphetamine,34,Pound,ARQ,
@@ -115,7 +113,6 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,Hallucinogens,Other Hallucinogens,"75,000",Millilitre,ARQ,Dimethyltryptamine (DMT)
 2014,Hallucinogens,Other Hallucinogens,225,Kilogram,ARQ,PCP (Phencyclidine)
 2014,Hallucinogens,Other Hallucinogens,62,Pill,ARQ,PCP (Phencyclidine)
-2014,Opioids,,,,,
 2014,Opioids,Heroin,"5,914.30",Kilogram,ARQ,
 2014,Opioids,Heroin,"3,426",Pill,ARQ,
 2014,Opioids,Illicit morphine,63,Kilogram,ARQ,
@@ -155,154 +152,131 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,Substances not under international control,Synthetic cannabioids (Spice),"26,075",Kilogram,ARQ,
 2014,Substances not under international control,Synthetic cannabioids (Spice),"423,389",Millilitre,ARQ,
 2014,Substances not under international control,Synthetic cathinones,66,Kilogram,ARQ,Bath salts (Mephedrone)
-2013,ATS,,,,,
-2013,,Amphetamine,"3,431.50",Kilogram,ARQ,
-2013,,Amphetamine,"8,924,259",Millilitre,ARQ,
-2013,,Ecstasy-type substances,741.39,Kilogram,ARQ,
-2013,,Ecstasy-type substances,"496,571",Pill,ARQ,
-2013,,Methamphetamine,"1,749.29",Kilogram,ARQ,
-2013,,Methamphetamine,"25,179",Pill,ARQ,
-2013,,Methamphetamine,"21,061.10",Kilogram,ARQ,Crystalline Methamphetamine
-2013,,Methamphetamine,"52,474",Millilitre,ARQ,Crystalline Methamphetamine
-2013,,Prescription stimulants,46.49,Kilogram,ARQ,
-2013,,Prescription stimulants,"37,767",Pill,ARQ,
-2013,Cannabis-type,,,,,
-2013,,Cannabis oil,252.24,Kilogram,ARQ,
-2013,,Cannabis oil,"123,730",Millilitre,ARQ,
-2013,,Cannabis plants,"834,528",Plants,ARQ,
-2013,,Hashish (resin),"2,452.91",Kilogram,ARQ,
-2013,,Hashish (resin),775,Pill,ARQ,
-2013,,Marijuana (herb),"1,692,943.36",Kilogram,ARQ,
-2013,,Other types of cannabis,"1,132.77",Kilogram,ARQ,Extract
-2013,,Other types of cannabis,"70,390",Millilitre,ARQ,Extract
-2013,Cocaine-type,,,,,
-2013,,Coca leaf,68.51,Kilogram,ARQ,
-2013,,"Cocaine (base, paste and salts)",132.2,Kilogram,HONLEA,
-2013,,Cocaine salts,"79,687",Kilogram,Govt,
-2013,,Crack,365.64,Kilogram,ARQ,
-2013,,Crack,118,Pill,ARQ,
-2013,,Non-specified cocaine,147.83,Kilogram,ARQ,Liquid cocaine
-2013,,Non-specified cocaine,"14,618",Millilitre,ARQ,Liquid cocaine
-2013,,Other coca/cocaine type,"68,816",Kilogram,Govt,
-2013,Hallucinogens,,,,,
-2013,,LSD,4.35,Kilogram,ARQ,
-2013,,LSD,"110,872",Pill,ARQ,
-2013,,Other Hallucinogens,47.16,Kilogram,ARQ,PCP (Phencyclidine)
-2013,,Other Hallucinogens,"667,082",Millilitre,ARQ,PCP (Phencyclidine)
-2013,Opioids,,,,,
-2013,,Heroin,"6,228.85",Kilogram,ARQ,
-2013,,Heroin,"30,804",Pill,ARQ,
-2013,,Illicit morphine,49.46,Kilogram,ARQ,
-2013,,Illicit morphine,"4,975",Pill,ARQ,
-2013,,Opium,"38,351.65",Kilogram,ARQ,Raw and prepared
-2013,,Opium,14,Pill,ARQ,Raw and prepared
-2013,,Pharmaceutical opioids,5.63,Kilogram,ARQ,Methadone
-2013,,Pharmaceutical opioids,552,Pill,ARQ,Methadone
-2013,,Pharmaceutical opioids,37.46,Kilogram,ARQ,Oxycodone
-2013,,Pharmaceutical opioids,"1,194,421",Pill,ARQ,Oxycodone
-2013,Sedatives and Tranquillizers,,,,,
-2013,,Barbiturates,0.51,Kilogram,ARQ,
-2013,,Barbiturates,"15,509",Pill,ARQ,
-2013,,Benzodiazepines,0.51,Kilogram,ARQ,
-2013,,Benzodiazepines,"104,694",Pill,ARQ,
-2013,,GHB,610.78,Kilogram,ARQ,
-2013,,GHB,"96,605",Millilitre,ARQ,
-2013,,Methaqualone,5.15,Kilogram,ARQ,
-2013,,Methaqualone,101,Pill,ARQ,
-2013,Substances not under international control,,,,,
-2013,,Plant-based NPS,"107,043.67",Kilogram,ARQ,Khat
-2013,,Synthetic cannabioids (Spice),"23,025.71",Kilogram,ARQ,Non-specified synthetic cannabinoid
-2013,,Synthetic cannabioids (Spice),"2,500",Pill,ARQ,Non-specified synthetic cannabinoid
-2012,Drug Group,Drug,Quantity,Unit,Source,Specifics
-2012,ATS,,,,,
-2012,,Amphetamine,"1,979.45",Kilogram,ARQ,
-2012,,Amphetamine,432,Pill,ARQ,
-2012,,Ecstasy-type substances,485.43,Kilogram,FU,MDMA
-2012,,Methamphetamine,"29,152.25",Kilogram,FU,
-2012,,Methamphetamine,28,Pill,ARQ,YABA
-2012,,Prescription stimulants,30.7,Kilogram,ARQ,
-2012,,Prescription stimulants,"262,084",Pill,ARQ,
-2012,Cannabis-type,,,,,
-2012,,Cannabis oil,"1,418.74",Kilogram,ARQ,
-2012,,Cannabis oil,"3,705",Millilitre,ARQ,
-2012,,Cannabis oil,26,Pill,ARQ,
-2012,,Cannabis plants,"801,087",Plants,ARQ,
-2012,,Hashish (resin),37.2,Pound,ARQ,
-2012,,Hashish (resin),"1,882.25",Kilogram,ARQ,
-2012,,Marijuana (herb),"2,108,497.09",Kilogram,FU,
-2012,Cocaine-type,,,,,
-2012,,Coca leaf,94.51,Kilogram,ARQ,
-2012,,Non-specified cocaine,"104,345.13",Kilogram,FU,
-2012,Hallucinogens,,,,,
-2012,,LSD,475.85,Kilogram,ARQ,
-2012,,LSD,"33,052",Pill,ARQ,
-2012,,Other Hallucinogens,87.41,Kilogram,ARQ,PCP (Phencyclidine)
-2012,,Other Hallucinogens,"921,723",Millilitre,ARQ,PCP (Phencyclidine)
-2012,Opioids,,,,,
-2012,,Heroin,"5,483.92",Kilogram,FU,
-2012,,Illicit morphine,24,Kilogram,ARQ,
-2012,,Illicit morphine,"1,129",Pill,ARQ,
-2012,,Opium,"3,394.35",Kilogram,ARQ,Raw and prepared
-2012,,Opium,"1,463",Pill,ARQ,Raw and prepared
-2012,,Pharmaceutical opioids,4.44,Kilogram,ARQ,Methadone
-2012,,Pharmaceutical opioids,"3,381",Pill,ARQ,Methadone
-2012,,Pharmaceutical opioids,16.2,Kilogram,ARQ,Oxycodone
-2012,,Pharmaceutical opioids,"177,016",Pill,ARQ,Oxycodone
-2012,Sedatives and Tranquillizers,,,,,
-2012,,Barbiturates,"2,470.17",Kilogram,ARQ,
-2012,,Barbiturates,"15,976",Pill,ARQ,
-2012,,Benzodiazepines,63.32,Kilogram,ARQ,
-2012,,Benzodiazepines,"464,245",Pill,ARQ,
-2012,,GHB,394.08,Kilogram,ARQ,
-2012,,GHB,"31,315",Millilitre,ARQ,
-2012,,Methaqualone,2.1,Kilogram,ARQ,
-2012,Substances not under international control,,,,,
-2012,,Plant-based NPS,"62,735.66",Kilogram,ARQ,Khat
-2012,,Synthetic cannabioids (Spice),"43,769.48",Kilogram,ARQ,
-2012,,Synthetic cannabioids (Spice),"1,350",Millilitre,ARQ,
-2011,Drug Group,Drug,Quantity,Unit,Source,Specifics
-2011,ATS,,,,,
-2011,,Amphetamine,536.08,Kilogram,ARQ,
-2011,,Amphetamine,"147,312",Pill,ARQ,
-2011,,Ecstasy-type substances,881.04,Kilogram,FU,MDMA
-2011,,Methamphetamine,"23,763.27",Kilogram,FU,
-2011,,Methamphetamine,"241,100",Pill,ARQ,YABA
-2011,Cannabis-type,,,,,
-2011,,Cannabis oil,343.82,Kilogram,ARQ,
-2011,,Cannabis oil,"20,242",Millilitre,ARQ,
-2011,,Cannabis plants,"1,513,846",Plants,ARQ,
-2011,,Hashish (resin),272.43,Kilogram,ARQ,
-2011,,Marijuana (herb),"2,454,642.34",Kilogram,FU,
-2011,Cocaine-type,,,,,
-2011,,Coca leaf,"1,399.57",Kilogram,ARQ,
-2011,,Coca leaf,"2,000",Pill,ARQ,
-2011,,Non-specified cocaine,"105,518.74",Kilogram,FU,
-2011,Hallucinogens,,,,,
-2011,,LSD,"2,873",Kilogram,ARQ,
-2011,,LSD,"38,597",Pill,ARQ,
-2011,,Other Hallucinogens,86.44,Kilogram,ARQ,PCP (Phencyclidine)
-2011,,Other Hallucinogens,"603,684",Millilitre,ARQ,PCP (Phencyclidine)
-2011,Opioids,,,,,
-2011,,Heroin,"4,785.46",Kilogram,FU,
-2011,,Illicit morphine,2.6,Kilogram,ARQ,
-2011,,Illicit morphine,"2,450",Pill,ARQ,
-2011,,Opium,234.64,Kilogram,ARQ,Liquid
-2011,,Opium,"7,689",Millilitre,ARQ,Liquid
-2011,,Opium,"2,106.71",Kilogram,ARQ,Raw and prepared
-2011,,Opium,502,Pill,ARQ,Raw and prepared
-2011,,Pharmaceutical opioids,8,Pill,ARQ,Dextropropoxyphene
-2011,,Pharmaceutical opioids,8.6,Kilogram,ARQ,Methadone
-2011,,Pharmaceutical opioids,"1,394",Pill,ARQ,Methadone
-2011,,Pharmaceutical opioids,15.66,Kilogram,ARQ,Oxycodone
-2011,,Pharmaceutical opioids,"200,975",Pill,ARQ,Oxycodone
-2011,Sedatives and Tranquillizers,,,,,
-2011,,Barbiturates,19.58,Kilogram,ARQ,
-2011,,Barbiturates,"23,697",Pill,ARQ,
-2011,,Benzodiazepines,550,Kilogram,ARQ,
-2011,,Benzodiazepines,"916,333",Pill,ARQ,
-2011,,GHB,379.58,Kilogram,ARQ,
-2011,,GHB,"416,263",Millilitre,ARQ,
-2011,,Methaqualone,"2,500",Pill,ARQ,
-2011,Substances not under international control,,,,,
-2011,,Plant-based NPS,"48,370.02",Kilogram,ARQ,Khat
-2011,,Synthetic cannabioids (Spice),"3,390.53",Kilogram,ARQ,Non-specified synthetic cannabinoid
+2013,ATS,Amphetamine,"3,431.50",Kilogram,ARQ,
+2013,ATS,Amphetamine,"8,924,259",Millilitre,ARQ,
+2013,ATS,Ecstasy-type substances,741.39,Kilogram,ARQ,
+2013,ATS,Ecstasy-type substances,"496,571",Pill,ARQ,
+2013,ATS,Methamphetamine,"1,749.29",Kilogram,ARQ,
+2013,ATS,Methamphetamine,"25,179",Pill,ARQ,
+2013,ATS,Methamphetamine,"21,061.10",Kilogram,ARQ,Crystalline Methamphetamine
+2013,ATS,Methamphetamine,"52,474",Millilitre,ARQ,Crystalline Methamphetamine
+2013,ATS,Prescription stimulants,46.49,Kilogram,ARQ,
+2013,ATS,Prescription stimulants,"37,767",Pill,ARQ,
+2013,Cannabis,Cannabis oil,252.24,Kilogram,ARQ,
+2013,Cannabis,Cannabis oil,"123,730",Millilitre,ARQ,
+2013,Cannabis,Cannabis plants,"834,528",Plants,ARQ,
+2013,Cannabis,Hashish (resin),"2,452.91",Kilogram,ARQ,
+2013,Cannabis,Hashish (resin),775,Pill,ARQ,
+2013,Cannabis,Marijuana (herb),"1,692,943.36",Kilogram,ARQ,
+2013,Cannabis,Other types of cannabis,"1,132.77",Kilogram,ARQ,Extract
+2013,Cannabis,Other types of cannabis,"70,390",Millilitre,ARQ,Extract
+2013,Cocaine,Coca leaf,68.51,Kilogram,ARQ,
+2013,Cocaine,"Cocaine (base, paste and salts)",132.2,Kilogram,HONLEA,
+2013,Cocaine,Cocaine salts,"79,687",Kilogram,Govt,
+2013,Cocaine,Crack,365.64,Kilogram,ARQ,
+2013,Cocaine,Crack,118,Pill,ARQ,
+2013,Cocaine,Non-specified cocaine,147.83,Kilogram,ARQ,Liquid cocaine
+2013,Cocaine,Non-specified cocaine,"14,618",Millilitre,ARQ,Liquid cocaine
+2013,Cocaine,Other coca/cocaine type,"68,816",Kilogram,Govt,
+2013,Hallucinogens,LSD,4.35,Kilogram,ARQ,
+2013,Hallucinogens,LSD,"110,872",Pill,ARQ,
+2013,Hallucinogens,Other Hallucinogens,47.16,Kilogram,ARQ,PCP (Phencyclidine)
+2013,Hallucinogens,Other Hallucinogens,"667,082",Millilitre,ARQ,PCP (Phencyclidine)
+2013,Opioids,Heroin,"6,228.85",Kilogram,ARQ,
+2013,Opioids,Heroin,"30,804",Pill,ARQ,
+2013,Opioids,Illicit morphine,49.46,Kilogram,ARQ,
+2013,Opioids,Illicit morphine,"4,975",Pill,ARQ,
+2013,Opioids,Opium,"38,351.65",Kilogram,ARQ,Raw and prepared
+2013,Opioids,Opium,14,Pill,ARQ,Raw and prepared
+2013,Opioids,Pharmaceutical opioids,5.63,Kilogram,ARQ,Methadone
+2013,Opioids,Pharmaceutical opioids,552,Pill,ARQ,Methadone
+2013,Opioids,Pharmaceutical opioids,37.46,Kilogram,ARQ,Oxycodone
+2013,Opioids,Pharmaceutical opioids,"1,194,421",Pill,ARQ,Oxycodone
+2013,Sedatives and Tranquillizers,Barbiturates,0.51,Kilogram,ARQ,
+2013,Sedatives and Tranquillizers,Barbiturates,"15,509",Pill,ARQ,
+2013,Sedatives and Tranquillizers,Benzodiazepines,0.51,Kilogram,ARQ,
+2013,Sedatives and Tranquillizers,Benzodiazepines,"104,694",Pill,ARQ,
+2013,Sedatives and Tranquillizers,GHB,610.78,Kilogram,ARQ,
+2013,Sedatives and Tranquillizers,GHB,"96,605",Millilitre,ARQ,
+2013,Sedatives and Tranquillizers,Methaqualone,5.15,Kilogram,ARQ,
+2013,Sedatives and Tranquillizers,Methaqualone,101,Pill,ARQ,
+2013,Substances not under international control,Plant-based NPS,"107,043.67",Kilogram,ARQ,Khat
+2013,Substances not under international control,Synthetic cannabioids (Spice),"23,025.71",Kilogram,ARQ,Non-specified synthetic cannabinoid
+2013,Substances not under international control,Synthetic cannabioids (Spice),"2,500",Pill,ARQ,Non-specified synthetic cannabinoid
+2012,ATS,Amphetamine,"1,979.45",Kilogram,ARQ,
+2012,ATS,Amphetamine,432,Pill,ARQ,
+2012,ATS,Ecstasy-type substances,485.43,Kilogram,FU,MDMA
+2012,ATS,Methamphetamine,"29,152.25",Kilogram,FU,
+2012,ATS,Methamphetamine,28,Pill,ARQ,YABA
+2012,ATS,Prescription stimulants,30.7,Kilogram,ARQ,
+2012,ATS,Prescription stimulants,"262,084",Pill,ARQ,
+2012,Cannabis,Cannabis oil,"1,418.74",Kilogram,ARQ,
+2012,Cannabis,Cannabis oil,"3,705",Millilitre,ARQ,
+2012,Cannabis,Cannabis oil,26,Pill,ARQ,
+2012,Cannabis,Cannabis plants,"801,087",Plants,ARQ,
+2012,Cannabis,Hashish (resin),37.2,Pound,ARQ,
+2012,Cannabis,Hashish (resin),"1,882.25",Kilogram,ARQ,
+2012,Cannabis,Marijuana (herb),"2,108,497.09",Kilogram,FU,
+2012,Cocaine,Coca leaf,94.51,Kilogram,ARQ,
+2012,Cocaine,Non-specified cocaine,"104,345.13",Kilogram,FU,
+2012,Hallucinogens,LSD,475.85,Kilogram,ARQ,
+2012,Hallucinogens,LSD,"33,052",Pill,ARQ,
+2012,Hallucinogens,Other Hallucinogens,87.41,Kilogram,ARQ,PCP (Phencyclidine)
+2012,Hallucinogens,Other Hallucinogens,"921,723",Millilitre,ARQ,PCP (Phencyclidine)
+2012,Opioids,Heroin,"5,483.92",Kilogram,FU,
+2012,Opioids,Illicit morphine,24,Kilogram,ARQ,
+2012,Opioids,Illicit morphine,"1,129",Pill,ARQ,
+2012,Opioids,Opium,"3,394.35",Kilogram,ARQ,Raw and prepared
+2012,Opioids,Opium,"1,463",Pill,ARQ,Raw and prepared
+2012,Opioids,Pharmaceutical opioids,4.44,Kilogram,ARQ,Methadone
+2012,Opioids,Pharmaceutical opioids,"3,381",Pill,ARQ,Methadone
+2012,Opioids,Pharmaceutical opioids,16.2,Kilogram,ARQ,Oxycodone
+2012,Opioids,Pharmaceutical opioids,"177,016",Pill,ARQ,Oxycodone
+2012,Sedatives and Tranquillizers,Barbiturates,"2,470.17",Kilogram,ARQ,
+2012,Sedatives and Tranquillizers,Barbiturates,"15,976",Pill,ARQ,
+2012,Sedatives and Tranquillizers,Benzodiazepines,63.32,Kilogram,ARQ,
+2012,Sedatives and Tranquillizers,Benzodiazepines,"464,245",Pill,ARQ,
+2012,Sedatives and Tranquillizers,GHB,394.08,Kilogram,ARQ,
+2012,Sedatives and Tranquillizers,GHB,"31,315",Millilitre,ARQ,
+2012,Sedatives and Tranquillizers,Methaqualone,2.1,Kilogram,ARQ,
+2012,Substances not under international control,Plant-based NPS,"62,735.66",Kilogram,ARQ,Khat
+2012,Substances not under international control,Synthetic cannabioids (Spice),"43,769.48",Kilogram,ARQ,
+2012,Substances not under international control,Synthetic cannabioids (Spice),"1,350",Millilitre,ARQ,
+2011,ATS,Amphetamine,536.08,Kilogram,ARQ,
+2011,ATS,Amphetamine,"147,312",Pill,ARQ,
+2011,ATS,Ecstasy-type substances,881.04,Kilogram,FU,MDMA
+2011,ATS,Methamphetamine,"23,763.27",Kilogram,FU,
+2011,ATS,Methamphetamine,"241,100",Pill,ARQ,YABA
+2011,Cannabis,Cannabis oil,343.82,Kilogram,ARQ,
+2011,Cannabis,Cannabis oil,"20,242",Millilitre,ARQ,
+2011,Cannabis,Cannabis plants,"1,513,846",Plants,ARQ,
+2011,Cannabis,Hashish (resin),272.43,Kilogram,ARQ,
+2011,Cannabis,Marijuana (herb),"2,454,642.34",Kilogram,FU,
+2011,Cocaine,Coca leaf,"1,399.57",Kilogram,ARQ,
+2011,Cocaine,Coca leaf,"2,000",Pill,ARQ,
+2011,Cocaine,Non-specified cocaine,"105,518.74",Kilogram,FU,
+2011,Hallucinogens,LSD,"2,873",Kilogram,ARQ,
+2011,Hallucinogens,LSD,"38,597",Pill,ARQ,
+2011,Hallucinogens,Other Hallucinogens,86.44,Kilogram,ARQ,PCP (Phencyclidine)
+2011,Hallucinogens,Other Hallucinogens,"603,684",Millilitre,ARQ,PCP (Phencyclidine)
+2011,Opioids,Heroin,"4,785.46",Kilogram,FU,
+2011,Opioids,Illicit morphine,2.6,Kilogram,ARQ,
+2011,Opioids,Illicit morphine,"2,450",Pill,ARQ,
+2011,Opioids,Opium,234.64,Kilogram,ARQ,Liquid
+2011,Opioids,Opium,"7,689",Millilitre,ARQ,Liquid
+2011,Opioids,Opium,"2,106.71",Kilogram,ARQ,Raw and prepared
+2011,Opioids,Opium,502,Pill,ARQ,Raw and prepared
+2011,Opioids,Pharmaceutical opioids,8,Pill,ARQ,Dextropropoxyphene
+2011,Opioids,Pharmaceutical opioids,8.6,Kilogram,ARQ,Methadone
+2011,Opioids,Pharmaceutical opioids,"1,394",Pill,ARQ,Methadone
+2011,Opioids,Pharmaceutical opioids,15.66,Kilogram,ARQ,Oxycodone
+2011,Opioids,Pharmaceutical opioids,"200,975",Pill,ARQ,Oxycodone
+2011,Sedatives and Tranquillizers,Barbiturates,19.58,Kilogram,ARQ,
+2011,Sedatives and Tranquillizers,Barbiturates,"23,697",Pill,ARQ,
+2011,Sedatives and Tranquillizers,Benzodiazepines,550,Kilogram,ARQ,
+2011,Sedatives and Tranquillizers,Benzodiazepines,"916,333",Pill,ARQ,
+2011,Sedatives and Tranquillizers,GHB,379.58,Kilogram,ARQ,
+2011,Sedatives and Tranquillizers,GHB,"416,263",Millilitre,ARQ,
+2011,Sedatives and Tranquillizers,Methaqualone,"2,500",Pill,ARQ,
+2011,Substances not under international control,Plant-based NPS,"48,370.02",Kilogram,ARQ,Khat
+2011,Substances not under international control,Synthetic cannabioids (Spice),"3,390.53",Kilogram,ARQ,Non-specified synthetic cannabinoid
