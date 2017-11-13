@@ -151,13 +151,13 @@ SeizuresChart.prototype.updateVisualization = function() {
   var drug = $('input[name="drug-seizures-drug"]:checked').val();
 
   // Axis domains
-  vis.x.domain(d3.extent(vis.displayData[drug][unit], function(d) {
-    return d.Year;
-  }));
+  vis.x.domain([2011, 2015]);
 
-  vis.y.domain(d3.extent(vis.displayData[drug][unit], function(d) {
+  var maxY = d3.max(vis.displayData[drug][unit], function(d) {
     return d.Quantity;
-  }));
+  });
+
+  vis.y.domain([0, maxY * 1.2]);
 
   // Scale axes
   vis.xAxis.scale(vis.x);
@@ -169,7 +169,7 @@ SeizuresChart.prototype.updateVisualization = function() {
 
   // Draw line chart
   vis.svg.select('#line-chart')
-         .datum(vis.displayData['ATS']['Kilogram']['Amphetamine']);
+         .datum(vis.displayData[drug][unit]);
 
   var line = d3.line()
                .x(function(d) {
