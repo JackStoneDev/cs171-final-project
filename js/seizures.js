@@ -60,12 +60,43 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('width', vis.width)
          .attr('height', vis.height);
 
-  vis.svg.append('path')
-         .attr('id', 'line-chart')
-         .attr('fill', 'none')
-         .attr('stroke', '#38761d')
-         .attr('stroke-width', 2.0)
-         .attr('clip-path', 'url(#clip)');
+  // Build radio for unit/drug selections
+  var units = d3.map(vis.data, function(d) {
+    return d.Unit;
+  }).keys();
+
+  var drugs = d3.map(vis.data, function(d) {
+    return d.Drug;
+  }).keys();
+
+  drugs = drugs.filter(function(d) {
+    return d === 'Ecstasy' || d === 'Methamphetamine' || d === 'Marijuana' || d === 'Crack' || d === 'Heroin' || d === 'Cocaine';
+  });
+
+  units.forEach(function(d, i) {
+    var checked = '';
+
+    if (i === 0) {
+      checked = 'checked';
+    }
+
+    $('#' + vis.parentElement).append('<br /><input type="radio" name="drug-seizures-unit" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
+  });
+
+  drugs.forEach(function(d, i) {
+    var checked = '';
+
+    if (i === 0) {
+      checked = 'checked';
+    }
+
+    $('#' + vis.parentElement).append('<br /><input type="radio" name="drug-seizures-drug" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
+  });
+
+  // Bind unit selection
+  $('input[name="drug-seizures-unit"]').change(function() {
+    vis.wrangleData();
+  });
 
   vis.wrangleData();
 }
@@ -77,6 +108,13 @@ SeizuresChart.prototype.wrangleData = function() {
   var vis = this;
 
   vis.displayData = vis.data;
+
+  // Filter display data by unit
+  var unit = $('input[name="drug-seizures-unit"]:checked').val();
+
+  vis.displayData = vis.displayData.filter(function(d) {
+    return d.Unit === unit;
+  });
 
   // Convert strings to numeric values
   vis.displayData.forEach(function(d) {
