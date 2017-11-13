@@ -60,6 +60,14 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('width', vis.width)
          .attr('height', vis.height);
 
+  vis.svg.append('path')
+         .datum(vis.data)
+         .attr('id', 'line-chart')
+         .attr('fill', 'none')
+         .attr('stroke', '#38761d')
+         .attr('stroke-width', 2.0)
+         .attr('clip-path', 'url(#clip)');
+
   // Build radio for unit/drug selections
   var units = d3.map(vis.data, function(d) {
     return d.Unit;
