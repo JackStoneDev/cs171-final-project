@@ -95,12 +95,12 @@ SeizuresChart.prototype.initVisualization = function() {
 
   // Bind unit selection
   $('input[name="drug-seizures-unit"]').change(function() {
-    vis.wrangleData();
+    vis.updateVisualization();
   });
 
   // Bind drug selection
   $('input[name="drug-seizures-drug"]').change(function() {
-    vis.wrangleData();
+    vis.updateVisualization();
   });
 
   vis.wrangleData();
@@ -114,51 +114,28 @@ SeizuresChart.prototype.wrangleData = function() {
 
   vis.displayData = vis.data;
 
-  // Filter display data by unit and drug
-  var unit = $('input[name="drug-seizures-unit"]:checked').val();
-  var drug = $('input[name="drug-seizures-drug"]:checked').val();
-
-  vis.displayData = vis.displayData.filter(function(d) {
-    return d.Unit === unit;
-  });
-
-  vis.displayData = vis.displayData.filter(function(d) {
-    return d.Drug === drug;
-  });
-
   // Convert strings to numeric values
   vis.displayData.forEach(function(d) {
     d.Year = +d.Year;
     d.Quantity = +d.Quantity;
   });
 
-  // Nest by drug group
+  // Nest by drug
   vis.displayData = d3.nest()
                       .key(function(d) {
-                        return d['Drug Group'];
+                        return d.Drug;
                       })
                       .object(vis.displayData);
 
-  // Nest drugs in drug group by drug type
-  for (var groupKey in vis.displayData) {
-    var group = d3.nest()
-              .key(function(d) {
-                return d.Drug;
-              })
-              .object(vis.displayData[groupKey]);
+  // Nest drugs by unit
+  for (var drugKey in vis.displayData) {
+    var unit = d3.nest()
+                 .key(function(d) {
+                   return d.Unit;
+                 })
+                 .object(vis.displayData[drugKey]);
 
-    vis.displayData[groupKey] = {};
-
-    // Nest drugs by unit
-    for (var unitKey in group) {
-      var unit = d3.nest()
-                   .key(function(d) {
-                     return d.Unit;
-                   })
-                   .object(group[unitKey]);
-
-      vis.displayData[groupKey][unitKey] = unit;
-    }
+    vis.displayData[drugKey] = unit;
   }
 
   vis.updateVisualization();
