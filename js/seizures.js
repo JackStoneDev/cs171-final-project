@@ -61,12 +61,57 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('height', vis.height);
 
   vis.svg.append('path')
-         .datum(vis.data)
          .attr('id', 'line-chart')
          .attr('fill', 'none')
          .attr('stroke', '#38761d')
          .attr('stroke-width', 2.0)
          .attr('clip-path', 'url(#clip)');
+
+  vis.wrangleData();
+}
+
+/**
+ * Wrangle data
+ */
+SeizuresChart.prototype.wrangleData = function() {
+  var vis = this;
+
+  vis.displayData = vis.data;
+
+  // Convert strings to numeric values
+  vis.displayData.forEach(function(d) {
+    d.Year = +d.Year;
+    d.Quantity = +d.Quantity;
+  });
+
+  // Nest by drug group
+  vis.displayData = d3.nest()
+                      .key(function(d) {
+                        return d['Drug Group'];
+                      })
+                      .object(vis.displayData);
+
+  // Nest drugs in drug group by unit
+  for (var unitKey in vis.displayData) {
+    var group = d3.nest()
+              .key(function(d) {
+                return d.Unit;
+              })
+              .object(vis.displayData[unitKey]);
+
+    vis.displayData[unitKey] = {};
+
+    // Nest drug units by drug type
+    for (var groupKey in group) {
+      var unit = d3.nest()
+                   .key(function(d) {
+                     return d.Drug;
+                   })
+                   .object(group[groupKey]);
+
+      vis.displayData[unitKey][groupKey] = unit;
+    }
+  }
 
   vis.updateVisualization();
 }
@@ -78,11 +123,11 @@ SeizuresChart.prototype.updateVisualization = function() {
   var vis = this;
 
   // Axis domains
-  vis.x.domain(d3.extent(vis.data, function(d) {
+  vis.x.domain(d3.extent(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d) {
     return d.Year;
   }));
 
-  vis.y.domain(d3.extent(vis.data, function(d) {
+  vis.y.domain(d3.extent(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d) {
     return d.Quantity;
   }));
 
@@ -95,6 +140,9 @@ SeizuresChart.prototype.updateVisualization = function() {
   vis.svg.select('.y-axis').call(vis.yAxis);
 
   // Draw line chart
+  vis.svg.select('#line-chart')
+         .datum(vis.displayData['ATS']['Kilogram']['Amphetamine']);
+
   var line = d3.line()
                .x(function(d) {
                  return vis.x(d.Year);
@@ -105,4 +153,25 @@ SeizuresChart.prototype.updateVisualization = function() {
 
   vis.svg.select('#line-chart')
          .attr('d', line);
+
+  // Draw circles
+  var circle = vis.svg.selectAll('circle')
+                      .data(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d, i) {
+                        return i
+                      });
+
+  circle.enter()
+        .append('circle')
+        .merge(circle)
+        .attr('r', 5)
+        .attr('fill', '#92c47d')
+        .attr('cx', function(d) {
+          return vis.x(d.Year);
+        })
+        .attr('cy', function(d) {
+          return vis.y(d.Quantity);
+        });
+
+  circle.exit()
+        .remove();
 }
