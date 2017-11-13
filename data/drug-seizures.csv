@@ -1,8 +1,8 @@
 Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2015,ATS,Amphetamine,2747.78,Kilogram,ARQ,
 2015,ATS,Amphetamine,9982,Pill,ARQ,
-2015,ATS,Ecstasy-type substances,570.11,Kilogram,ARQ,
-2015,ATS,Ecstasy-type substances,45848,Pill,ARQ,
+2015,ATS,Ecstasy,570.11,Kilogram,ARQ,
+2015,ATS,Ecstasy,45848,Pill,ARQ,
 2015,ATS,Methamphetamine,1490.97,Kilogram,ARQ,
 2015,ATS,Methamphetamine,1984,Pill,ARQ,
 2015,ATS,Methamphetamine,27048.57,Kilogram,ARQ,Crystalline Methamphetamine
@@ -20,11 +20,11 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2015,Cannabis,Hashish (resin),104,Pill,ARQ,
 2015,Cannabis,Hashish (resin),233.87,Kilogram,ARQ,Hashish Oil/Liquid
 2015,Cannabis,Hashish (resin),3516,Millilitre,ARQ,Hashish Oil/Liquid
-2015,Cannabis,Marijuana (herb),934469.45,Kilogram,ARQ,
-2015,Cannabis,Marijuana (herb),463825,Pill,ARQ,
-2015,Cannabis,Marijuana (herb),78262,Pound,ARQ,
-2015,Cannabis,Marijuana (herb),17.4,Kilogram,ARQ,Medical marijuana
-2015,Cannabis,Marijuana (herb),2817,Pill,ARQ,Medical marijuana
+2015,Cannabis,Marijuana,934469.45,Kilogram,ARQ,
+2015,Cannabis,Marijuana,463825,Pill,ARQ,
+2015,Cannabis,Marijuana,78262,Pound,ARQ,
+2015,Cannabis,Marijuana,17.4,Kilogram,ARQ,Medical marijuana
+2015,Cannabis,Marijuana,2817,Pill,ARQ,Medical marijuana
 2015,Cocaine,Coca leaf,151.65,Kilogram,ARQ,
 2015,Cocaine,Coca paste/cocaine base,268.88,Kilogram,ARQ,Coca paste
 2015,Cocaine,Coca paste/cocaine base,213.3,Kilogram,ARQ,Cocaine base
@@ -82,8 +82,8 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,ATS,Amphetamine,976,Pill,ARQ,
 2014,ATS,Amphetamine,4291,Kilogram,ARQ,
 2014,ATS,Amphetamine,34,Pound,ARQ,
-2014,ATS,Ecstasy-type substances,513,Kilogram,ARQ,
-2014,ATS,Ecstasy-type substances,169013,Pill,ARQ,
+2014,ATS,Ecstasy,513,Kilogram,ARQ,
+2014,ATS,Ecstasy,169013,Pill,ARQ,
 2014,ATS,Methamphetamine,1134,Kilogram,ARQ,
 2014,ATS,Methamphetamine,21331,Kilogram,ARQ,Crystalline Methamphetamine
 2014,ATS,Methamphetamine,1481,Pill,ARQ,Crystalline Methamphetamine
@@ -96,10 +96,10 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,Cannabis,Hashish (resin),222,Kilogram,ARQ,
 2014,Cannabis,Hashish (resin),192,Kilogram,ARQ,Hashish Oil/Liquid
 2014,Cannabis,Hashish (resin),54550,Millilitre,ARQ,Hashish Oil/Liquid
-2014,Cannabis,Marijuana (herb),1196962,Kilogram,ARQ,
-2014,Cannabis,Marijuana (herb),108534,Pound,ARQ,
-2014,Cannabis,Marijuana (herb),277,Kilogram,ARQ,Medical marijuana
-2014,Cannabis,Marijuana (herb),180,Plants,ARQ,Medical marijuana
+2014,Cannabis,Marijuana,1196962,Kilogram,ARQ,
+2014,Cannabis,Marijuana,108534,Pound,ARQ,
+2014,Cannabis,Marijuana,277,Kilogram,ARQ,Medical marijuana
+2014,Cannabis,Marijuana,180,Plants,ARQ,Medical marijuana
 2014,Cocaine,Coca leaf,277,Kilogram,ARQ,
 2014,Cocaine,Coca leaf,1185,Millilitre,ARQ,
 2014,Cocaine,Coca paste/cocaine base,177,Kilogram,ARQ,Coca paste
@@ -153,8 +153,8 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2014,Substances not under international control,Synthetic cathinones,66,Kilogram,ARQ,Bath salts (Mephedrone)
 2013,ATS,Amphetamine,3431.50,Kilogram,ARQ,
 2013,ATS,Amphetamine,8924259,Millilitre,ARQ,
-2013,ATS,Ecstasy-type substances,741.39,Kilogram,ARQ,
-2013,ATS,Ecstasy-type substances,496571,Pill,ARQ,
+2013,ATS,Ecstasy,741.39,Kilogram,ARQ,
+2013,ATS,Ecstasy,496571,Pill,ARQ,
 2013,ATS,Methamphetamine,1749.29,Kilogram,ARQ,
 2013,ATS,Methamphetamine,25179,Pill,ARQ,
 2013,ATS,Methamphetamine,21061.10,Kilogram,ARQ,Crystalline Methamphetamine
@@ -166,11 +166,11 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2013,Cannabis,Cannabis plants,834528,Plants,ARQ,
 2013,Cannabis,Hashish (resin),2452.91,Kilogram,ARQ,
 2013,Cannabis,Hashish (resin),775,Pill,ARQ,
-2013,Cannabis,Marijuana (herb),1692943.36,Kilogram,ARQ,
+2013,Cannabis,Marijuana,1692943.36,Kilogram,ARQ,
 2013,Cannabis,Other types of cannabis,1132.77,Kilogram,ARQ,Extract
 2013,Cannabis,Other types of cannabis,70390,Millilitre,ARQ,Extract
 2013,Cocaine,Coca leaf,68.51,Kilogram,ARQ,
-2013,Cocaine,Cocaine (paste and salt base),132.2,Kilogram,HONLEA,
+2013,Cocaine,Cocaine,132.2,Kilogram,HONLEA,
 2013,Cocaine,Cocaine salts,79687,Kilogram,Govt,
 2013,Cocaine,Crack,365.64,Kilogram,ARQ,
 2013,Cocaine,Crack,118,Pill,ARQ,
@@ -204,7 +204,7 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2013,Substances not under international control,Synthetic cannabioids (Spice),2500,Pill,ARQ,Non-specified synthetic cannabinoid
 2012,ATS,Amphetamine,1979.45,Kilogram,ARQ,
 2012,ATS,Amphetamine,432,Pill,ARQ,
-2012,ATS,Ecstasy-type substances,485.43,Kilogram,FU,MDMA
+2012,ATS,Ecstasy,485.43,Kilogram,FU,MDMA
 2012,ATS,Methamphetamine,29152.25,Kilogram,FU,
 2012,ATS,Methamphetamine,28,Pill,ARQ,YABA
 2012,ATS,Prescription stimulants,30.7,Kilogram,ARQ,
@@ -215,7 +215,7 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2012,Cannabis,Cannabis plants,801087,Plants,ARQ,
 2012,Cannabis,Hashish (resin),37.2,Pound,ARQ,
 2012,Cannabis,Hashish (resin),1882.25,Kilogram,ARQ,
-2012,Cannabis,Marijuana (herb),2108497.09,Kilogram,FU,
+2012,Cannabis,Marijuana,2108497.09,Kilogram,FU,
 2012,Cocaine,Coca leaf,94.51,Kilogram,ARQ,
 2012,Cocaine,Non-specified cocaine,104345.13,Kilogram,FU,
 2012,Hallucinogens,LSD,475.85,Kilogram,ARQ,
@@ -243,14 +243,14 @@ Year,Drug Group,Drug,Quantity,Unit,Source,Specifics
 2012,Substances not under international control,Synthetic cannabioids (Spice),1350,Millilitre,ARQ,
 2011,ATS,Amphetamine,536.08,Kilogram,ARQ,
 2011,ATS,Amphetamine,147312,Pill,ARQ,
-2011,ATS,Ecstasy-type substances,881.04,Kilogram,FU,MDMA
+2011,ATS,Ecstasy,881.04,Kilogram,FU,MDMA
 2011,ATS,Methamphetamine,23763.27,Kilogram,FU,
 2011,ATS,Methamphetamine,241100,Pill,ARQ,YABA
 2011,Cannabis,Cannabis oil,343.82,Kilogram,ARQ,
 2011,Cannabis,Cannabis oil,20242,Millilitre,ARQ,
 2011,Cannabis,Cannabis plants,1513846,Plants,ARQ,
 2011,Cannabis,Hashish (resin),272.43,Kilogram,ARQ,
-2011,Cannabis,Marijuana (herb),2454642.34,Kilogram,FU,
+2011,Cannabis,Marijuana,2454642.34,Kilogram,FU,
 2011,Cocaine,Coca leaf,1399.57,Kilogram,ARQ,
 2011,Cocaine,Coca leaf,2000,Pill,ARQ,
 2011,Cocaine,Non-specified cocaine,105518.74,Kilogram,FU,
