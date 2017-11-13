@@ -109,11 +109,16 @@ SeizuresChart.prototype.wrangleData = function() {
 
   vis.displayData = vis.data;
 
-  // Filter display data by unit
+  // Filter display data by unit and drug
   var unit = $('input[name="drug-seizures-unit"]:checked').val();
+  var drug = $('input[name="drug-seizures-drug"]:checked').val();
 
   vis.displayData = vis.displayData.filter(function(d) {
     return d.Unit === unit;
+  });
+
+  vis.displayData = vis.displayData.filter(function(d) {
+    return d.Drug === drug;
   });
 
   // Convert strings to numeric values
