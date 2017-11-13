@@ -98,6 +98,11 @@ SeizuresChart.prototype.initVisualization = function() {
     vis.wrangleData();
   });
 
+  // Bind drug selection
+  $('input[name="drug-seizures-drug"]').change(function() {
+    vis.wrangleData();
+  });
+
   vis.wrangleData();
 }
 
@@ -165,12 +170,15 @@ SeizuresChart.prototype.wrangleData = function() {
 SeizuresChart.prototype.updateVisualization = function() {
   var vis = this;
 
+  var unit = $('input[name="drug-seizures-unit"]:checked').val();
+  var drug = $('input[name="drug-seizures-drug"]:checked').val();
+
   // Axis domains
-  vis.x.domain(d3.extent(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d) {
+  vis.x.domain(d3.extent(vis.displayData[drug][unit], function(d) {
     return d.Year;
   }));
 
-  vis.y.domain(d3.extent(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d) {
+  vis.y.domain(d3.extent(vis.displayData[drug][unit], function(d) {
     return d.Quantity;
   }));
 
@@ -199,7 +207,7 @@ SeizuresChart.prototype.updateVisualization = function() {
 
   // Draw circles
   var circle = vis.svg.selectAll('circle')
-                      .data(vis.displayData['ATS']['Kilogram']['Amphetamine'], function(d, i) {
+                      .data(vis.displayData[drug][unit], function(d, i) {
                         return i
                       });
 
