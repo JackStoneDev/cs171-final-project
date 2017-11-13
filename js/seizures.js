@@ -91,25 +91,25 @@ SeizuresChart.prototype.wrangleData = function() {
                       })
                       .object(vis.displayData);
 
-  // Nest drugs in drug group by unit
-  for (var unitKey in vis.displayData) {
+  // Nest drugs in drug group by drug type
+  for (var groupKey in vis.displayData) {
     var group = d3.nest()
               .key(function(d) {
-                return d.Unit;
+                return d.Drug;
               })
-              .object(vis.displayData[unitKey]);
+              .object(vis.displayData[groupKey]);
 
-    vis.displayData[unitKey] = {};
+    vis.displayData[groupKey] = {};
 
-    // Nest drug units by drug type
-    for (var groupKey in group) {
+    // Nest drugs by unit
+    for (var unitKey in group) {
       var unit = d3.nest()
                    .key(function(d) {
-                     return d.Drug;
+                     return d.Unit;
                    })
-                   .object(group[groupKey]);
+                   .object(group[unitKey]);
 
-      vis.displayData[unitKey][groupKey] = unit;
+      vis.displayData[groupKey][unitKey] = unit;
     }
   }
 
