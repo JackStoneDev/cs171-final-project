@@ -3,7 +3,7 @@ body {
 }
 
 #hero {
-  background: url(/img/hero-bg.jpg);
+  background: url(../img/hero-bg.jpg);
   background-position: -40px -40px;
   background-size: cover;
 }
