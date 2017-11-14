@@ -3,7 +3,7 @@
 /*
  * ODChoropleth - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
- * @param _data						-- the  
+ * @param _data						-- the
  */
 
 ODChoropleth = function(_parentElement, _data){
@@ -103,7 +103,7 @@ ODChoropleth.prototype.initVis = function(){
     // Modified Legend Code from http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
     vis.legendWidth = 0.1 * vis.width;
     vis.legendHeight = 0 * vis.height;
-    vis.legend = d3.select("#OD-Choropleth-Legend").append("svg")
+    vis.legend = vis.svg.select("#OD-Choropleth-Legend").append("svg")
         .attr("class", "legend")
         .attr("width", vis.legendWidth)
         .attr("height", vis.height)
@@ -415,7 +415,7 @@ ODChoropleth.prototype.updateVis = function(){
             .on("click", function (d) {
 
                 // Reset the other states
-                d3.selectAll("path").attr("stroke-width", 0);
+                d3.select('#OD-Container').selectAll("path").attr("stroke-width", 0);
 
                 // Change style of selected state
                 d3.select(this).style("stroke", "white")
