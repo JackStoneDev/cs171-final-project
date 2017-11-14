@@ -2,3 +2,7 @@
   font-size: 14px;
   text-anchor: middle;
 }
+
+.drug-seizures-filter input[type="radio"] {
+  margin-right: 5px;
+}

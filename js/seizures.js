@@ -103,7 +103,7 @@ SeizuresChart.prototype.initVisualization = function() {
       checked = 'checked';
     }
 
-    $('#' + vis.parentElement).append('<br /><input type="radio" name="drug-seizures-unit" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
+    $('#drug-seizures-filter-unit').append('<br /><input type="radio" name="drug-seizures-unit" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
   });
 
   drugs.forEach(function(d, i) {
@@ -113,7 +113,7 @@ SeizuresChart.prototype.initVisualization = function() {
       checked = 'checked';
     }
 
-    $('#' + vis.parentElement).append('<br /><input type="radio" name="drug-seizures-drug" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
+    $('#drug-seizures-filter-drug').append('<br /><input type="radio" name="drug-seizures-drug" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
   });
 
   // Bind unit selection
