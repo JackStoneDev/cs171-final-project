@@ -13,6 +13,11 @@ body {
   color: #ffffff;
 }
 
+.chart-header {
+  font-size: 40px;
+  margin-top: 200px;
+}
+
 #headline {
   color: #ffffff;
   font-size: 70px;
