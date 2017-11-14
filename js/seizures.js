@@ -173,6 +173,17 @@ SeizuresChart.prototype.updateVisualization = function() {
   var unit = $('input[name="drug-seizures-unit"]:checked').val();
   var drug = $('input[name="drug-seizures-drug"]:checked').val();
 
+  // Do data exist for this unit and drug type?
+  if ('undefined' === typeof vis.displayData[drug][unit]) {
+    vis.svg.select('#line-chart')
+           .attr('d', '');
+
+    vis.svg.selectAll('circle')
+           .remove();
+
+    return;
+  }
+
   // Axis domains
   vis.x.domain([2011, 2015]);
 
