@@ -65,7 +65,7 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('class', 'axis-label y-label')
          .attr('transform', 'rotate(-90)')
          .attr('x', -vis.height / 2)
-         .attr('y', -vis.margin.left + 15)
+         .attr('y', -vis.margin.left + 10)
          .text('Quantity');
 
   // Line chart
