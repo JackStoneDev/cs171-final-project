@@ -1,3 +1,39 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+#hero {
+  background: url(/img/hero-bg.jpg);
+  background-position: -40px -40px;
+  background-size: cover;
+}
+
+.section {
+  background: #4d4d4d;
+  color: #ffffff;
+}
+
+#headline {
+  color: #ffffff;
+  font-size: 70px;
+  font-weight: 400;
+  text-align: center;
+}
+
+#lead-copy {
+  font-size: 30px;
+}
+
+.axis line,
+.axis path {
+  stroke: #ffffff;
+}
+
+.axis text,
+.axis-label {
+  fill: #ffffff;
+}
+
 #drug-seizures-chart .axis-label {
   font-size: 14px;
   text-anchor: middle;
@@ -5,4 +41,8 @@
 
 .drug-seizures-filter input[type="radio"] {
   margin-right: 5px;
+}
+
+#row-ctas {
+  margin-top: 60px;
 }
