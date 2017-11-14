@@ -55,6 +55,19 @@ SeizuresChart.prototype.initVisualization = function() {
   vis.svg.append('g')
          .attr('class', 'y-axis axis');
 
+  // Axis labels
+  vis.svg.append('text')
+         .attr('class', 'axis-label x-label')
+         .attr('transform', 'translate(' + (vis.width / 2) + ',' + (vis.height + vis.margin.top) + ')')
+         .text('Year');
+
+  vis.svg.append('text')
+         .attr('class', 'axis-label y-label')
+         .attr('transform', 'rotate(-90)')
+         .attr('x', -vis.height / 2)
+         .attr('y', -vis.margin.left + 15)
+         .text('Quantity');
+
   // Line chart
   vis.svg.append('clipPath')
          .attr('id', 'clip')
@@ -176,6 +189,10 @@ SeizuresChart.prototype.updateVisualization = function() {
   // Call axis functions
   vis.svg.select('.x-axis').call(vis.xAxis);
   vis.svg.select('.y-axis').call(vis.yAxis);
+
+  // Update y-axis text
+  vis.svg.select('.y-label')
+         .text('Quantity (' + unit + ')');
 
   // Draw line chart
   vis.svg.select('#line-chart')
