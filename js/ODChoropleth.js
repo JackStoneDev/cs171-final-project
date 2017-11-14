@@ -130,7 +130,7 @@ ODChoropleth.prototype.initVis = function(){
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! For time series plot !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // Append new svg area
-    vis.svgTimeSeries = vis.svg.select("#OD-Time-Series").append("svg")
+    vis.svgTimeSeries = d3.select("#OD-Time-Series").append("svg")
         .attr("width", vis.width)
         .attr("height", vis.height);
 
@@ -415,10 +415,10 @@ ODChoropleth.prototype.updateVis = function(){
             .on("click", function (d) {
 
                 // Reset the other states
-                vis.svg.selectAll("path").attr("stroke-width", 0);
+                d3.select('#OD-Container').selectAll("path").attr("stroke-width", 0);
 
                 // Change style of selected state
-                vis.svg.select(this).style("stroke", "white")
+                d3.select(this).style("stroke", "white")
                     .attr("stroke-width", 3);
 
 
