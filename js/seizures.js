@@ -37,13 +37,15 @@ SeizuresChart.prototype.initVisualization = function() {
               .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
 
   // Axes
-  vis.x = d3.scaleTime()
+  vis.x = d3.scaleLinear()
             .range([0, vis.width]);
 
   vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
 
-  vis.xAxis = d3.axisBottom();
+  vis.xAxis = d3.axisBottom()
+                .tickFormat(d3.format('d'))
+                .ticks(5);
   vis.yAxis = d3.axisLeft();
 
   vis.svg.append('g')
