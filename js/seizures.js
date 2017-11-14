@@ -68,6 +68,12 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('y', -vis.margin.left + 10)
          .text('Quantity');
 
+  // Axis title
+  vis.svg.append('text')
+         .attr('class', 'axis-title')
+         .attr('transform', 'translate(' + (vis.width / 2) + ',0)')
+         .text('Drug Seizures Over Time');
+
   // Line chart
   vis.svg.append('clipPath')
          .attr('id', 'clip')

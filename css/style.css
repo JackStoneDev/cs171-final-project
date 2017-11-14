@@ -36,8 +36,14 @@ body {
 }
 
 .axis text,
+.axis-title,
 .axis-label {
   fill: #ffffff;
+}
+
+.axis-title {
+  font-size: 18px;
+  text-anchor: middle;
 }
 
 #drug-seizures-chart .axis-label {
