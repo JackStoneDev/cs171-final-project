@@ -103,7 +103,7 @@ ODChoropleth.prototype.initVis = function(){
     // Modified Legend Code from http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
     vis.legendWidth = 0.1 * vis.width;
     vis.legendHeight = 0 * vis.height;
-    vis.legend = vis.svg.select("#OD-Choropleth-Legend").append("svg")
+    vis.legend = d3.select("#OD-Choropleth-Legend").append("svg")
         .attr("class", "legend")
         .attr("width", vis.legendWidth)
         .attr("height", vis.height)
