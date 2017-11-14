@@ -20,7 +20,7 @@ SeizuresChart.prototype.initVisualization = function() {
 
   vis.margin = {
     top: 40,
-    right: 0,
+    right: 40,
     bottom: 60,
     left: 60
   };
