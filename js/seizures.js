@@ -89,30 +89,16 @@ SeizuresChart.prototype.initVisualization = function() {
          .attr('stroke-width', 2.0)
          .attr('clip-path', 'url(#clip)');
 
-  // Build radio for unit/drug selections
-  var units = d3.map(vis.data, function(d) {
-    return d.Unit;
-  }).keys();
-
-  var drugs = d3.map(vis.data, function(d) {
+  // Build radio for drug/unit selections
+  vis.drugs = d3.map(vis.data, function(d) {
     return d.Drug;
   }).keys();
 
-  drugs = drugs.filter(function(d) {
+  vis.drugs = vis.drugs.filter(function(d) {
     return d === 'Ecstasy' || d === 'Methamphetamine' || d === 'Marijuana' || d === 'Crack' || d === 'Heroin' || d === 'Cocaine';
   });
 
-  units.forEach(function(d, i) {
-    var checked = '';
-
-    if (i === 0) {
-      checked = 'checked';
-    }
-
-    $('#drug-seizures-filter-unit').append('<br /><input type="radio" name="drug-seizures-unit" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
-  });
-
-  drugs.forEach(function(d, i) {
+  vis.drugs.forEach(function(d, i) {
     var checked = '';
 
     if (i === 0) {
@@ -122,13 +108,20 @@ SeizuresChart.prototype.initVisualization = function() {
     $('#drug-seizures-filter-drug').append('<br /><input type="radio" name="drug-seizures-drug" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
   });
 
-  // Bind unit selection
-  $('input[name="drug-seizures-unit"]').change(function() {
-    vis.updateVisualization();
-  });
+  vis.units = d3.map(vis.data, function(d) {
+    return d.Unit;
+  }).keys();
 
   // Bind drug selection
   $('input[name="drug-seizures-drug"]').change(function() {
+    var drug = $(this).val();
+
+    vis.updateUnitSelection(drug);
+    vis.updateVisualization();
+  });
+
+  // Bind unit selection. This is done with jQuery.on() because we are generating radio inputs dynamically here
+  $(document).on('change', 'input[name="drug-seizures-unit"]', function() {
     vis.updateVisualization();
   });
 
@@ -167,7 +160,30 @@ SeizuresChart.prototype.wrangleData = function() {
     vis.displayData[drugKey] = unit;
   }
 
+  vis.updateUnitSelection(vis.drugs[0]);
   vis.updateVisualization();
+}
+
+/**
+ * Update unit selection based on available units for a particular drug
+ * @param drug -- The drug
+ */
+SeizuresChart.prototype.updateUnitSelection = function(drug) {
+  var vis = this;
+
+  $('#drug-seizures-filter-unit').html('');
+
+  vis.units.forEach(function(d, i) {
+    var checked = '';
+
+    if (i === 0) {
+      checked = 'checked';
+    }
+
+    if ('undefined' !== typeof vis.displayData[drug][d]) {
+      $('#drug-seizures-filter-unit').append('<br /><input type="radio" name="drug-seizures-unit" id="' + d + '" value="' + d + '" ' + checked + '></input><label for="' + d + '">' + d + '</label>');
+    }
+  });
 }
 
 /**
@@ -176,19 +192,8 @@ SeizuresChart.prototype.wrangleData = function() {
 SeizuresChart.prototype.updateVisualization = function() {
   var vis = this;
 
-  var unit = $('input[name="drug-seizures-unit"]:checked').val();
   var drug = $('input[name="drug-seizures-drug"]:checked').val();
-
-  // Do data exist for this unit and drug type?
-  if ('undefined' === typeof vis.displayData[drug][unit]) {
-    vis.svg.select('#line-chart')
-           .attr('d', '');
-
-    vis.svg.selectAll('circle')
-           .remove();
-
-    return;
-  }
+  var unit = $('input[name="drug-seizures-unit"]:checked').val();
 
   // Axis domains
   vis.x.domain([2011, 2015]);
