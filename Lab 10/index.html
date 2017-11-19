@@ -10,6 +10,17 @@
 </head>
 <body>
 
+    <h1>Florentine Familial Relationships around 1430</h1>
+
+    <select id="sortable" onchange="updateVis()">
+        <option value="businesses">Business Ties</option>
+        <option value="marriages">Marriages</option>
+        <option value="relationships">All Relationships</option>
+        <option value="wealth">Wealth</option>
+        <option value="seats">Seats Held in the Civic Council (Priorates)</option>
+    </select>
+    <div id="matrix"></div>
+
     <!-- Load JS libraries: jQuery, D3, bootstrap, main -->
     <script src="js/jquery.min.js"></script>
     <script src="js/d3.min.js"></script>
