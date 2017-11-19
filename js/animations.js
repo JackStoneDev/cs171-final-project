@@ -2,6 +2,16 @@
  * Call all animations
  */
 function animatePage() {
+  $('#fullpage').fullpage({
+    onLeave: function(index, nextIndex, direction) {
+      if (index === 1 && nextIndex === 2) {
+        setTimeout(function() {
+          animateLeadCopy();
+        }, 500);
+      }
+    }
+  });
+
   animateLeadCopy();
 }
 
@@ -14,5 +24,14 @@ function animateLeadCopy() {
     'Last year 64,000 Americans died from a drug overdose &mdash; and the overdose rate shows no sign of slowing down.'
   ];
 
-  $('#lead-copy').text(leadCopyText[0]);
+  leadCopyText.forEach(function(d, i) {
+    console.log(d);
+    $('#lead-copy').append('<p>' + d + '</p>')
+
+    $('#lead-copy').last()
+                   .delay(1000 * (i + 1))
+                   .animate({
+                     'margin-top': -20
+                   }, 1000);
+  });
 }

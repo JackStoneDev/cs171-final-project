@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  $('#fullpage').fullpage();
-
   queue()
       .defer(d3.csv, 'data/drug-seizures.csv')
       .defer(d3.csv, 'data/crime rates/men and women all ages.csv')
