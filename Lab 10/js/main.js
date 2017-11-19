@@ -193,14 +193,21 @@ function updateVis(){
         .attr("class", "row")
         .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; })
 
-    row.append("text")
-        .data(displayData)
+    var rowText = row.selectAll("text.rowText")
+                     .data(displayData);
+
+    rowText.enter().append("text").merge(rowText)
+        .attr("class", "rowText")
         .attr("x", 0)
-        .attr("y", y.bandwidth() / 2)
+        .attr("y", function(d, i) {
+          return y(i);
+        })
         .attr("dy", ".32em")
         .attr("text-anchor", "end")
         .text(function(d, i) { return d.Family; })
-        .attr("transform", function(d, i) { return "translate(-5," + (-5) + ")"; });
+        .attr("transform", function(d, i) { return "translate(-5," + (-5) + ")"; })
+
+    rowText.exit().remove();
 
     row.selectAll(".cell")
         .data(function(d, i) { return business[i]; })
