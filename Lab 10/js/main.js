@@ -154,7 +154,6 @@ d3.csv("data/florentine-familiy-attributes.csv", function(error, csvData){
 });
 
 function updateVis(){
-
     displayData = data;
 
     var selected = document.getElementById("sortable").value;
@@ -187,15 +186,12 @@ function updateVis(){
             break;
     }
 
-    console.log(displayData);
-
-
-
     var row = svg.selectAll(".row")
-        .data(displayData)
-        .enter().append("g")
+        .data(displayData);
+
+    row.enter().append("g").merge(row)
         .attr("class", "row")
-        .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; });
+        .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; })
 
     row.append("text")
         .data(displayData)
@@ -210,6 +206,7 @@ function updateVis(){
         .data(function(d, i) { return business[i]; })
         .style("fill", colorMap);
 
+    row.exit().remove();
 
     var squarecounter = -1;
     var columncounter = 0;
@@ -219,7 +216,7 @@ function updateVis(){
     var trianglePathMarriage = row.selectAll(".triangle-path")
         .data(displayData);
 
-    trianglePathMarriage.enter().append("path")
+    trianglePathMarriage.enter().append("path").merge(trianglePathMarriage)
         .attr("d", function(d, index) {
             // Shift the triangles on the x-axis (columns)
             var x = (cellWidth + cellPadding) * index;
@@ -241,6 +238,7 @@ function updateVis(){
             }
         });
 
+    trianglePathMarriage.exit().remove();
 
     squarecounter = -1;
     columncounter = 0;
@@ -248,7 +246,7 @@ function updateVis(){
     var trianglePathBiz = row.selectAll(".triangle-path")
         .data(displayData);
 
-    trianglePathBiz.enter().append("path")
+    trianglePathBiz.enter().append("path").merge(trianglePathBiz)
         .attr("d", function(d, index) {
             // Shift the triangles on the x-axis (columns)
             var x = (cellWidth + cellPadding) * index;
@@ -270,4 +268,6 @@ function updateVis(){
             }
         })
         .attr("stroke", "none");
+
+    trianglePathBiz.exit().remove();
 }
