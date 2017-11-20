@@ -5,6 +5,7 @@ var leadCopyAnimated = false;
  */
 function animatePage() {
   $('#fullpage').fullpage({
+    // Transition from hero to lead copy
     onLeave: function(index, nextIndex, direction) {
       if (index === 1 && nextIndex === 2) {
         setTimeout(function() {
