@@ -30,6 +30,13 @@ body {
   font-size: 30px;
 }
 
+.lead-snippet {
+  margin-top: 200px;
+  opacity: 0;
+  position: absolute;
+  width: 80%;
+}
+
 .axis line,
 .axis path {
   stroke: #ffffff;

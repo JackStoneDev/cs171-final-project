@@ -1,3 +1,5 @@
+var leadCopyAnimated = false;
+
 /**
  * Call all animations
  */
@@ -11,27 +13,30 @@ function animatePage() {
       }
     }
   });
-
-  animateLeadCopy();
 }
 
 /**
  * Animate lead copy text
  */
 function animateLeadCopy() {
+  if (leadCopyAnimated) {
+    return;
+  }
+
+  leadCopyAnimated = true;
+
   var leadCopyText = [
     'Since the war on drugs in 1980, drug usage has been declared a national epidemic in the United States.',
-    'Last year 64,000 Americans died from a drug overdose &mdash; and the overdose rate shows no sign of slowing down.'
+    'Last year, 64,000 Americans died from a drug overdose &mdash; and the overdose rate shows no sign of slowing down.',
   ];
 
   leadCopyText.forEach(function(d, i) {
-    console.log(d);
-    $('#lead-copy').append('<p>' + d + '</p>')
+    $('#lead-copy').append('<p class="lead-snippet" id="lead-' + i + '">' + d + '</p>')
 
-    $('#lead-copy').last()
-                   .delay(1000 * (i + 1))
-                   .animate({
-                     'margin-top': -20
-                   }, 1000);
+    $('#lead-copy #lead-' + i).delay(2000 * i)
+                              .animate({
+                                'margin-top': -80 + (i * 110),
+                                'opacity': 1
+                              }, 1000);
   });
 }
