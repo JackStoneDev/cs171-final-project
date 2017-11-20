@@ -189,7 +189,7 @@ function updateVis(){
     var row = svg.selectAll(".row")
         .data(displayData);
 
-    row.enter().append("g").merge(row)
+    row.enter().append("g").merge(row).transition()
         .attr("class", "row")
         .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; })
 
@@ -198,6 +198,7 @@ function updateVis(){
     row
         .append("text")
         .data(displayData)
+        .transition()
         .attr("x", 0)
         .attr("y", y.bandwidth() / 2)
         .attr("dy", ".32em")
@@ -209,7 +210,7 @@ function updateVis(){
         .data(function(d, i) { return business[i]; })
         .style("fill", colorMap);
 
-    row.exit().remove();
+    row.exit().transition().remove();
 
     var squarecounter = -1;
     var columncounter = 0;
@@ -219,7 +220,7 @@ function updateVis(){
     var trianglePathMarriage = row.selectAll(".triangle-path")
         .data(displayData);
 
-    trianglePathMarriage.enter().append("path").merge(trianglePathMarriage)
+    trianglePathMarriage.enter().append("path").merge(trianglePathMarriage).transition()
         .attr("d", function(d, index) {
             // Shift the triangles on the x-axis (columns)
             var x = (cellWidth + cellPadding) * index;
@@ -241,7 +242,7 @@ function updateVis(){
             }
         });
 
-    trianglePathMarriage.exit().remove();
+    trianglePathMarriage.exit().transition().remove();
 
     squarecounter = -1;
     columncounter = 0;
@@ -249,7 +250,7 @@ function updateVis(){
     var trianglePathBiz = row.selectAll(".triangle-path")
         .data(displayData);
 
-    trianglePathBiz.enter().append("path").merge(trianglePathBiz)
+    trianglePathBiz.enter().append("path").merge(trianglePathBiz).transition()
         .attr("d", function(d, index) {
             // Shift the triangles on the x-axis (columns)
             var x = (cellWidth + cellPadding) * index;
@@ -272,5 +273,5 @@ function updateVis(){
         })
         .attr("stroke", "none");
 
-    trianglePathBiz.exit().remove();
+    trianglePathBiz.exit().transition().remove();
 }
