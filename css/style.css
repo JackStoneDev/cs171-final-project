@@ -13,10 +13,20 @@ body {
   color: #ffffff;
 }
 
+.chart-header,
+.chart-subheader {
+  font-weight: 200;
+}
+
 .chart-header {
   font-size: 40px;
-  margin-top: 200px;
+  margin-top: 100px;
   margin-bottom: 30px;
+}
+
+.chart-subheader {
+  font-size: 25px;
+  margin-bottom: 60px;
 }
 
 #headline {
