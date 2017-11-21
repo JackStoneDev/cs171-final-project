@@ -8,7 +8,7 @@ function animatePage() {
     navigation: true,
     onLeave: function(index, nextIndex, direction) {
       // Transition from hero to lead copy
-      if (index === 1 && nextIndex === 2) {
+      if (nextIndex === 2) {
         setTimeout(function() {
           animateLeadCopy();
         }, 500);
