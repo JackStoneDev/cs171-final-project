@@ -13,6 +13,10 @@ body {
   color: #ffffff;
 }
 
+#fp-nav ul li a span {
+  background: #ffffff;
+}
+
 .chart-header,
 .chart-subheader {
   font-weight: 200;
