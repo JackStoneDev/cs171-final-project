@@ -62,8 +62,6 @@ d3.csv("data/florentine-familiy-attributes.csv", function(error, csvData){
             }
         }
 
-        displayData = data;
-
         // Declare number of rows and columns
         // From http://bl.ocks.org/srosenthal/2770072
         var numrows = business[0].length;
@@ -133,7 +131,7 @@ d3.csv("data/florentine-familiy-attributes.csv", function(error, csvData){
 
 
         var column = svg.selectAll(".column")
-            .data(displayData)
+            .data(data)
             .enter().append("g")
             .attr("class", "column")
             .attr("transform", function(d, i) {
@@ -150,90 +148,13 @@ d3.csv("data/florentine-familiy-attributes.csv", function(error, csvData){
             .attr("text-anchor", "start")
             .text(function(d, i) { return d.Family; });
 
-
-        var row = svg.selectAll(".row")
-            .data(displayData)
-            .enter().append("g")
-            .attr("class", "row")
-            .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; });
-
-        row.append("text")
-            .attr("x", 0)
-            .attr("y", y.bandwidth() / 2)
-            .attr("dy", ".32em")
-            .attr("text-anchor", "end")
-            .text(function(d, i) { return d.Family; })
-            .attr("transform", function(d, i) { return "translate(-5," + (-5) + ")"; });
-
-        row.selectAll(".cell")
-            .data(function(d, i) { return business[i]; })
-            .style("fill", colorMap);
-
-
-        var squarecounter = -1;
-        var columncounter = 0;
-
-        // D3's enter, update, exit pattern from lab
-        //marriage triangles
-        row.selectAll(".triangle-path")
-            .data(displayData)
-            .enter().append("path")
-            .attr("d", function(d, index) {
-                // Shift the triangles on the x-axis (columns)
-                var x = (cellWidth + cellPadding) * index;
-
-                // All triangles of the same row have the same y-coordinates
-                // Vertical shifting is already done by transforming the group elements
-                var y = 0;
-
-                return 'M ' + x +' '+ y + ' l ' + cellWidth + ' 0 l 0 ' + cellHeight + ' z';
-            })
-            .attr("fill", function(d, index){
-                squarecounter = squarecounter + 1;
-                columncounter = parseInt(squarecounter / 16);
-                if (d.marrigeValues[columncounter]===1){
-                    return "blue";
-                }
-                else{
-                    return "gray";
-                }
-            });
-
-        squarecounter = -1;
-        columncounter = 0;
-
-        //business triangles
-        row.selectAll(".triangle-path")
-            .data(displayData)
-            .enter().append("path")
-            .attr("d", function(d, index) {
-                // Shift the triangles on the x-axis (columns)
-                var x = (cellWidth + cellPadding) * index;
-
-                // All triangles of the same row have the same y-coordinates
-                // Vertical shifting is already done by transforming the group elements
-                var y = 0;
-
-                return 'M ' + x +' '+ y + ' l 0 ' + cellWidth + ' l ' + cellHeight + ' 0 z';
-            })
-            .attr("fill", function(d, index){
-                squarecounter = squarecounter + 1;
-                columncounter = parseInt(squarecounter / 16);
-                if (d.businessValues[columncounter]===1){
-                    return "orange";
-                }
-                else{
-                    return "gray";
-                }
-            })
-            .attr("stroke", "none");
-
         updateVis();
 
     }
 });
 
 function updateVis(){
+    displayData = data;
 
     var selected = document.getElementById("sortable").value;
 
@@ -265,15 +186,92 @@ function updateVis(){
             break;
     }
 
-    //update the row location based on new data selection
     var row = svg.selectAll(".row")
         .data(displayData);
 
-    row.enter().append("g")
+    row.enter().append("g").merge(row).transition()
         .attr("class", "row")
-        .merge(row).transition()
-        .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; });
+        .attr("transform", function(d, i) { return "translate(0," + y(i) + ")"; })
+
+    row.selectAll("text").remove();
+
+    row
+        .append("text")
+        .data(displayData)
+        .transition()
+        .attr("x", 0)
+        .attr("y", y.bandwidth() / 2)
+        .attr("dy", ".32em")
+        .attr("text-anchor", "end")
+        .text(function(d, i) { return d.Family; })
+        .attr("transform", function(d, i) { return "translate(-5," + (-5) + ")"; })
+
+    row.selectAll(".cell")
+        .data(function(d, i) { return business[i]; })
+        .style("fill", colorMap);
 
     row.exit().transition().remove();
 
+    var squarecounter = -1;
+    var columncounter = 0;
+
+    // D3's enter, update, exit pattern
+    // From lab
+    var trianglePathMarriage = row.selectAll(".triangle-path")
+        .data(displayData);
+
+    trianglePathMarriage.enter().append("path").merge(trianglePathMarriage).transition()
+        .attr("d", function(d, index) {
+            // Shift the triangles on the x-axis (columns)
+            var x = (cellWidth + cellPadding) * index;
+
+            // All triangles of the same row have the same y-coordinates
+            // Vertical shifting is already done by transforming the group elements
+            var y = 0;
+
+            return 'M ' + x +' '+ y + ' l ' + cellWidth + ' 0 l 0 ' + cellHeight + ' z';
+        })
+        .attr("fill", function(d, index){
+            squarecounter = squarecounter + 1;
+            columncounter = parseInt(squarecounter / 16);
+            if (d.marrigeValues[columncounter]===1){
+                return "blue";
+            }
+            else{
+                return "gray";
+            }
+        });
+
+    trianglePathMarriage.exit().transition().remove();
+
+    squarecounter = -1;
+    columncounter = 0;
+
+    var trianglePathBiz = row.selectAll(".triangle-path")
+        .data(displayData);
+
+    trianglePathBiz.enter().append("path").merge(trianglePathBiz).transition()
+        .attr("d", function(d, index) {
+            // Shift the triangles on the x-axis (columns)
+            var x = (cellWidth + cellPadding) * index;
+
+            // All triangles of the same row have the same y-coordinates
+            // Vertical shifting is already done by transforming the group elements
+            var y = 0;
+
+            return 'M ' + x +' '+ y + ' l 0 ' + cellWidth + ' l ' + cellHeight + ' 0 z';
+        })
+        .attr("fill", function(d, index){
+            squarecounter = squarecounter + 1;
+            columncounter = parseInt(squarecounter / 16);
+            if (d.businessValues[columncounter]===1){
+                return "orange";
+            }
+            else{
+                return "gray";
+            }
+        })
+        .attr("stroke", "none");
+
+    trianglePathBiz.exit().transition().remove();
 }
