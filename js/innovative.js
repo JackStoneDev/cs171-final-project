@@ -7,7 +7,7 @@
 InnovativeChart = function(_parentElement, _data) {
   this.parentElement = _parentElement;
   this.data = _data;
-  this.displayData = [];
+  this.displayData = {};
 
   this.initVisualization();
 }
@@ -35,6 +35,8 @@ InnovativeChart.prototype.initVisualization = function() {
               .attr('height', vis.height + vis.margin.top + vis.margin.bottom)
               .append('g')
               .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
+
+  vis.wrangleData();
 }
 
 /**
@@ -42,6 +44,32 @@ InnovativeChart.prototype.initVisualization = function() {
  */
 InnovativeChart.prototype.wrangleData = function() {
   var vis = this;
+
+  // Get total deaths
+  vis.totalDeaths = 0;
+
+  vis.data.forEach(function(d) {
+    vis.totalDeaths += +d.Deaths;
+  });
+
+  // Rollup data by age, gender, and race
+  var nestCategories = ['Ten-Year Age Groups Code', 'Gender Code', 'Race'];
+
+  nestCategories.forEach(function(category) {
+    vis.displayData[category] = d3.nest()
+                                  .key(function(d) {
+                                    return d[category];
+                                  })
+                                  .rollup(function(v) {
+                                    return {
+                                      count: v.length,
+                                      total: d3.sum(v, function(d) {
+                                        return d.Deaths;
+                                      })
+                                    };
+                                  })
+                                  .object(vis.data);
+  });
 }
 
 /**
