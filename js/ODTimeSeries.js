@@ -25,8 +25,8 @@ ODTimeSeries.prototype.initVisualization = function() {
         left: 60
     };
 
-    vis.width = 600 - vis.margin.left - vis.margin.right,
-        vis.height = 400 - vis.margin.top - vis.margin.bottom;
+    vis.width = 500;
+    vis.height = 400 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3.select('#OD-Time-Series')
@@ -45,7 +45,7 @@ ODTimeSeries.prototype.initVisualization = function() {
 
     vis.xAxis = d3.axisBottom()
         .tickFormat(d3.format('d'))
-        .ticks(16);
+        .ticks(8);
     vis.yAxis = d3.axisLeft();
 
     vis.xAxisLine = vis.svg.append('g')
@@ -72,7 +72,7 @@ ODTimeSeries.prototype.initVisualization = function() {
     vis.svg.append('text')
         .attr('class', 'axis-title')
         .attr('transform', 'translate(' + vis.width / 2 + ',0)')
-        .text('Rate by Year');
+        .text('Overdose Rate by Year');
 
     // Line chart
     vis.svg.append('clipPath')
