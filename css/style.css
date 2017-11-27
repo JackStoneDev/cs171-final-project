@@ -145,4 +145,7 @@ body {
   height:100%;
 }
 
-
+.demographic-selector-header{
+  font-weight: bolder;
+  text-decoration: underline;
+}

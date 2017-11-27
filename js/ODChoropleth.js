@@ -7,12 +7,11 @@
  */
 
 ODChoropleth = function(_parentElement, _data){
-	this.parentElement = _parentElement;
+    this.parentElement = _parentElement;
     this.data = _data;
     this.displayData = []; // see data wrangling
-
-    // DEBUG RAW DATA
-    // console.log(this.data);
+    this.selectedStateID = "PA";
+    this.selectedStateName = "Pennsylvania";
 
     var vis = this;
 
@@ -23,9 +22,11 @@ ODChoropleth = function(_parentElement, _data){
     for (var i = 0; i < this.data.length; i++) {
         vis.data[i].Deaths = +vis.data[i].Deaths;
         vis.data[i].Population = +vis.data[i].Population;
+        vis.data[i].Year = +vis.data[i].Year;
         vis.data[i].Date = vis.parseTime(vis.data[i].Year);
     }
 
+    odTimeSeries = new ODTimeSeries("OD-Time-Series", vis.data);
     this.initVis();
 };
 
@@ -36,10 +37,10 @@ ODChoropleth = function(_parentElement, _data){
  */
 
 ODChoropleth.prototype.initVis = function(){
-	var vis = this;
+    var vis = this;
 
     vis.width = $("#OD-Choropleth").width();
-    vis.height = vis.width * .7;
+    vis.height = vis.width * 1;
 
     // Append new svg area
     vis.svg = d3.select("#OD-Choropleth").append("svg")
@@ -77,7 +78,7 @@ ODChoropleth.prototype.initVis = function(){
     // D3 Projection
     vis.projection = d3.geoAlbersUsa()
         .translate([vis.width/2, vis.height/2])
-        .scale([1000]);
+        .scale([650]);
 
     // Define path generator
     vis.path = d3.geoPath()
@@ -90,7 +91,7 @@ ODChoropleth.prototype.initVis = function(){
         .domain([0, 1, 2, 3, 100, 200, 500, 1000]);
 
     // Set up the legend text items
-    vis.legendText = [' < 5', '5 - 10', '10 - 15', '15 - 20', '20 - 25', '25 - 30', '30 - 35', '35 +'];
+    vis.legendText = ['< 5', '< 10', '< 15', '< 20', '< 25', '< 30', '< 35', '35+'];
 
     // Append Div for tooltip to SVG
     vis.div = d3.select("body")
@@ -101,7 +102,7 @@ ODChoropleth.prototype.initVis = function(){
 
     // Legend
     // Modified Legend Code from http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
-    vis.legendWidth = 0.1 * vis.width;
+    vis.legendWidth = 0.2 * vis.width;
     vis.legendHeight = 0 * vis.height;
     vis.legend = d3.select("#OD-Choropleth-Legend").append("svg")
         .attr("class", "legend")
@@ -123,29 +124,10 @@ ODChoropleth.prototype.initVis = function(){
         .attr("x", 24)
         .attr("y", 9)
         .attr("dy", ".35em")
+        .attr("fill", "white")
         .text(function(d) { return d; });
 
-
-
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! For time series plot !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Append new svg area
-    vis.svgTimeSeries = d3.select("#OD-Time-Series").append("svg")
-        .attr("width", vis.width)
-        .attr("height", vis.height);
-
-
-    vis.xTime = d3.scaleTime()
-        .rangeRound([0, vis.width]);
-
-    vis.yTime = d3.scaleLinear()
-        .rangeRound([vis.height, 0]);
-
-    vis.line = d3.line()
-        .x(function(d) { return vis.xTime(d.Date); })
-        .y(function(d) { return vis.yTime(d.Rate)});
-
-	// TO-DO: (Filter, aggregate, modify data)
+    // TO-DO: (Filter, aggregate, modify data)
     vis.wrangleData();
 };
 
@@ -156,16 +138,16 @@ ODChoropleth.prototype.initVis = function(){
  */
 
 ODChoropleth.prototype.wrangleData = function(){
-	var vis = this;
+    var vis = this;
 
-	// Create new variable, display data
+    // Create new variable, display data
     vis.displayData = vis.data;
 
     // Sex
     vis.sexSelect = [];
-	if (document.getElementById("Male").checked){
+    if (document.getElementById("Male").checked){
         vis.sexSelect.push("M");
-	}
+    }
     if (document.getElementById("Female").checked){
         vis.sexSelect.push("F");
     }
@@ -218,7 +200,7 @@ ODChoropleth.prototype.wrangleData = function(){
             vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
     });
 
-	// Update the visualization
+    // Update the visualization
     vis.updateVis();
 };
 
@@ -230,10 +212,12 @@ ODChoropleth.prototype.wrangleData = function(){
  */
 
 ODChoropleth.prototype.updateVis = function(){
-	var vis = this;
+    var vis = this;
 
     // Render data from one state
     vis.stateData = vis.displayData;
+
+    // function to generate the time series plot
     function click(stateName) {
 
         // Get the selected state name
@@ -262,40 +246,18 @@ ODChoropleth.prototype.updateVis = function(){
             return vis.tmp[key];
         });
 
+        // State year by year data
         for (var i = 0; i < vis.stateDisplayData.length; i++) {
             vis.stateDisplayData[i].Rate = (vis.stateDisplayData[i].Deaths / vis.stateDisplayData[i].Population) * 100000;
         }
 
-        vis.xTime.domain(d3.extent(vis.stateDisplayData, function(d) { return d.Date; }));
-        vis.yTime.domain([0, d3.max(vis.stateDisplayData, function(d) { return d.Rate; })]);
-
-        // Add the X Axis
-        vis.svgTimeSeries.append("g")
-            .attr("transform", "translate(0," + 500 +  ")")
-            .call(d3.axisBottom(vis.xTime));
-
-        // Add the Y Axis
-        vis.svgTimeSeries.append("g")
-            .call(d3.axisLeft(vis.yTime))
-            .append("text")
-            .attr("fill", "#000")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
-            .text("Deaths");
-
-        vis.svgTimeSeries.append("path")
-            .datum(vis.stateDisplayData)
-            .attr("fill", "none")
-            .attr("stroke", "steelblue")
-            .attr("stroke-linejoin", "round")
-            .attr("stroke-linecap", "round")
-            .attr("stroke-width", 1.5)
-            .attr("d", vis.line);
-
+        // Update data
+        odTimeSeries.updateData(vis.stateDisplayData)
 
     }
+
+    // Refresh the time series plot
+    click(vis.selectedStateName);
 
     // Sum based on state
     // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
@@ -333,9 +295,11 @@ ODChoropleth.prototype.updateVis = function(){
 
             // If there is a rate given
             if (d.properties.Rate){
-                vis.tooltipString += "Rate: <span style='color:white'>" + d.properties.Rate.toFixed(2) + "</span><br>";
+                vis.tooltipString += "Rate (per 100,000): <span style='color:white'>" + d.properties.Rate.toFixed(2) + "</span><br>";
                 vis.tooltipString += "Deaths: <span style='color:white'>" + d.properties.Deaths.toLocaleString() + "</span><br>";
-                vis.tooltipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br>";
+                vis.tooltipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br><br>";
+                vis.tooltipString += "<span style='color:white'>Yearly Totals Summed</span><br>";
+                vis.tooltipString += "<span style='color:white'>(1999-2015)</span><br>";
             }
             // If there is no rate given
             else {
@@ -354,12 +318,12 @@ ODChoropleth.prototype.updateVis = function(){
     function getColor(d) {
         return d > 35 ? '#800026' :
             d > 30  ? '#BD0026' :
-            d > 25  ? '#E31A1C' :
-            d > 20  ? '#FC4E2A' :
-            d > 15   ? '#FD8D3C' :
-            d > 10   ? '#FEB24C' :
-            d > 5   ? '#FED976' :
-            '#FFEDA0';
+                d > 25  ? '#E31A1C' :
+                    d > 20  ? '#FC4E2A' :
+                        d > 15   ? '#FD8D3C' :
+                            d > 10   ? '#FEB24C' :
+                                d > 5   ? '#FED976' :
+                                    '#FFEDA0';
     }
 
     // Load GeoJSON data and merge with states data
@@ -393,13 +357,22 @@ ODChoropleth.prototype.updateVis = function(){
             }
         }
 
-
         vis.svg.append("g")
             .attr("class", "counties")
             .selectAll("path")
             .data(json.features)
             .enter().append("path")
-            .attr("stroke-width", 0)
+            .attr("stroke", "white")
+            .attr("stroke-width", function (d) {
+
+                // Return the default (or remembered selected state ID)
+                if (d.id === vis.selectedStateID) {
+                    return 3;
+                }
+                else {
+                    return 0;
+                }
+            })
             .attr("fill", function(d) {
                 // Get data value
                 // Thanks to http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922 for idea to check if no value exists
@@ -414,15 +387,23 @@ ODChoropleth.prototype.updateVis = function(){
             .on('mouseout', vis.tip.hide)
             .on("click", function (d) {
 
-                // Reset the other states
-                d3.select('#OD-Container').selectAll("path").attr("stroke-width", 0);
+                // If the state clicked is not already tht eone selected
+                if (d.id !== vis.selectedStateID){
+                    // Reset the other states
+                    d3.selectAll("#OD-Choropleth path").attr("stroke-width", 0);
 
-                // Change style of selected state
-                d3.select(this).style("stroke", "white")
-                    .attr("stroke-width", 3);
+                    // Remember what state was selected
+                    vis.selectedStateID = d.id;
+                    vis.selectedStateName = d.properties.name;
 
+                    // Change style of selected state
+                    d3.select(this).style("stroke", "white")
+                        .attr("stroke-width", 3);
 
-                click(d.properties.name);
+                    // Update the properties
+                    click(d.properties.name);
+                }
+
             })
             .attr("d", vis.path);
     });
