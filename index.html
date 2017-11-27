@@ -29,9 +29,8 @@
         <div class="container">
           <div class="row">
             <div id="od-choropleth-div">
-              <h2 class="chart-header header-offset-top">Drug Overdose Deaths by State</h1>
-              <h3 class="chart-subheader">Filterable by Sex, Age, and Race</h3>
-              <div class="col-md-2">
+              <h2 class="chart-header header-offset-top" style="text-align: left; padding-left:5%">Drug Overdose Deaths by State</h1>
+              <div class="col-md-1">
                 <p><b>Deaths per 100,000 population</b></p>
                 <div id="OD-Choropleth-Legend"></div>
               </div>
@@ -65,6 +64,87 @@
               </div>
                 <div class="col-md-3">
                 <div id="OD-Time-Series"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Compare Demographics-->
+      <div class="section">
+        <div class="container">
+          <div id = "compare-demographics-div">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4">
+                  <h2 class="chart-header header-offset-top">Comparing Demographics</h2>
+                  <p>
+                    The drug epidemic has taken a much larger toll on some demographics as compared to others.
+                    White, Black, and Original American men between 35-54 years of age have significantly
+                    higher risks of overdosing than the overall population and women of that same age range.
+                    <br><br>
+                    Using the tool to the left, we can see how some demographics are more likely to overdose
+                    than others.
+                  </p>
+                </div>
+                <div class="col-md-2">
+                  <p class="demographic-selector-profile-header">Profile A</p>
+                  <!-- Checkboxes -->
+                  <p class="demographic-selector-header">Sex</p>
+                  <input type="checkbox" id="AMale" checked="checked" onchange="compDemographics.wrangleData()"> Male<br>
+                  <input type="checkbox" id="AFemale" onchange="compDemographics.wrangleData()"> Female<br>
+                  <br>
+                  <p class="demographic-selector-header">Race</p>
+                  <input type="checkbox" id="AWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>
+                  <input type="checkbox" id="ABlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>
+                  <input type="checkbox" id="AAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>
+                  <input type="checkbox" id="AOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>
+                  <br>
+                  <p class="demographic-selector-header">Age</p>
+                  <input type="checkbox" id="A15-24" onchange="compDemographics.wrangleData()"> 15-24<br>
+                  <input type="checkbox" id="A25-34" onchange="compDemographics.wrangleData()"> 25-34<br>
+                  <input type="checkbox" id="A35-44" onchange="compDemographics.wrangleData()"> 35-44<br>
+                  <input type="checkbox" id="A45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>
+                  <input type="checkbox" id="A55-64" onchange="compDemographics.wrangleData()"> 55-64<br>
+                  <input type="checkbox" id="A65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
+                  <input type="checkbox" id="A75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
+                  <input type="checkbox" id="A85+" onchange="compDemographics.wrangleData()"> 85+<br>
+                </div>
+                <div class="col-md-2">
+                  <p class="demographic-selector-profile-header">Profile B</p>
+                  <!-- Checkboxes -->
+                  <p class="demographic-selector-header">Sex</p>
+                  <input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>
+                  <input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>
+                  <br>
+                  <p class="demographic-selector-header">Race</p>
+                  <input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>
+                  <input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>
+                  <input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>
+                  <input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>
+                  <br>
+                  <p class="demographic-selector-header">Age</p>
+                  <input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>
+                  <input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>
+                  <input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>
+                  <input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>
+                  <input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>
+                  <input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
+                  <input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
+                  <input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>
+                </div>
+                <div class="col-md-4">
+                  <p id="demographic-selector-number-header">The rate of drug overdose for profile A is..</p>
+                  <div class="col-md-6">
+                    <div id="compare-demographics-average-number">1.00</div>
+                    <div class="compare-demographics-number-text-risk">x Risk </div>
+                    <div class="compare-demographics-number-text-compared">Compared to the Average</div>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="compare-demographics-compare-number">1.00</div>
+                    <div class="compare-demographics-number-text-risk">x Risk</div>
+                    <div class="compare-demographics-number-text-compared">Compared to Profile B</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -137,59 +217,42 @@
         <div class="container">
           <h2 class="chart-header">How Can You Do Your Part?</h2>
           <div class="row" id="row-ctas">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="container-cta">
                 <div class="content-cta">
                   <p>
-                    CTA text goes here. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
+                    Read a government report about the facts of drug abuse. The first step
+                    to fighting the epidemic is fully understanding the problem.
                   </p>
                 </div>
                 <div class="footer-cta">
-                  <button class="btn btn-block btn-success">Call to Action</button>
+                  <input type="button" class="btn btn-block btn-success" onclick="location.href='https://www.drugabuse.gov/publications/drugfacts/understanding-drug-use-addiction';" value="DrugAbuse.gov" />
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="container-cta">
                 <div class="content-cta">
                   <p>
-                    CTA text goes here. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
+                    Check out the Drug Policy Alliance--a non-profit that promotes progressive drug policies.
+                    Their key platforms is reduce drug crimialization.
                   </p>
                 </div>
                 <div class="footer-cta">
-                  <button class="btn btn-block btn-success">Call to Action</button>
+                  <input type="button" class="btn btn-block btn-success" onclick="location.href='http://www.drugpolicy.org/';" value="Drug Policy Alliance" />
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="container-cta">
                 <div class="content-cta">
                   <p>
-                    CTA text goes here. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
+                    Learn how you can help identify unhealthy drug use and be able assist someone
+                    that is struggling with drug addiction
                   </p>
                 </div>
                 <div class="footer-cta">
-                  <button class="btn btn-block btn-success">Call to Action</button>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="container-cta">
-                <div class="content-cta">
-                  <p>
-                    CTA text goes here. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
-                  </p>
-                </div>
-                <div class="footer-cta">
-                  <button class="btn btn-block btn-success">Call to Action</button>
+                  <input type="button" class="btn btn-block btn-success" onclick="location.href='https://www.drugabuse.gov/related-topics/treatment/what-to-do-if-your-adult-friend-or-loved-one-has-problem-drugs';" value="How to Help" />
                 </div>
               </div>
             </div>
@@ -208,6 +271,7 @@
     <script src="js/seizures.js"></script>
     <script src="js/ODChoropleth.js"></script>
     <script src="js/ODTimeSeries.js"></script>
+    <script src="js/CompareDemographics.js"></script>
     <script src="js/crime-rates.js"></script>
     <script src="js/innovative.js"></script>
     <script src="js/main.js"></script>

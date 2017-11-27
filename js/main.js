@@ -17,6 +17,7 @@ function createVisualization(error, drugSeizuresData, drugOverdoseInnovativeData
 
 // Variables for the visualization instances
 var odChoropleth;
+var compDemographics;
 
 // Start application by loading the data
 renderODChoropleth();
@@ -25,6 +26,7 @@ function renderODChoropleth() {
     d3.csv("data/drug-overdoses.csv", function(error, csvData){
         if(!error){
             odChoropleth = new ODChoropleth("OD-Choropleth", csvData);
+            compDemographics = new CompareDemographics("compare-demographics-number", csvData);
         }
     });
 }
