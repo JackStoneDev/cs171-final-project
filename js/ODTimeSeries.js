@@ -38,7 +38,7 @@ ODTimeSeries.prototype.initVisualization = function() {
 
     // Axes
     vis.x = d3.scaleLinear()
-        .range([0, vis.width]);
+        .range([0, vis.width * .8]);
 
     vis.y = d3.scaleLinear()
         .range([vis.height, 0]);
