@@ -153,3 +153,39 @@ body {
   font-weight: bolder;
   text-decoration: underline;
 }
+
+/*For compare demographics*/
+#compare-demographics-average-number, #compare-demographics-compare-number {
+  font-size: 75px;
+  font-weight: bolder;
+  color: #fdff65;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+}
+
+.compare-demographics-number-text-risk {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.compare-demographics-number-text-compared {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+
+.demographic-selector-profile-header{
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-decoration: underline;
+  padding-top: 40px;
+}
+
+#demographic-selector-number-header {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  padding-top: 100px;
+}
