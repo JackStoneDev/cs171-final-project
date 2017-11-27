@@ -49,10 +49,14 @@ CrimeRateChart.prototype.initVisualization = function() {
 
     vis.svg.append('g')
         .attr('class', 'x-axis axis')
-        .attr('transform', 'translate(0, ' + vis.height + ')');
+        .attr('transform', 'translate(0, ' + vis.height + ')')
+        .transition()
+        .duration(2000);
 
     vis.svg.append('g')
-        .attr('class', 'y-axis axis');
+        .attr('class', 'y-axis axis')
+        .transition()
+        .duration(2000);
 
     // Axis labels
     vis.svg.append('text')
@@ -110,7 +114,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
   //  var offenses = ["All Offenses", "Drug Abuse Violations -Total", "Drug-Sale-Manufacturing-Total", "Drug-Possession-SubTotal"];
     var races = ["All Races", "Whites", "Blacks", "Native Americans", "Asians"];
-    var colors = ["green", "blue", "purple", "yellow", "orange"];
+    var colors = ["green", "blue", "red", "yellow", "purple"];
 
 
     // Do data exist for this unit and drug type?
@@ -198,7 +202,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
     //Draw each dataset's line
     races.forEach(function(d, i){
 
-        vis.svg.append('path')
+        var path = vis.svg.append('path')
             .datum(vis.displayData)
             .attr('id', 'line-chart' + i)
             .attr('fill', 'none')
@@ -227,6 +231,16 @@ CrimeRateChart.prototype.updateVisualization = function() {
         vis.svg.select('#line-chart' + i)
             .attr('d', line);
 
+        //from http://bl.ocks.org/duopixel/4063326
+        var totalLength = path.node().getTotalLength();
+        path
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(10000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0);
+
         //Draw line labels
         vis.svg.append("text")
             .text(d)
@@ -241,19 +255,21 @@ CrimeRateChart.prototype.updateVisualization = function() {
             .data(vis.displayData);
         //TODO make this data for interesting historical event data
 
-        circle.enter()
+       circle.enter()
             .append('circle')
-            .attr("id", "circle" + i)
+            .on("mouseover", vis.tip.show)
+            .on("mouseout", vis.tip.hide)
+            .transition()
+                .delay(function(d,i){return 285*i})
+           .attr("id", "circle" + i)
             .attr('r', 3)
-            .attr('fill', 'red')
+            .attr('fill', 'white')
             .attr('cx', function(a) {
                 return vis.x(a.Year);
             })
             .attr('cy', function(a) {
                 return vis.y(a[d]);
-            })
-            .on("mouseover", vis.tip.show)
-            .on("mouseout", vis.tip.hide);
+            });
 
     });
 }
