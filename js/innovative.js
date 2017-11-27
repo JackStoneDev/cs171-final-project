@@ -54,22 +54,34 @@ InnovativeChart.prototype.wrangleData = function() {
 
   // Rollup data by age, gender, and race
   var nestCategories = ['Ten-Year Age Groups Code', 'Gender Code', 'Race'];
+  var dataRollup = {};
 
   nestCategories.forEach(function(category) {
-    vis.displayData[category] = d3.nest()
-                                  .key(function(d) {
-                                    return d[category];
-                                  })
-                                  .rollup(function(v) {
-                                    return {
-                                      count: v.length,
-                                      total: d3.sum(v, function(d) {
-                                        return d.Deaths;
-                                      })
-                                    };
-                                  })
-                                  .object(vis.data);
+    dataRollup[category] = d3.nest()
+                             .key(function(d) {
+                               return d[category];
+                             })
+                             .rollup(function(v) {
+                               return {
+                                 count: v.length,
+                                 total: d3.sum(v, function(d) {
+                                   return d.Deaths;
+                                 })
+                               };
+                             })
+                             .object(vis.data);
   });
+
+  // Calculate relative percentages
+  for (category in dataRollup) {
+    vis.displayData[category] = {};
+
+    for (grouping in dataRollup[category]) {
+      vis.displayData[category][grouping] = {};
+
+      vis.displayData[category][grouping] = Math.round((dataRollup[category][grouping].total / vis.totalDeaths) * 100);
+    }
+  }
 }
 
 /**
