@@ -117,8 +117,8 @@ InnovativeChart.prototype.updateVisualization = function() {
 
   grouping: for (grouping in vis.displayData[category]) {
     for (; columnPosition < 10; columnPosition++) {
-      for (rowPosition = 0; rowPosition < 10; rowPosition++) {
-        if (vis.displayData[category][grouping] === -1) {
+      for (; rowPosition < 10; rowPosition++) {
+        if (vis.displayData[category][grouping] === 0) {
           continue grouping;
         }
 
@@ -129,6 +129,11 @@ InnovativeChart.prototype.updateVisualization = function() {
                .attr('cx', vis.x(columnPosition))
                .attr('cy', vis.y(rowPosition))
                .attr('fill', vis.colorPalette(grouping));
+
+         if (rowPosition === 9) {
+           rowPosition = 0;
+           break;
+         }
       }
     }
   }
