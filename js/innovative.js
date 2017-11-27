@@ -36,6 +36,17 @@ InnovativeChart.prototype.initVisualization = function() {
               .append('g')
               .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
 
+  // Define scales
+  vis.x = d3.scaleLinear()
+            .domain([0, 10])
+            .range([0, vis.width]);
+
+  vis.y = d3.scaleLinear()
+            .domain([0, 10])
+            .range([vis.height, 0]);
+
+  vis.colorPalette = d3.scaleOrdinal(d3.schemeCategory10);
+
   vis.wrangleData();
 }
 
@@ -72,16 +83,22 @@ InnovativeChart.prototype.wrangleData = function() {
                              .object(vis.data);
   });
 
-  // Calculate relative percentages
+  // Calculate relative percentages and build array of values for categories
+  vis.categories = {};
+
   for (category in dataRollup) {
     vis.displayData[category] = {};
+    vis.categories[category] = [];
 
     for (grouping in dataRollup[category]) {
       vis.displayData[category][grouping] = {};
 
       vis.displayData[category][grouping] = Math.round((dataRollup[category][grouping].total / vis.totalDeaths) * 100);
+      vis.categories[category].push(grouping);
     }
   }
+
+  vis.updateVisualization();
 }
 
 /**
@@ -89,4 +106,30 @@ InnovativeChart.prototype.wrangleData = function() {
  */
 InnovativeChart.prototype.updateVisualization = function() {
   var vis = this;
+
+  var category = 'Gender Code';
+
+  // Calculate color domain
+  vis.colorPalette.domain(vis.categories[category]);
+
+  var columnPosition = 0;
+  var rowPosition = 0;
+
+  grouping: for (grouping in vis.displayData[category]) {
+    for (; columnPosition < 10; columnPosition++) {
+      for (rowPosition = 0; rowPosition < 10; rowPosition++) {
+        if (vis.displayData[category][grouping] === -1) {
+          continue grouping;
+        }
+
+        vis.displayData[category][grouping]--;
+
+        vis.svg.append('circle')
+               .attr('r', 5)
+               .attr('cx', vis.x(columnPosition))
+               .attr('cy', vis.y(rowPosition))
+               .attr('fill', vis.colorPalette(grouping));
+      }
+    }
+  }
 }
