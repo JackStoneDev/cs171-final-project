@@ -115,6 +115,9 @@ InnovativeChart.prototype.updateVisualization = function() {
   var columnPosition = 0;
   var rowPosition = 0;
 
+  // Calculate grid positions
+  var gridPositions = [];
+
   grouping: for (grouping in vis.displayData[category]) {
     for (; columnPosition < 10; columnPosition++) {
       for (; rowPosition < 10; rowPosition++) {
@@ -124,11 +127,11 @@ InnovativeChart.prototype.updateVisualization = function() {
 
         vis.displayData[category][grouping]--;
 
-        vis.svg.append('circle')
-               .attr('r', 5)
-               .attr('cx', vis.x(columnPosition))
-               .attr('cy', vis.y(rowPosition))
-               .attr('fill', vis.colorPalette(grouping));
+        gridPositions.push({
+          x: columnPosition,
+          y: rowPosition,
+          value: grouping
+        });
 
          if (rowPosition === 9) {
            rowPosition = 0;
@@ -137,4 +140,26 @@ InnovativeChart.prototype.updateVisualization = function() {
       }
     }
   }
+
+  // Draw people
+  var person = vis.svg.selectAll('circle')
+                      .data(gridPositions, function(d, i) {
+                        return i;
+                      });
+  person.enter()
+        .append('circle')
+        .merge(person)
+        .attr('r', 5)
+        .attr('cx', function(d) {
+          return vis.x(d.x);
+        })
+        .attr('cy', function(d) {
+          return vis.y(d.y);
+        })
+        .attr('fill', function(d) {
+          return vis.colorPalette(d.value);
+        });
+
+  person.exit()
+        .remove();
 }
