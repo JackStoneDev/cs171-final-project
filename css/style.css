@@ -23,6 +23,7 @@ body {
 }
 
 .chart-header {
+  text-align: center;
   font-size: 40px;
   margin-bottom: 30px;
 }
@@ -127,3 +128,9 @@ body {
   position: absolute;
   text-align: center;
 }
+
+.race-labels{
+  font-size: 13px;
+}
+
+

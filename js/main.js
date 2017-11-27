@@ -1,7 +1,7 @@
 $(document).ready(function() {
   queue()
       .defer(d3.csv, 'data/drug-seizures.csv')
-      .defer(d3.csv, 'data/crime rates/men and women all ages.csv')
+      .defer(d3.csv, 'data/crime rates/Race Rates All Drug Arrests.csv')
       .await(createVisualization);
 
   animatePage();
