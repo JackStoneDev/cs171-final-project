@@ -56,6 +56,10 @@ body {
   width: 80%;
 }
 
+.align-content-center {
+  text-align: center;
+}
+
 .axis line,
 .axis path {
   stroke: #ffffff;

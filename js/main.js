@@ -1,6 +1,7 @@
 $(document).ready(function() {
   queue()
       .defer(d3.csv, 'data/drug-seizures.csv')
+      .defer(d3.csv, 'data/drug-overdoses.csv')
       .await(createVisualization);
 
   animatePage();
@@ -9,8 +10,9 @@ $(document).ready(function() {
 /**
  * Render visualizations
  */
-function createVisualization(error, drugSeizuresData, crimeRatesData) {
+function createVisualization(error, drugSeizuresData, drugOverdoseData) {
   seizuresChart = new SeizuresChart('drug-seizures-chart', drugSeizuresData);
+  InnovativeChart = new InnovativeChart('innovative-chart', drugOverdoseData);
 }
 
 // Variables for the visualization instances
