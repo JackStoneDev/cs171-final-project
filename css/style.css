@@ -60,6 +60,10 @@ body {
   text-align: center;
 }
 
+.align-content-left {
+  text-align: left;
+}
+
 .axis line,
 .axis path {
   stroke: #ffffff;
