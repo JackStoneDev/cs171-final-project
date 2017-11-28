@@ -1,4 +1,5 @@
 var leadCopyAnimated = false;
+var crimeRatesAnimated = false;
 
 /**
  * Call all animations
@@ -12,6 +13,15 @@ function animatePage() {
         setTimeout(function() {
           animateLeadCopy();
         }, 500);
+      }
+      // Transition to crime rates graph
+      else if (nextIndex === 6) {
+        if (crimeRatesAnimated) {
+          return;
+        }
+
+        renderCrimeRatesGraph();
+        crimeRatesAnimated = true;
       }
     }
   });

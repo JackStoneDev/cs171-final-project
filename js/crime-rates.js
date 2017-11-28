@@ -110,6 +110,8 @@ CrimeRateChart.prototype.wrangleData = function() {
     vis.timeline.forEach(function(d) {
         d.Year = +d.Year;
     });
+
+    vis.updateVisualization();
 }
 
 /**
