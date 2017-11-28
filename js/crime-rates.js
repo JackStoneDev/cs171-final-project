@@ -8,6 +8,7 @@ CrimeRateChart = function(_parentElement, _data) {
     this.parentElement = _parentElement;
     this.data = _data;
     this.displayData = [];
+    this.timeline = [];
 
     this.initVisualization();
 }
@@ -72,7 +73,10 @@ CrimeRateChart.prototype.initVisualization = function() {
         .text('Population Rate')
         .attr("transform", "rotate(-90)");
 
-    vis.wrangleData();
+    d3.csv("data/crime rates/War on Drugs Timeline.csv", function(error, csvData) {
+        vis.timeline = csvData;
+        vis.wrangleData();
+    });
 }
 
 /**
@@ -101,6 +105,12 @@ CrimeRateChart.prototype.wrangleData = function() {
         d["Asians"] = parseFloat((d["Asians"].replace(/,/g, ''))*100).toFixed(2);
         d.Year = +d.Year;
     });
+
+    //Convert string to numeric values
+    vis.timeline.forEach(function(d) {
+        d.Year = +d.Year;
+    });
+
 
     vis.updateVisualization();
 }
@@ -168,34 +178,57 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
     // Initialize tooltip
     // Thanks to http://bl.ocks.org/Caged/6476579
-    vis.tip = d3.tip()
+    vis.yeartip = d3.tip()
         .attr('class', 'd3-tip')
         .attr('id', 'rates-tip')
         .offset([-10, 0])
         .html(function(d) {
 
             // String to return for tooltip
-            vis.tooltipString =
+            vis.yeartipString =
                 "<center><strong>Rate of Population That <br> " +
                 "Committed a Drug Offense in " + d.Year +"</strong> <span style='color:black'></span><br><br>";
 
-            vis.tooltipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
-            vis.tooltipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
-            vis.tooltipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
-            vis.tooltipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
-            vis.tooltipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
+            vis.yeartipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
+            vis.yeartipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
+            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
+            vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
+            vis.yeartipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
 
             //TODO can integrate ODs that year as well
-//            vis.tooltipString += "Deaths: <span style='color:white'>" + d.properties.Deaths.toLocaleString() + "</span><br>";
-//            vis.tooltipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br>";
+//            vis.yeartipString += "Deaths: <span style='color:white'>" + d.properties.Deaths.toLocaleString() + "</span><br>";
+//            vis.yeartipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br>";
 
-            vis.tooltipString +=  "</center>";
-            return vis.tooltipString;
+            vis.yeartipString +=  "</center>";
+            return vis.yeartipString;
 
         });
 
     // Call the tool tip
-    vis.svg.call(vis.tip);
+    vis.svg.call(vis.yeartip);
+
+    
+    // Initialize tooltip
+    // Thanks to http://bl.ocks.org/Caged/6476579
+    vis.eventtip = d3.tip()
+        .attr('class', 'd3-tip')
+        .attr('id', 'events-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+            // String to return for tooltip
+            vis.eventtipString =
+                "<center><strong>" + d.Event + "<br>" + d.Year +"</strong> <span style='color:black'></span><br><br>";
+            vis.eventtipString += "<span style='color:white'>" + d.Description + "</span><br>";
+
+            vis.eventtipString +=  "</center>";
+            return vis.eventtipString;
+
+        });
+
+    // Call the tool tip
+    vis.svg.call(vis.eventtip);
+
 
 
 
@@ -251,24 +284,44 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
 
         // Draw circles
-        var circle = vis.svg.selectAll('#circle' + i)
+        var years = vis.svg.selectAll('#year' + i)
             .data(vis.displayData);
         //TODO make this data for interesting historical event data
 
-       circle.enter()
+       years.enter()
             .append('circle')
-            .on("mouseover", vis.tip.show)
-            .on("mouseout", vis.tip.hide)
+            .on("mouseover", vis.yeartip.show)
+            .on("mouseout", vis.yeartip.hide)
             .transition()
-                .delay(function(d,i){return 285*i})
-           .attr("id", "circle" + i)
+                .delay(function(t,j){return 285*j})
+           .attr("id", "year" + i)
             .attr('r', 3)
-            .attr('fill', 'white')
+            .attr('fill', colors[i])
             .attr('cx', function(a) {
                 return vis.x(a.Year);
             })
             .attr('cy', function(a) {
                 return vis.y(a[d]);
+            });
+
+        var events = vis.svg.selectAll('#event' + i)
+            .data(vis.timeline);
+        events.enter()
+            .append('circle')
+            .on("mouseover", vis.eventtip.show)
+            .on("mouseout", vis.eventtip.hide)
+            .transition()
+            .delay(function(t,j){return 875*j})
+            .attr("id", "event" + i)
+            .attr('r', 5)
+            .attr('fill', 'white')
+            .attr('cx', function(a) {
+                return vis.x(a.Year);
+            })
+            .attr('cy', function(a) {
+                var year_index = a.Year - 1980;
+                var line = vis.displayData[year_index];
+                return vis.y(line[d]);
             });
 
     });

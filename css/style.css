@@ -154,6 +154,10 @@ text.legend {
   color: black;
 }
 
+#events-tip{
+  width: 250px;
+}
+
 #crime-rates-text{
   height:100%;
 }
