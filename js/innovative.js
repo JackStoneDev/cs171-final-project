@@ -184,7 +184,7 @@ InnovativeChart.prototype.updateVisualization = function() {
             .merge(legendText)
             .transition(1000)
             .attr('class', 'legend')
-            .attr('x', -350)
+            .attr('x', -250)
             .attr('y', function(d, i) {
               return i * 50 + 30;
             })
