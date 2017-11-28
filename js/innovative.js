@@ -150,23 +150,26 @@ InnovativeChart.prototype.updateVisualization = function() {
   }
 
   // Draw people
-  var person = vis.svg.selectAll('circle')
+  var person = vis.svg.selectAll('image')
                       .data(gridPositions, function(d, i) {
                         return i;
                       });
   person.enter()
-        .append('circle')
+        .append('image')
         .merge(person)
-        .attr('r', 5)
-        .attr('cx', function(d) {
+        .attr('x', function(d) {
           return vis.x(d.x);
         })
-        .attr('cy', function(d) {
+        .attr('y', function(d) {
           return vis.y(d.y);
         })
         .attr('fill', function(d) {
           return vis.colorPalette(d.value);
-        });
+        })
+        .attr('class', 'person-image')
+        .attr('href', 'img/body.svg')
+        .attr('width', '30px')
+        .attr('height', '30px');
 
   person.exit()
         .remove();
