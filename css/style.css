@@ -85,6 +85,14 @@ input[type="radio"] {
   margin-right: 5px;
 }
 
+#innovative-svg {
+  overflow: visible;
+}
+
+text.legend {
+  font-size: 15px;
+}
+
 #row-ctas {
   margin-top: 60px;
 }

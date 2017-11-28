@@ -31,6 +31,7 @@ InnovativeChart.prototype.initVisualization = function() {
   // SVG drawing area
   vis.svg = d3.select('#' + vis.parentElement)
               .append('svg')
+              .attr('id', 'innovative-svg')
               .attr('width', vis.width + vis.margin.left + vis.margin.right)
               .attr('height', vis.height + vis.margin.top + vis.margin.bottom)
               .append('g')
@@ -170,4 +171,52 @@ InnovativeChart.prototype.updateVisualization = function() {
 
   person.exit()
         .remove();
+
+  // Draw legend
+  var legendRect = vis.svg.selectAll('rect.legend')
+                          .data(vis.categories[category], function(d, i) {
+                            return i;
+                          });
+
+  legendRect.enter()
+            .append('rect')
+            .merge(legendRect)
+            .transition(1000)
+            .attr('class', 'legend')
+            .attr('x', -400)
+            .attr('y', function(d, i) {
+              return i * 50;
+            })
+            .attr('height', 25)
+            .attr('width', 100)
+            .attr('fill', function(d) {
+              return vis.colorPalette(d);
+            });
+
+  legendRect.exit()
+            .remove();
+
+  var legendText = vis.svg.selectAll('text.legend')
+                          .data(vis.categories[category], function(d, i) {
+                            return i;
+                          });
+
+  legendText.enter()
+            .append('text')
+            .merge(legendText)
+            .transition(1000)
+            .attr('class', 'legend')
+            .attr('x', -280)
+            .attr('y', function(d, i) {
+              return i * 50 + 17;
+            })
+            .attr('height', 50)
+            .attr('width', 100)
+            .attr('fill', 'white')
+            .text(function(d) {
+              return d;
+            });
+
+  legendText.exit()
+            .remove();
 }
