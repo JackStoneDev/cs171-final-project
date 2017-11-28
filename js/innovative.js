@@ -70,7 +70,7 @@ InnovativeChart.prototype.wrangleData = function() {
   });
 
   // Rollup data by age, gender, and race
-  var nestCategories = ['Ten-Year Age Groups Code', 'Gender Code', 'Race'];
+  var nestCategories = ['Age', 'Gender', 'Race'];
   var dataRollup = {};
 
   nestCategories.forEach(function(category) {
@@ -174,29 +174,6 @@ InnovativeChart.prototype.updateVisualization = function() {
         .remove();
 
   // Draw legend
-  var legendRect = vis.svg.selectAll('rect.legend')
-                          .data(vis.categories[category], function(d, i) {
-                            return i;
-                          });
-
-  legendRect.enter()
-            .append('rect')
-            .merge(legendRect)
-            .transition(1000)
-            .attr('class', 'legend')
-            .attr('x', -400)
-            .attr('y', function(d, i) {
-              return i * 50;
-            })
-            .attr('height', 25)
-            .attr('width', 100)
-            .attr('fill', function(d) {
-              return vis.colorPalette(d);
-            });
-
-  legendRect.exit()
-            .remove();
-
   var legendText = vis.svg.selectAll('text.legend')
                           .data(vis.categories[category], function(d, i) {
                             return i;
@@ -207,15 +184,17 @@ InnovativeChart.prototype.updateVisualization = function() {
             .merge(legendText)
             .transition(1000)
             .attr('class', 'legend')
-            .attr('x', -280)
+            .attr('x', -350)
             .attr('y', function(d, i) {
-              return i * 50 + 17;
+              return i * 50 + 30;
             })
             .attr('height', 50)
             .attr('width', 100)
-            .attr('fill', 'white')
+            .attr('fill', function(d) {
+              return vis.colorPalette(d);
+            })
             .text(function(d) {
-              return d;
+              return vis.displayData[category][d] + '%' + (category === 'Age' ? ' age' : '') + ' ' + d;
             });
 
   legendText.exit()

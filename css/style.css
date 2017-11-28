@@ -90,7 +90,8 @@ input[type="radio"] {
 }
 
 text.legend {
-  font-size: 15px;
+  font-size: 25px;
+  font-weight: 200;
 }
 
 #row-ctas {
