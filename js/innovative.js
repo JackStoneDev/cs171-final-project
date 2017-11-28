@@ -158,6 +158,7 @@ InnovativeChart.prototype.updateVisualization = function() {
   person.enter()
         .append('circle')
         .merge(person)
+        .transition(1000)
         .attr('r', 5)
         .attr('cx', function(d) {
           return vis.x(d.x);
