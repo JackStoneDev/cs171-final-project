@@ -85,7 +85,7 @@ SeizuresChart.prototype.initVisualization = function() {
          .datum(vis.data)
          .attr('id', 'line-chart')
          .attr('fill', 'none')
-         .attr('stroke', '#38761d')
+         .attr('stroke', '#af070d')
          .attr('stroke-width', 2.0)
          .attr('clip-path', 'url(#clip)');
 
@@ -124,6 +124,35 @@ SeizuresChart.prototype.initVisualization = function() {
   $(document).on('change', 'input[name="drug-seizures-unit"]', function() {
     vis.updateVisualization();
   });
+
+    // Initialize tooltip
+    // Thanks to http://bl.ocks.org/Caged/6476579
+    vis.tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+            console.log(d);
+
+            // String to return for tooltip
+            // Check which properties exist, and only return those properties
+            vis.tooltipString =
+                "<center><strong>"+ d.Drug +" " + d.Year +"</strong> <span style='color:black'></span><br><br>";
+
+            vis.tooltipString += "Quantity: <span style='color:white'>" + d.Quantity.toLocaleString() + "</span><br>";
+            vis.tooltipString += "Units: <span style='color:white'>" + d.Unit + "</span><br>";
+
+            if (d.Specifics){
+                vis.tooltipString += "Type: <span style='color:white'>" + d.Specifics + "</span><br>";
+            }
+
+            vis.tooltipString +=  "</center>";
+
+            return vis.tooltipString;
+        });
+
+    // Call the tool tip
+    vis.svg.call(vis.tip);
 
   vis.wrangleData();
 }
@@ -241,13 +270,15 @@ SeizuresChart.prototype.updateVisualization = function() {
         .append('circle')
         .merge(circle)
         .attr('r', 5)
-        .attr('fill', '#92c47d')
+        .attr('fill', '#c3c3c3')
         .attr('cx', function(d) {
           return vis.x(d.Year);
         })
         .attr('cy', function(d) {
           return vis.y(d.Quantity);
-        });
+        })
+      .on('mouseover', vis.tip.show)
+      .on('mouseout', vis.tip.hide);
 
   circle.exit()
         .remove();
