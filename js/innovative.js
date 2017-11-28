@@ -151,24 +151,48 @@ InnovativeChart.prototype.updateVisualization = function() {
   }
 
   // Draw people
-  var person = vis.svg.selectAll('circle')
+  var personRect = vis.svg.selectAll('image.person-rect')
+                      .data(gridPositions, function(d, i) {
+                        return i;
+                      });
+  personRect.enter()
+        .append('rect')
+        .merge(personRect)
+        .transition(1000)
+        .attr('class', 'person-rect')
+        .attr('x', function(d) {
+          return vis.x(d.x) + 1;
+        })
+        .attr('y', function(d) {
+          return vis.y(d.y) * 1.6;
+        })
+        .attr('width', 28)
+        .attr('height', 35)
+        .attr('fill', function(d) {
+          return vis.colorPalette(d.value);
+        });
+
+  personRect.exit()
+        .remove();
+
+  var person = vis.svg.selectAll('image.person')
                       .data(gridPositions, function(d, i) {
                         return i;
                       });
   person.enter()
-        .append('circle')
+        .append('image')
         .merge(person)
         .transition(1000)
-        .attr('r', 5)
-        .attr('cx', function(d) {
+        .attr('class', 'person')
+        .attr('x', function(d) {
           return vis.x(d.x);
         })
-        .attr('cy', function(d) {
-          return vis.y(d.y);
+        .attr('y', function(d) {
+          return vis.y(d.y) * 1.6;
         })
-        .attr('fill', function(d) {
-          return vis.colorPalette(d.value);
-        });
+        .attr('width', 30)
+        .attr('height', 35)
+        .attr('xlink:href', 'img/body.png');
 
   person.exit()
         .remove();
