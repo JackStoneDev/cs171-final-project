@@ -110,9 +110,6 @@ CrimeRateChart.prototype.wrangleData = function() {
     vis.timeline.forEach(function(d) {
         d.Year = +d.Year;
     });
-
-
-    vis.updateVisualization();
 }
 
 /**
@@ -140,14 +137,6 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
     // Axis domains
     vis.x.domain([1980, 2014]);
-
-    //For datasets  with each drug violation
-/*    var offenseMaxes = [
-        d3.max(vis.displayData, function(d) { return d["All Offenses"]; }),
-        d3.max(vis.displayData, function(d) { return d["Drug Abuse Violations -Total"]; }),
-        d3.max(vis.displayData, function(d) { return d["Drug-Sale-Manufacturing-Total"]; }),
-        d3.max(vis.displayData, function(d) { return d["Drug-Possession-SubTotal"]; })
-    ];*/
 
     //For datasets with all races for one drug violation
     var offenseMaxes = [
@@ -207,7 +196,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
     // Call the tool tip
     vis.svg.call(vis.yeartip);
 
-    
+
     // Initialize tooltip
     // Thanks to http://bl.ocks.org/Caged/6476579
     vis.eventtip = d3.tip()
