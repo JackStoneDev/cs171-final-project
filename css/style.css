@@ -150,14 +150,6 @@ text.legend {
   font-size: 13px;
 }
 
-#rates-button{
-  margin: auto;
-  display: block;
-  padding: 10px;
-  font-size: 18px;
-  color: black;
-}
-
 #events-tip{
   width: 250px;
 }
