@@ -60,6 +60,10 @@ body {
   text-align: center;
 }
 
+.align-content-left {
+  text-align: left;
+}
+
 .axis line,
 .axis path {
   stroke: #ffffff;
@@ -144,14 +148,6 @@ text.legend {
 
 .race-labels{
   font-size: 13px;
-}
-
-#rates-button{
-  margin: auto;
-  display: block;
-  padding: 10px;
-  font-size: 18px;
-  color: black;
 }
 
 #events-tip{
