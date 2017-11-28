@@ -81,7 +81,7 @@ body {
   text-anchor: middle;
 }
 
-.drug-seizures-filter input[type="radio"] {
+input[type="radio"] {
   margin-right: 5px;
 }
 

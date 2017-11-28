@@ -47,6 +47,11 @@ InnovativeChart.prototype.initVisualization = function() {
 
   vis.colorPalette = d3.scaleOrdinal(d3.schemeCategory10);
 
+  // Bind category selection
+  $('input[name="innovative-category"]').change(function() {
+    vis.updateVisualization();
+  });
+
   vis.wrangleData();
 }
 
@@ -107,7 +112,7 @@ InnovativeChart.prototype.wrangleData = function() {
 InnovativeChart.prototype.updateVisualization = function() {
   var vis = this;
 
-  var category = 'Gender Code';
+  var category = $('input[name="innovative-category"]:checked').val();
 
   // Calculate color domain
   vis.colorPalette.domain(vis.categories[category]);
@@ -115,17 +120,20 @@ InnovativeChart.prototype.updateVisualization = function() {
   var columnPosition = 0;
   var rowPosition = 0;
 
+  // Clone display data
+  var displayData = $.extend(true, {}, vis.displayData);
+
   // Calculate grid positions
   var gridPositions = [];
 
-  grouping: for (grouping in vis.displayData[category]) {
+  grouping: for (grouping in displayData[category]) {
     for (; columnPosition < 10; columnPosition++) {
       for (; rowPosition < 10; rowPosition++) {
-        if (vis.displayData[category][grouping] === 0) {
+        if (displayData[category][grouping] === 0) {
           continue grouping;
         }
 
-        vis.displayData[category][grouping]--;
+        displayData[category][grouping]--;
 
         gridPositions.push({
           x: columnPosition,
