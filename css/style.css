@@ -183,7 +183,6 @@ text.legend {
   color: white;
 }
 
-
 .demographic-selector-profile-header{
   font-size: 20px;
   font-weight: bold;
@@ -201,4 +200,19 @@ text.legend {
 
 #state-select{
   color : black;
+}
+
+#about-text {
+  font-size : 30px;
+  color: lightgray;
+}
+
+.about-book-github {
+  font-size : 30px;
+  color: lightgray;
+}
+
+#about-sources{
+  font-size : 30px;
+  color: lightgray;
 }
