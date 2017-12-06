@@ -10,6 +10,7 @@ ODChoropleth = function(_parentElement, _data){
     this.parentElement = _parentElement;
     this.data = _data;
     this.displayData = []; // see data wrangling
+    this.filteredData = [];
     this.selectedStateID = "PA";
     this.selectedStateName = "Pennsylvania";
 
@@ -26,7 +27,7 @@ ODChoropleth = function(_parentElement, _data){
         vis.data[i].Date = vis.parseTime(vis.data[i].Year);
     }
 
-    odTimeSeries = new ODTimeSeries("OD-Time-Series", vis.data);
+    odTimeSeries = new ODTimeSeries("OD-Time-Series", JSON.parse(JSON.stringify(vis.data)));
     this.initVis();
 };
 
@@ -46,32 +47,6 @@ ODChoropleth.prototype.initVis = function(){
     vis.svg = d3.select("#OD-Choropleth").append("svg")
         .attr("width", vis.width)
         .attr("height", vis.height);
-
-    // Create new variable, display data
-    vis.displayData = vis.data;
-
-    // Preliminary data view
-    // Sum based on state
-    // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
-    vis.tmp = {};
-    vis.displayData.forEach(function (item) {
-        vis.tempKey = item.State + item.category;
-        if (!vis.tmp.hasOwnProperty(vis.tempKey)) {
-            vis.tmp[vis.tempKey] = item;
-        } else {
-            vis.tmp[vis.tempKey].Deaths += item.Deaths;
-            vis.tmp[vis.tempKey].Population += item.Population;
-        }
-    });
-
-    vis.displayData = Object.keys(vis.tmp).map(function(key){
-        return vis.tmp[key];
-    });
-
-    for (var i = 0; i < vis.displayData.length; i++) {
-        vis.displayData[i].Rate = (vis.displayData[i].Deaths / vis.displayData[i].Population) * 100000;
-    }
-
 
     // Following code adapted from
     // http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
@@ -141,7 +116,7 @@ ODChoropleth.prototype.wrangleData = function(){
     var vis = this;
 
     // Create new variable, display data
-    vis.displayData = vis.data;
+    vis.filteredData = vis.data;
 
     // Sex
     vis.sexSelect = [];
@@ -195,7 +170,7 @@ ODChoropleth.prototype.wrangleData = function(){
     }
 
     // Filter the data based on selections
-    vis.displayData = vis.displayData.filter(function(d){
+    vis.filteredData = vis.filteredData.filter(function(d){
         return (vis.sexSelect.includes(d['Gender Code']) & vis.raceSelect.includes(d['Race']) &
             vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
     });
@@ -215,11 +190,37 @@ ODChoropleth.prototype.updateVis = function(){
     var vis = this;
 
     // Render data from one state
-    vis.stateData = vis.displayData;
+    vis.displayData = JSON.parse(JSON.stringify(vis.filteredData));
+    vis.stateData = JSON.parse(JSON.stringify(vis.filteredData));
+    vis.allDisplayData = JSON.parse(JSON.stringify(vis.filteredData));
 
     // function to generate the time series plot
     function click(stateName) {
 
+        ///// GET THE DATA FOR ALL STATES
+        // Sum data based on year
+        // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
+        vis.tmp2 = {};
+        vis.allDisplayData.forEach(function (item) {
+            vis.tempKey = item['Year Code'];
+            if (!vis.tmp2.hasOwnProperty(vis.tempKey)) {
+                vis.tmp2[vis.tempKey] = item;
+            } else {
+                vis.tmp2[vis.tempKey].Deaths += item.Deaths;
+                vis.tmp2[vis.tempKey].Population += item.Population;
+            }
+        });
+
+        vis.allDisplayData = Object.keys(vis.tmp2).map(function(key){
+            return vis.tmp2[key];
+        });
+
+        // State year by year data
+        for (var i = 0; i < vis.allDisplayData.length; i++) {
+            vis.allDisplayData[i].Rate = (vis.allDisplayData[i].Deaths / vis.allDisplayData[i].Population) * 100000;
+        }
+
+        ///// GET THE DATA FOR ONE STATE
         // Get the selected state name
         vis.selectedState = [stateName];
         vis.stateDisplayData = vis.stateData;
@@ -231,19 +232,19 @@ ODChoropleth.prototype.updateVis = function(){
 
         // Sum data based on year
         // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
-        vis.tmp = {};
+        vis.tmp3 = {};
         vis.stateDisplayData.forEach(function (item) {
             vis.tempKey = item['Year Code'];
-            if (!vis.tmp.hasOwnProperty(vis.tempKey)) {
-                vis.tmp[vis.tempKey] = item;
+            if (!vis.tmp3.hasOwnProperty(vis.tempKey)) {
+                vis.tmp3[vis.tempKey] = item;
             } else {
-                vis.tmp[vis.tempKey].Deaths += item.Deaths;
-                vis.tmp[vis.tempKey].Population += item.Population;
+                vis.tmp3[vis.tempKey].Deaths += item.Deaths;
+                vis.tmp3[vis.tempKey].Population += item.Population;
             }
         });
 
-        vis.stateDisplayData = Object.keys(vis.tmp).map(function(key){
-            return vis.tmp[key];
+        vis.stateDisplayData = Object.keys(vis.tmp3).map(function(key){
+            return vis.tmp3[key];
         });
 
         // State year by year data
@@ -252,7 +253,7 @@ ODChoropleth.prototype.updateVis = function(){
         }
 
         // Update data
-        odTimeSeries.updateData(vis.stateDisplayData)
+        odTimeSeries.updateData(vis.stateDisplayData, vis.allDisplayData, stateName)
 
     }
 
@@ -261,19 +262,19 @@ ODChoropleth.prototype.updateVis = function(){
 
     // Sum based on state
     // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
-    vis.tmp = {};
+    vis.tmp4 = {};
     vis.displayData.forEach(function (item) {
         vis.tempKey = item.State + item.category;
-        if (!vis.tmp.hasOwnProperty(vis.tempKey)) {
-            vis.tmp[vis.tempKey] = item;
+        if (!vis.tmp4.hasOwnProperty(vis.tempKey)) {
+            vis.tmp4[vis.tempKey] = item;
         } else {
-            vis.tmp[vis.tempKey].Deaths += item.Deaths;
-            vis.tmp[vis.tempKey].Population += item.Population;
+            vis.tmp4[vis.tempKey].Deaths += item.Deaths;
+            vis.tmp4[vis.tempKey].Population += item.Population;
         }
     });
 
-    vis.displayData = Object.keys(vis.tmp).map(function(key){
-        return vis.tmp[key];
+    vis.displayData = Object.keys(vis.tmp4).map(function(key){
+        return vis.tmp4[key];
     });
 
     for (var i = 0; i < vis.displayData.length; i++) {
@@ -364,7 +365,6 @@ ODChoropleth.prototype.updateVis = function(){
             .enter().append("path")
             .attr("stroke", "white")
             .attr("stroke-width", function (d) {
-
                 // Return the default (or remembered selected state ID)
                 if (d.id === vis.selectedStateID) {
                     return 3;

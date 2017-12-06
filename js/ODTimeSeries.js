@@ -8,6 +8,8 @@ ODTimeSeries = function(_parentElement, _data) {
     this.parentElement = _parentElement;
     this.data = _data;
     this.displayData = [];
+    this.displayDataOverall = [];
+    this.stateName = "Pennsylvania";
 
     this.initVisualization();
 }
@@ -58,7 +60,7 @@ ODTimeSeries.prototype.initVisualization = function() {
     // Axis labels
     vis.svg.append('text')
         .attr('class', 'axis-label x-label')
-        .attr('transform', 'translate(' + (vis.width / 2) + ',' + (vis.height + vis.margin.top) + ')')
+        .attr('transform', 'translate(' + (200) + ',' + (vis.height + vis.margin.top) + ')')
         .text('Year');
 
     vis.svg.append('text')
@@ -71,7 +73,7 @@ ODTimeSeries.prototype.initVisualization = function() {
     // Axis title
     vis.svg.append('text')
         .attr('class', 'axis-title')
-        .attr('transform', 'translate(' + vis.width / 2 + ',0)')
+        .attr('transform', 'translate(' + 210 + ',0)')
         .text('Overdose Rate by Year');
 
     // Line chart
@@ -82,13 +84,23 @@ ODTimeSeries.prototype.initVisualization = function() {
         .attr('height', vis.height);
 
     // Path
-    vis.svg.append('path')
+    vis.path1 = vis.svg.append('path')
         .datum(vis.data)
         .attr('id', 'od-line-chart')
         .attr('fill', 'none')
         .attr('stroke', '#af070d')
         .attr('stroke-width', 2.0)
         .attr('clip-path', 'url(#clip)');
+
+    // Path
+    vis.path2 = vis.svg.append('path')
+        .datum(vis.data)
+        .attr('id', 'od-line-chart2')
+        .attr('fill', 'none')
+        .attr('stroke', '#af070d')
+        .attr('stroke-width', 2.0)
+        .attr('clip-path', 'url(#clip)');
+
 
 
     // Initialize tooltip
@@ -124,6 +136,39 @@ ODTimeSeries.prototype.initVisualization = function() {
     // Call the tool tip
     vis.svg.call(vis.tip);
 
+    // Initialize tooltip
+    // Thanks to http://bl.ocks.org/Caged/6476579
+    vis.tip2 = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+            // String to return for tooltip
+            // Check which properties exist, and only return those properties
+            vis.tooltipString =
+                "<center><strong>All States " + d.Year +"</strong> <span style='color:black'></span><br><br>";
+
+
+            // If there is a rate given
+            if (d.Rate){
+                vis.tooltipString += "Rate (per 100,000): <span style='color:white'>" + d.Rate.toFixed(2) + "</span><br>";
+                vis.tooltipString += "Deaths: <span style='color:white'>" + d.Deaths.toLocaleString() + "</span><br>";
+                vis.tooltipString += "Population: <span style='color:white'>" + d.Population.toLocaleString() + "</span><br>";
+            }
+
+            // If there is no rate given
+            else {
+                vis.tooltipString += "<span style='color:white'>No Data</span>";
+            }
+
+            vis.tooltipString +=  "</center>";
+
+            return vis.tooltipString;
+        });
+
+    // Call the tool tip
+    vis.svg.call(vis.tip2);
+
     // convert variables that should be numeric to numeric
     for (var i = 0; i < this.data.length; i++) {
         vis.data[i].Deaths = +vis.data[i].Deaths;
@@ -132,7 +177,7 @@ ODTimeSeries.prototype.initVisualization = function() {
     }
 
     // Render a default view of the data, overall year by year trend
-    vis.displayData = vis.data;
+    vis.displayData = JSON.parse(JSON.stringify(vis.data));
 
     // Sum data based on year
     // Code modified from charlietfl on https://stackoverflow.com/questions/33282860/sum-object-of-array-by-same-element
@@ -156,16 +201,56 @@ ODTimeSeries.prototype.initVisualization = function() {
         vis.displayData[i].Rate = (vis.displayData[i].Deaths / vis.displayData[i].Population) * 100000;
     }
 
+    // Legend
+    // Color Scale
+    // From http://leafletjs.com/examples/choropleth/
+    vis.color = d3.scaleLinear()
+        .range(['#c3c3c3','#BD0026'])
+        .domain([0, 1]);
+
+    // Modified Legend Code from http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922
+    vis.legendWidth = 300;
+    vis.legendHeight = 100;
+    vis.legend = vis.svg.append("g")
+        .attr("class", "legend")
+        .attr("width", vis.legendWidth)
+        .attr("height", vis.height)
+        .selectAll("g")
+        .data(vis.color.domain().slice().reverse())
+        .enter()
+        .append("g")
+        .attr("transform", function(d, i) { return "translate(260," + (vis.height - 50 + i * 20) + ")"; });
+
+    vis.legend.append("rect")
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", vis.color);
+
+    // Set up the legend text items
+    vis.legendText = ['', 'Overall'];
+
+    // Change legend text
+    vis.legend.append("text")
+        .data(vis.legendText)
+        .attr("x", 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .attr("fill", "white")
+        .text(function(d) { return d; });
+
     vis.updateVisualization();
 }
 
 /**
  * Update data
  */
-ODTimeSeries.prototype.updateData = function(newData) {
+ODTimeSeries.prototype.updateData = function(stateData, allData, stateName) {
     var vis = this;
 
-    vis.displayData = newData;
+    vis.displayData = stateData;
+    vis.displayDataOverall = allData;
+    vis.stateName = stateName;
+
     vis.updateVisualization();
 }
 
@@ -177,14 +262,52 @@ ODTimeSeries.prototype.updateData = function(newData) {
 ODTimeSeries.prototype.updateVisualization = function() {
     var vis = this;
 
+    // Set up the legend text items
+    vis.legendText = [vis.stateName, ''];
+
+    // Change legend text
+    vis.legend.append("text")
+        .attr("id", "legendTextODTime")
+        .data(vis.legendText)
+        .attr("x", 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .attr("fill", "white")
+        .text(function(d) { return d; });
+
+    // Draw circles
+    var legendStateText = vis.svg.selectAll('#legendTextODTime')
+        .data(vis.legendText);
+
+    legendStateText.enter()
+        .append('text')
+        .attr("id", "legendTextODTime")
+        .merge(legendStateText)
+        .attr("x", 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .attr("fill", "white")
+        .text(function(d) { return d; });
+
+
+    legendStateText.exit()
+        .remove();
+
     // Axis domains
     vis.x.domain([1999, 2015]);
 
+    // Maximum of state data
     var maxY = d3.max(vis.displayData, function(d) {
         return d.Rate;
     });
 
-    vis.y.domain([0, maxY * 1.2]);
+    // Maximum of overall data
+    var maxYAll = d3.max(vis.displayDataOverall, function(d) {
+        return d.Rate;
+    });
+
+    // Set Y domain
+    vis.y.domain([0, (d3.max([maxY, maxYAll])) * 1.2]);
 
     // Scale axes
     vis.xAxis.scale(vis.x);
@@ -198,32 +321,51 @@ ODTimeSeries.prototype.updateVisualization = function() {
     vis.svg.select('.y-label')
         .text('Deaths per 100,000 Population');
 
-    // Draw line chart
+    // Update title
+    vis.svg.select('.axis-title')
+        .text('Overdose Rate by Year');
+
+    // Draw line chart - STATES
     vis.svg.select('#od-line-chart')
         .datum(vis.displayData);
 
+    //save last xy coordinates of line for line label
+    var lastX;
+    var lastY;
+
     vis.line = d3.line()
         .x(function(d) {
-            return vis.x(d.Year);
+            lastX = vis.x(d.Year);
+            return lastX;
         })
         .y(function(d) {
-            return vis.y(d.Rate);
+            lastY = vis.y(d.Rate);
+            return lastY;
         });
 
     vis.svg.select('#od-line-chart')
         .attr('d', vis.line);
 
+    // Draw line chart -- OVERALL
+    vis.svg.select('#od-line-chart2')
+        .datum(vis.displayDataOverall);
+
+    vis.svg.select('#od-line-chart2')
+        .attr('d', vis.line)
+        .attr('stroke', '#c3c3c3');
+
     // Draw circles
-    var circle = vis.svg.selectAll('circle')
+    var circle = vis.svg.selectAll('#circles1')
         .data(vis.displayData, function(d, i) {
             return i
         });
 
     circle.enter()
         .append('circle')
+        .attr("id", "circles1")
         .merge(circle)
         .attr('r', 3)
-        .attr('fill', '#c3c3c3')
+        .attr('fill', '#BD0026')
         .attr('cx', function(d) {
             return vis.x(d.Year);
         })
@@ -234,6 +376,30 @@ ODTimeSeries.prototype.updateVisualization = function() {
         .on('mouseout', vis.tip.hide);
 
     circle.exit()
+        .remove();
+
+    // Draw circles for all states
+    var circle2 = vis.svg.selectAll('#circles2')
+        .data(vis.displayDataOverall, function(d, i) {
+            return i
+        });
+
+    circle2.enter()
+        .append('circle')
+        .attr("id", "circles2")
+        .merge(circle2)
+        .attr('r', 3)
+        .attr('fill', '#c3c3c3')
+        .attr('cx', function(d) {
+            return vis.x(d.Year);
+        })
+        .attr('cy', function(d) {
+            return vis.y(d.Rate);
+        })
+        .on('mouseover', vis.tip2.show)
+        .on('mouseout', vis.tip2.hide);
+
+    circle2.exit()
         .remove();
 
 
