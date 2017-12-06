@@ -363,7 +363,15 @@ ODChoropleth.prototype.updateVis = function(){
             .selectAll("path")
             .data(json.features)
             .enter().append("path")
-            .attr("stroke", "white")
+            .attr("stroke", function (d) {
+                // Return the default (or remembered selected state ID)
+                if (d.id === vis.selectedStateID) {
+                    return "white";
+                }
+                else {
+                    return "gray";
+                }
+            })
             .attr("stroke-width", function (d) {
                 // Return the default (or remembered selected state ID)
                 if (d.id === vis.selectedStateID) {
