@@ -65,7 +65,6 @@
                 <div class="col-md-5">
                 <div id="OD-Time-Series"></div>
                 <p>Note: Rates are less accurate for smaller populations.</p>
-                  <p>Source: CDC Wonder.</p>
               </div>
             </div>
           </div>
@@ -89,9 +88,9 @@
                   </p>
                 </div>
                 <div class="col-md-2">
-                  <p class="demographic-selector-profile-header">Profile A</p>
+                  <!--<p class="demographic-selector-profile-header">Profile A</p>-->
                   <!-- Checkboxes -->
-                  <p class="demographic-selector-header">Sex</p>
+                  <p style="padding-top: 40px" class="demographic-selector-header">Sex</p>
                   <input type="checkbox" id="AMale" checked="checked" onchange="compDemographics.wrangleData()"> Male<br>
                   <input type="checkbox" id="AFemale" onchange="compDemographics.wrangleData()"> Female<br>
                   <br>
@@ -110,42 +109,99 @@
                   <input type="checkbox" id="A65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
                   <input type="checkbox" id="A75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
                   <input type="checkbox" id="A85+" onchange="compDemographics.wrangleData()"> 85+<br>
-                </div>
-                <div class="col-md-2">
-                  <p class="demographic-selector-profile-header">Profile B</p>
-                  <!-- Checkboxes -->
-                  <p class="demographic-selector-header">Sex</p>
-                  <input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>
-                  <input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>
                   <br>
-                  <p class="demographic-selector-header">Race</p>
-                  <input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>
-                  <input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>
-                  <input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>
-                  <input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>
-                  <br>
-                  <p class="demographic-selector-header">Age</p>
-                  <input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>
-                  <input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>
-                  <input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>
-                  <input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>
-                  <input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>
-                  <input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
-                  <input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
-                  <input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>
+                  <p class="demographic-selector-header">State</p>
+                  <select name ="dropdown" id = "state-select">
+                    <option value="All">All States</option>
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="District of Columbia">District of Columbia</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Puerto Rico">Puerto Rico</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                  </select>
                 </div>
-                <div class="col-md-4">
-                  <p id="demographic-selector-number-header">The rate of drug overdose for profile A is..</p>
-                  <div class="col-md-6">
+                <!--<div class="col-md-2">-->
+                  <!--<p class="demographic-selector-profile-header">Profile B</p>-->
+                  <!--&lt;!&ndash; Checkboxes &ndash;&gt;-->
+                  <!--<p class="demographic-selector-header">Sex</p>-->
+                  <!--<input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>-->
+                  <!--<input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>-->
+                  <!--<br>-->
+                  <!--<p class="demographic-selector-header">Race</p>-->
+                  <!--<input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>-->
+                  <!--<input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>-->
+                  <!--<input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>-->
+                  <!--<input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>-->
+                  <!--<br>-->
+                  <!--<p class="demographic-selector-header">Age</p>-->
+                  <!--<input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>-->
+                  <!--<input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>-->
+                  <!--<input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>-->
+                  <!--<input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>-->
+                  <!--<input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>-->
+                  <!--<input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>-->
+                  <!--<input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>-->
+                  <!--<input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>-->
+                <!--</div>-->
+                <div class="col-md-6">
+                  <p id="demographic-selector-number-header">The rate of drug overdose for this profile is...</p>
+                  <div class="col-md-12">
                     <div id="compare-demographics-average-number">1.00</div>
                     <div class="compare-demographics-number-text-risk">x Risk </div>
-                    <div class="compare-demographics-number-text-compared">Compared to the Average</div>
+                    <div class="compare-demographics-number-text-compared">Compared to the Average American</div>
+                    <p style = "padding-top : 40px">Note: Rates are less accurate for smaller populations.</p>
                   </div>
-                  <div class="col-md-6">
-                    <div id="compare-demographics-compare-number">1.00</div>
-                    <div class="compare-demographics-number-text-risk">x Risk</div>
-                    <div class="compare-demographics-number-text-compared">Compared to Profile B</div>
-                  </div>
+                  <!--<div class="col-md-6">-->
+                    <!--<div id="compare-demographics-compare-number">1.00</div>-->
+                    <!--<div class="compare-demographics-number-text-risk">x Risk</div>-->
+                    <!--<div class="compare-demographics-number-text-compared">Compared to Profile B</div>-->
+                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -291,5 +347,11 @@
     <script src="js/crime-rates.js"></script>
     <script src="js/innovative.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        $('select[name="dropdown"]').change(function() {
+            compDemographics.wrangleData()
+        });
+    </script>
   </body>
 </html>
