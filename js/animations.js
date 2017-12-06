@@ -23,6 +23,10 @@ function animatePage() {
         renderCrimeRatesGraph();
         crimeRatesAnimated = true;
       }
+      else if (nextIndex === 4){
+          $('select>option:eq(9)').prop('selected', true);
+          compDemographics.wrangleData();
+      }
     }
   });
 }
@@ -40,6 +44,7 @@ function animateLeadCopy() {
   var leadCopyText = [
     'Since the war on drugs in 1980, drug usage has been declared a national epidemic in the United States.',
     'Last year, 64,000 Americans died from a drug overdose &mdash; and the overdose rate shows no sign of slowing down.',
+    'This webpage looks into what demographics were hit the hardest. Scroll down to read more.'
   ];
 
   leadCopyText.forEach(function(d, i) {
