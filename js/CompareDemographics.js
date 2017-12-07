@@ -120,71 +120,86 @@ CompareDemographics.prototype.wrangleData = function(){
         vis.ageSelect.push("85+");
     }
 
-    // Filter the data based on selections
-    vis.displayData = vis.displayData.filter(function(d){
-        return (vis.sexSelect.includes(d['Gender Code']) & vis.raceSelect.includes(d['Race']) &
-            vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
-    });
+    vis.stateSelect = $('#state-select option:selected').val();
 
-    // For profile B ....
-    vis.BdisplayData = vis.data;
+    vis.stateSelectArray = [vis.stateSelect];
 
-    // Sex
-    vis.BsexSelect = [];
-    if (document.getElementById("BMale").checked){
-        vis.BsexSelect.push("M");
-    }
-    if (document.getElementById("BFemale").checked){
-        vis.BsexSelect.push("F");
+    // If state selected
+    if (vis.stateSelect != "All"){
+        // Filter the data based on selections
+        vis.displayData = vis.displayData.filter(function(d){
+            return (vis.sexSelect.includes(d['Gender Code']) & vis.raceSelect.includes(d['Race']) &
+                vis.ageSelect.includes(d['Ten-Year Age Groups Code']) & vis.stateSelectArray.includes(d['State']));
+        });
     }
 
-    // Race
-    vis.BraceSelect = [];
-    if (document.getElementById("BWhite").checked){
-        vis.BraceSelect.push("White");
-    }
-    if (document.getElementById("BBlack").checked){
-        vis.BraceSelect.push("Black or African American");
-    }
-    if (document.getElementById("BAsian").checked){
-        vis.BraceSelect.push("Asian or Pacific Islander");
-    }
-    if (document.getElementById("BOriginalAmerican").checked){
-        vis.BraceSelect.push("American Indian or Alaska Native");
+    // If no state selected
+    else {
+        vis.displayData = vis.displayData.filter(function(d){
+            return (vis.sexSelect.includes(d['Gender Code']) & vis.raceSelect.includes(d['Race']) &
+                vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
+        });
     }
 
-    // Age
-    vis.BageSelect = [];
-    if (document.getElementById("B15-24").checked){
-        vis.BageSelect.push("15-24");
-    }
-    if (document.getElementById("B25-34").checked){
-        vis.BageSelect.push("25-34");
-    }
-    if (document.getElementById("B35-44").checked){
-        vis.BageSelect.push("35-44");
-    }
-    if (document.getElementById("B45-54").checked){
-        vis.BageSelect.push("45-54");
-    }
-    if (document.getElementById("B55-64").checked){
-        vis.BageSelect.push("55-64");
-    }
-    if (document.getElementById("B65-74").checked){
-        vis.BageSelect.push("65-74");
-    }
-    if (document.getElementById("B75-84").checked){
-        vis.BageSelect.push("75-84");
-    }
-    if (document.getElementById("B85+").checked){
-        vis.BageSelect.push("85+");
-    }
-
-    // Filter the data based on selections
-    vis.BdisplayData = vis.BdisplayData.filter(function(d){
-        return (vis.BsexSelect.includes(d['Gender Code']) & vis.BraceSelect.includes(d['Race']) &
-            vis.BageSelect.includes(d['Ten-Year Age Groups Code']));
-    });
+    // // For profile B ....
+    // vis.BdisplayData = vis.data;
+    //
+    // // Sex
+    // vis.BsexSelect = [];
+    // if (document.getElementById("BMale").checked){
+    //     vis.BsexSelect.push("M");
+    // }
+    // if (document.getElementById("BFemale").checked){
+    //     vis.BsexSelect.push("F");
+    // }
+    //
+    // // Race
+    // vis.BraceSelect = [];
+    // if (document.getElementById("BWhite").checked){
+    //     vis.BraceSelect.push("White");
+    // }
+    // if (document.getElementById("BBlack").checked){
+    //     vis.BraceSelect.push("Black or African American");
+    // }
+    // if (document.getElementById("BAsian").checked){
+    //     vis.BraceSelect.push("Asian or Pacific Islander");
+    // }
+    // if (document.getElementById("BOriginalAmerican").checked){
+    //     vis.BraceSelect.push("American Indian or Alaska Native");
+    // }
+    //
+    // // Age
+    // vis.BageSelect = [];
+    // if (document.getElementById("B15-24").checked){
+    //     vis.BageSelect.push("15-24");
+    // }
+    // if (document.getElementById("B25-34").checked){
+    //     vis.BageSelect.push("25-34");
+    // }
+    // if (document.getElementById("B35-44").checked){
+    //     vis.BageSelect.push("35-44");
+    // }
+    // if (document.getElementById("B45-54").checked){
+    //     vis.BageSelect.push("45-54");
+    // }
+    // if (document.getElementById("B55-64").checked){
+    //     vis.BageSelect.push("55-64");
+    // }
+    // if (document.getElementById("B65-74").checked){
+    //     vis.BageSelect.push("65-74");
+    // }
+    // if (document.getElementById("B75-84").checked){
+    //     vis.BageSelect.push("75-84");
+    // }
+    // if (document.getElementById("B85+").checked){
+    //     vis.BageSelect.push("85+");
+    // }
+    //
+    // // Filter the data based on selections
+    // vis.BdisplayData = vis.BdisplayData.filter(function(d){
+    //     return (vis.BsexSelect.includes(d['Gender Code']) & vis.BraceSelect.includes(d['Race']) &
+    //         vis.BageSelect.includes(d['Ten-Year Age Groups Code']));
+    // });
 
 	// Update the visualization
     vis.updateVis();
@@ -216,125 +231,137 @@ CompareDemographics.prototype.updateVis = function(){
     // Factor
     vis.factor = (vis.ARate) /  (vis.overallRate);
     if (isNaN(vis.factor)) {
-        vis.factor = 1;
+        vis.factor = "1.00";
     }
 
-    // Transition the number
-    // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
-    var format = d3.format(",.2f");
-    d3.select("#compare-demographics-average-number")
-        .transition()
-        .duration(2000)
-        .on("start", function repeat() {
-            var t = d3.active(this)
-                .remove();
+    if (isNaN(vis.ARate)) {
+        $("#compare-demographics-average-number").empty().append("No Data");
+    }
+    else {
 
-            d3.active(this)
-                .tween("text", function() {
-                    var that = d3.select(this),
-                        i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.factor);
-                    return function(t) { that.text(format(i(t))); };
-                })
-                // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
-                .style("color", function(d){
-                    if (vis.factor > 1.6) {
-                        return "#d73027";
-                    }
-                    else if (vis.factor > 1.4) {
-                        return "#f46d43";
-                    }
-                    else if (vis.factor > 1.2) {
-                        return "#fdae61";
-                    }
-                    else if (vis.factor > 1.1) {
-                        return "#fee08b";
-                    }
-                    else if (vis.factor > .99) {
-                        return "#fdff65";
-                    }
-                    else if (vis.factor > .9) {
-                        return "#d9ef8b";
-                    }
-                    else if (vis.factor > .8) {
-                        return "#a6d96a";
-                    }
-                    else if (vis.factor > .6) {
-                        return "#66bd63";
-                    }
-                    else {
-                        return "#1a9850";
-                    }
-                })
-                .transition(t)
-                .transition()
-        });
+        if ($("#compare-demographics-average-number").text() === "No Data"){
+            $("#compare-demographics-average-number").html("1.00");
+        }
 
-    // For comparison to B...
-    // Sum total of B
-    vis.Bdeaths = 0;
-    vis.Bpopulation = 0;
+        // Transition the number
+        // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
+        var format = d3.format(",.2f");
+        d3.select("#compare-demographics-average-number")
+            .transition()
+            .duration(2000)
+            .on("start", function repeat() {
+                var t = d3.active(this)
+                    .remove();
 
-    for (var i = 0; i < vis.BdisplayData.length; i++) {
-        vis.Bdeaths = vis.Bdeaths + vis.BdisplayData[i].Deaths;
-        vis.Bpopulation = vis.Bpopulation + vis.BdisplayData[i].Population;
+                d3.active(this)
+                    .tween("text", function () {
+                        var that = d3.select(this),
+                            i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.factor);
+                        return function (t) {
+                            that.text(format(i(t)));
+                        };
+                    })
+                    // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
+                    .style("color", function (d) {
+                        if (vis.factor > 1.6) {
+                            return "#d73027";
+                        }
+                        else if (vis.factor > 1.4) {
+                            return "#f46d43";
+                        }
+                        else if (vis.factor > 1.2) {
+                            return "#fdae61";
+                        }
+                        else if (vis.factor > 1.1) {
+                            return "#fee08b";
+                        }
+                        else if (vis.factor > .99) {
+                            return "#fdff65";
+                        }
+                        else if (vis.factor > .9) {
+                            return "#d9ef8b";
+                        }
+                        else if (vis.factor > .8) {
+                            return "#a6d96a";
+                        }
+                        else if (vis.factor > .6) {
+                            return "#66bd63";
+                        }
+                        else {
+                            return "#1a9850";
+                        }
+                    })
+                    .transition(t)
+                    .transition()
+            });
     }
 
-    // Profile B rate
-    vis.BRate = vis.Bdeaths / vis.Bpopulation;
-
-    // Factor
-    vis.Bfactor = (vis.ARate) /  (vis.BRate);
-    if (isNaN(vis.Bfactor)) {
-        vis.Bfactor = 1;
-    }
-
-    // Transition the number
-    // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
-    d3.select("#compare-demographics-compare-number")
-        .transition()
-        .duration(2000)
-        .on("start", function repeat() {
-            var t = d3.active(this)
-                .remove();
-
-            d3.active(this)
-                .tween("text", function() {
-                    var that = d3.select(this),
-                        i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.Bfactor);
-                    return function(t) { that.text(format(i(t))); };
-                })
-                // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
-                .style("color", function(d){
-                    if (vis.Bfactor > 1.6) {
-                        return "#d73027";
-                    }
-                    else if (vis.Bfactor > 1.4) {
-                        return "#f46d43";
-                    }
-                    else if (vis.Bfactor > 1.2) {
-                        return "#fdae61";
-                    }
-                    else if (vis.Bfactor > 1.1) {
-                        return "#fee08b";
-                    }
-                    else if (vis.Bfactor > .99) {
-                        return "#fdff65";
-                    }
-                    else if (vis.Bfactor > .9) {
-                        return "#d9ef8b";
-                    }
-                    else if (vis.Bfactor > .8) {
-                        return "#a6d96a";
-                    }
-                    else if (vis.Bfactor > .6) {
-                        return "#66bd63";
-                    }
-                    else {
-                        return "#1a9850";
-                    }
-                })
-                .transition(t)
-                .transition()
-        });
+    // // For comparison to B...
+    // // Sum total of B
+    // vis.Bdeaths = 0;
+    // vis.Bpopulation = 0;
+    //
+    // for (var i = 0; i < vis.BdisplayData.length; i++) {
+    //     vis.Bdeaths = vis.Bdeaths + vis.BdisplayData[i].Deaths;
+    //     vis.Bpopulation = vis.Bpopulation + vis.BdisplayData[i].Population;
+    // }
+    //
+    // // Profile B rate
+    // vis.BRate = vis.Bdeaths / vis.Bpopulation;
+    //
+    // // Factor
+    // vis.Bfactor = (vis.ARate) /  (vis.BRate);
+    // if (isNaN(vis.Bfactor)) {
+    //     vis.Bfactor = 1;
+    // }
+    //
+    // // Transition the number
+    // // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
+    // d3.select("#compare-demographics-compare-number")
+    //     .transition()
+    //     .duration(2000)
+    //     .on("start", function repeat() {
+    //         var t = d3.active(this)
+    //             .remove();
+    //
+    //         d3.active(this)
+    //             .tween("text", function() {
+    //                 var that = d3.select(this),
+    //                     i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.Bfactor);
+    //                 return function(t) { that.text(format(i(t))); };
+    //             })
+    //             // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
+    //             .style("color", function(d){
+    //                 if (vis.Bfactor > 1.6) {
+    //                     return "#d73027";
+    //                 }
+    //                 else if (vis.Bfactor > 1.4) {
+    //                     return "#f46d43";
+    //                 }
+    //                 else if (vis.Bfactor > 1.2) {
+    //                     return "#fdae61";
+    //                 }
+    //                 else if (vis.Bfactor > 1.1) {
+    //                     return "#fee08b";
+    //                 }
+    //                 else if (vis.Bfactor > .99) {
+    //                     return "#fdff65";
+    //                 }
+    //                 else if (vis.Bfactor > .9) {
+    //                     return "#d9ef8b";
+    //                 }
+    //                 else if (vis.Bfactor > .8) {
+    //                     return "#a6d96a";
+    //                 }
+    //                 else if (vis.Bfactor > .6) {
+    //                     return "#66bd63";
+    //                 }
+    //                 else {
+    //                     return "#1a9850";
+    //                 }
+    //             })
+    //             .transition(t)
+    //             .transition()
+    //     });
 
 };

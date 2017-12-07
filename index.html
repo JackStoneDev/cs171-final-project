@@ -6,18 +6,21 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The United States of Drugs 1</title>
+    <title>U.S. of Drugs</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
     <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/vendor/jquery.fullpage.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="shortcut icon" type="image/png" href="https://openclipart.org/image/2400px/svg_to_png/216698/america-flag-map-3d.png"/>
   </head>
   <body>
     <div id="fullpage">
       <div class="section" id="hero">
         <div class="container">
           <h1 id="headline">The United States of Drugs</h1>
+          <h3><center>Scroll Down to Visualize the Epidemic</center></h3>
         </div>
       </div>
       <div class="section">
@@ -62,8 +65,9 @@
                 <input type="checkbox" id="75-84" checked="checked" onchange="odChoropleth.wrangleData()"> 74-84<br>
                 <input type="checkbox" id="85+" checked="checked" onchange="odChoropleth.wrangleData()"> 85+<br>
               </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                 <div id="OD-Time-Series"></div>
+                <p>Note: Rates are less accurate for smaller populations.</p>
               </div>
             </div>
           </div>
@@ -82,14 +86,17 @@
                     White, Black, and Original American men between 35-54 years of age have significantly
                     higher risks of overdosing than the overall population and women of that same age range.
                     <br><br>
+                    Additionally, some states are much more adversely affected. The overdose rate in D.C. is almost
+                    double the second deadliest state, New Mexico.
+                    <br><br>
                     Using the tool to the left, we can see how some demographics are more likely to overdose
                     than others.
                   </p>
                 </div>
                 <div class="col-md-2">
-                  <p class="demographic-selector-profile-header">Profile A</p>
+                  <!--<p class="demographic-selector-profile-header">Profile A</p>-->
                   <!-- Checkboxes -->
-                  <p class="demographic-selector-header">Sex</p>
+                  <p style="padding-top: 40px" class="demographic-selector-header">Sex</p>
                   <input type="checkbox" id="AMale" checked="checked" onchange="compDemographics.wrangleData()"> Male<br>
                   <input type="checkbox" id="AFemale" onchange="compDemographics.wrangleData()"> Female<br>
                   <br>
@@ -108,42 +115,98 @@
                   <input type="checkbox" id="A65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
                   <input type="checkbox" id="A75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
                   <input type="checkbox" id="A85+" onchange="compDemographics.wrangleData()"> 85+<br>
-                </div>
-                <div class="col-md-2">
-                  <p class="demographic-selector-profile-header">Profile B</p>
-                  <!-- Checkboxes -->
-                  <p class="demographic-selector-header">Sex</p>
-                  <input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>
-                  <input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>
                   <br>
-                  <p class="demographic-selector-header">Race</p>
-                  <input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>
-                  <input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>
-                  <input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>
-                  <input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>
-                  <br>
-                  <p class="demographic-selector-header">Age</p>
-                  <input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>
-                  <input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>
-                  <input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>
-                  <input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>
-                  <input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>
-                  <input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
-                  <input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
-                  <input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>
+                  <p class="demographic-selector-header">State</p>
+                  <select name ="dropdown" id = "state-select">
+                    <option value="All">All States</option>
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="District of Columbia">District of Columbia</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                  </select>
                 </div>
-                <div class="col-md-4">
-                  <p id="demographic-selector-number-header">The rate of drug overdose for profile A is..</p>
-                  <div class="col-md-6">
+                <!--<div class="col-md-2">-->
+                  <!--<p class="demographic-selector-profile-header">Profile B</p>-->
+                  <!--&lt;!&ndash; Checkboxes &ndash;&gt;-->
+                  <!--<p class="demographic-selector-header">Sex</p>-->
+                  <!--<input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>-->
+                  <!--<input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>-->
+                  <!--<br>-->
+                  <!--<p class="demographic-selector-header">Race</p>-->
+                  <!--<input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>-->
+                  <!--<input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>-->
+                  <!--<input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>-->
+                  <!--<input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>-->
+                  <!--<br>-->
+                  <!--<p class="demographic-selector-header">Age</p>-->
+                  <!--<input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>-->
+                  <!--<input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>-->
+                  <!--<input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>-->
+                  <!--<input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>-->
+                  <!--<input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>-->
+                  <!--<input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>-->
+                  <!--<input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>-->
+                  <!--<input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>-->
+                <!--</div>-->
+                <div class="col-md-6">
+                  <p id="demographic-selector-number-header">The rate of drug overdose for this profile is...</p>
+                  <div class="col-md-12">
                     <div id="compare-demographics-average-number">1.00</div>
                     <div class="compare-demographics-number-text-risk">x Risk </div>
-                    <div class="compare-demographics-number-text-compared">Compared to the Average</div>
+                    <div class="compare-demographics-number-text-compared">Compared to the Average American</div>
+                    <p style = "padding-top : 40px">Note: Rates are less accurate for smaller populations.</p>
                   </div>
-                  <div class="col-md-6">
-                    <div id="compare-demographics-compare-number">1.00</div>
-                    <div class="compare-demographics-number-text-risk">x Risk</div>
-                    <div class="compare-demographics-number-text-compared">Compared to Profile B</div>
-                  </div>
+                  <!--<div class="col-md-6">-->
+                    <!--<div id="compare-demographics-compare-number">1.00</div>-->
+                    <!--<div class="compare-demographics-number-text-risk">x Risk</div>-->
+                    <!--<div class="compare-demographics-number-text-compared">Compared to Profile B</div>-->
+                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -182,10 +245,12 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-              <h2 class="chart-header header-offset-top align-content-left">Drug Offenses by Race Population</h2>
+              <h2 class="chart-header header-offset-top align-content-left">Drug Arrests by Race Population</h2>
               <div id="crime-rates-text">
                 While the the use of drugs has universally increased across all populations over the last 35 years,
-                The War on Drugs has drastically affected African Americans more so than any other populations.
+                The War on Drugs has drastically affected African Americans more so than any other populations, with
+                conviction rates twice the national average.
+                <br>
                 This phenomenon can be traced through time in the following visualization.
               </div>
             </div>
@@ -273,6 +338,30 @@
           </div>
         </div>
       </div>
+      <div class="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="chart-header">About</h2>
+              <div id="about-text"><center>This webpage was built as a final project for Harvard's CS 171: Visualization by
+                Benjamin Molin, Jack Stone, and Christian Kardish.</center></div>
+              <div class = "about-book-github">Links:</div>
+              <div class = "about-book-github">- <a href="https://docs.google.com/a/college.harvard.edu/document/d/1dQqIP2BuFho94HvQORJIcJCAz79O230XJEafC6sDwVY/edit?usp=sharing" target ="_blank">Process Book</a></div>
+              <div class = "about-book-github">- <a href="https://github.com/JackStoneDev/cs171-final-project" target ="_blank">Github</a></div>
+              <br>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/PqFFQB64JS8" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-6">
+              <div><h2 class="chart-header">Sources</h2></div>
+              <ol id = "about-sources">
+                <li>CDC Wonder</li>
+                <li>Source 2</li>
+                <li>Source 3</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/vendor/jquery.min.js"></script>
@@ -289,5 +378,11 @@
     <script src="js/crime-rates.js"></script>
     <script src="js/innovative.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        $('select[name="dropdown"]').change(function() {
+            compDemographics.wrangleData()
+        });
+    </script>
   </body>
 </html>
