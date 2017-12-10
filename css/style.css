@@ -216,3 +216,7 @@ text.legend {
   font-size : 30px;
   color: lightgray;
 }
+
+#event{
+  cursor: pointer;
+}

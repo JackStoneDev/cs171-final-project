@@ -221,9 +221,9 @@ CrimeRateChart.prototype.updateVisualization = function() {
                 "<center><strong>Rate of Population That <br> " +
                 "Committed a Drug Offense in " + d.Year +"</strong> <span style='color:black'></span><br><br>";
 
+            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
             vis.yeartipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
             vis.yeartipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
-            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
             vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
             vis.yeartipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
 
