@@ -80,6 +80,14 @@ body {
   text-anchor: middle;
 }
 
+.label-filter {
+  margin-left: 5px;
+}
+
+.label-filter:hover {
+  cursor: pointer;
+}
+
 #drug-seizures-chart .axis-label {
   font-size: 14px;
   text-anchor: middle;
