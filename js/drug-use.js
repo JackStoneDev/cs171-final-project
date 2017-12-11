@@ -37,13 +37,16 @@ DrugUseChart.prototype.initVisualization = function() {
               .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
 
   // Axes
-  vis.x = d3.scaleTime()
+  vis.x = d3.scaleLinear()
             .range([0, vis.width]);
 
   vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
 
-  vis.xAxis = d3.axisBottom();
+  vis.xAxis = d3.axisBottom()
+                .tickFormat(d3.format('d'))
+                .ticks(5);
+
   vis.yAxis = d3.axisLeft();
 
   vis.svg.append('g')
@@ -108,7 +111,25 @@ DrugUseChart.prototype.initVisualization = function() {
 DrugUseChart.prototype.wrangleData = function() {
   var vis = this;
 
-  vis.displayData = vis.data;
+  vis.displayData = {};
+
+  // Nest by race.
+  var raceNested = d3.nest()
+                      .key(function(d) {
+                        return d.Race;
+                      })
+                      .object(vis.data);
+
+  for (race in raceNested) {
+    vis.displayData[race] = [];
+
+    for (year in raceNested[race][0]) {
+      vis.displayData[race].push({
+        year: year,
+        percent: raceNested[race][0][year]
+      })
+    }
+  }
 
   vis.updateVisualization();
 }
