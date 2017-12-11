@@ -24,7 +24,7 @@ function animatePage() {
         crimeRatesAnimated = true;
       }
       else if (nextIndex === 4){
-          $('select>option:eq(9)').prop('selected', true);
+          $('select>option:eq(0)').prop('selected', true);
           compDemographics.wrangleData();
       }
     }
