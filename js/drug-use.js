@@ -73,7 +73,8 @@ DrugUseChart.prototype.initVisualization = function() {
   vis.svg.append('text')
          .attr('class', 'axis-title')
          .attr('transform', 'translate(' + (vis.width / 2) + ',0)')
-         .text('Drug Use');
+         .attr('y', -20)
+         .text('Past Month Illicit Drug Use Among Persons Aged 12 or Older');
 
   // Line chart
   vis.svg.append('clipPath')
