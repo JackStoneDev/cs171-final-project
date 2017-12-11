@@ -192,7 +192,8 @@ CrimeRateChart.prototype.updateVisualization = function() {
         })
         .on("click", function(d){
             document.getElementById('crime-rates-text').innerHTML=
-                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "<br>" + d.Year +"</strong></span></center><br><br> " +
+                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "</span><br>" +
+                "<span style='font-size:16px;'>" + d.Year +"</strong></span></center><br><br> " +
                 "<span style='color:white'>" + d.Description + "</span><br>";
         })
         .transition()
