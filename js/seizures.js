@@ -46,6 +46,7 @@ SeizuresChart.prototype.initVisualization = function() {
   vis.xAxis = d3.axisBottom()
                 .tickFormat(d3.format('d'))
                 .ticks(5);
+                
   vis.yAxis = d3.axisLeft();
 
   vis.svg.append('g')

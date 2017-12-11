@@ -3,7 +3,7 @@
 /*
  * ODChoropleth - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
- * @param _data						-- the  
+ * @param _data						-- the
  */
 
 CompareDemographics = function(_parentElement, _data){
@@ -295,73 +295,4 @@ CompareDemographics.prototype.updateVis = function(){
                     .transition()
             });
     }
-
-    // // For comparison to B...
-    // // Sum total of B
-    // vis.Bdeaths = 0;
-    // vis.Bpopulation = 0;
-    //
-    // for (var i = 0; i < vis.BdisplayData.length; i++) {
-    //     vis.Bdeaths = vis.Bdeaths + vis.BdisplayData[i].Deaths;
-    //     vis.Bpopulation = vis.Bpopulation + vis.BdisplayData[i].Population;
-    // }
-    //
-    // // Profile B rate
-    // vis.BRate = vis.Bdeaths / vis.Bpopulation;
-    //
-    // // Factor
-    // vis.Bfactor = (vis.ARate) /  (vis.BRate);
-    // if (isNaN(vis.Bfactor)) {
-    //     vis.Bfactor = 1;
-    // }
-    //
-    // // Transition the number
-    // // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
-    // d3.select("#compare-demographics-compare-number")
-    //     .transition()
-    //     .duration(2000)
-    //     .on("start", function repeat() {
-    //         var t = d3.active(this)
-    //             .remove();
-    //
-    //         d3.active(this)
-    //             .tween("text", function() {
-    //                 var that = d3.select(this),
-    //                     i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.Bfactor);
-    //                 return function(t) { that.text(format(i(t))); };
-    //             })
-    //             // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
-    //             .style("color", function(d){
-    //                 if (vis.Bfactor > 1.6) {
-    //                     return "#d73027";
-    //                 }
-    //                 else if (vis.Bfactor > 1.4) {
-    //                     return "#f46d43";
-    //                 }
-    //                 else if (vis.Bfactor > 1.2) {
-    //                     return "#fdae61";
-    //                 }
-    //                 else if (vis.Bfactor > 1.1) {
-    //                     return "#fee08b";
-    //                 }
-    //                 else if (vis.Bfactor > .99) {
-    //                     return "#fdff65";
-    //                 }
-    //                 else if (vis.Bfactor > .9) {
-    //                     return "#d9ef8b";
-    //                 }
-    //                 else if (vis.Bfactor > .8) {
-    //                     return "#a6d96a";
-    //                 }
-    //                 else if (vis.Bfactor > .6) {
-    //                     return "#66bd63";
-    //                 }
-    //                 else {
-    //                     return "#1a9850";
-    //                 }
-    //             })
-    //             .transition(t)
-    //             .transition()
-    //     });
-
 };
