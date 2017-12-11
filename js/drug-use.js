@@ -178,7 +178,7 @@ DrugUseChart.prototype.updateVisualization = function() {
            .attr('d', line);
 
     // Draw circles
-    var circle = vis.svg.selectAll('circle')
+    var circle = vis.svg.selectAll('circle#' + race)
                         .data(vis.displayData[race], function(d, i) {
                           return i
                         });
@@ -186,6 +186,7 @@ DrugUseChart.prototype.updateVisualization = function() {
     circle.enter()
           .append('circle')
           .merge(circle)
+          .attr('id', race)
           .attr('r', 3)
           .attr('fill', '#c3c3c3')
           .attr('cx', function(d) {
