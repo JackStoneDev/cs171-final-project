@@ -67,7 +67,7 @@ DrugUseChart.prototype.initVisualization = function() {
          .attr('transform', 'rotate(-90)')
          .attr('x', -vis.height / 2)
          .attr('y', -vis.margin.left + 10)
-         .text('Percent Using in Past Month');
+         .text('Percent');
 
   // Axis title
   vis.svg.append('text')
