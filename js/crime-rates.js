@@ -19,6 +19,8 @@ CrimeRateChart = function(_parentElement, _data) {
 CrimeRateChart.prototype.initVisualization = function() {
     var vis = this;
 
+
+
     vis.margin = {
         top: 40,
         right: 120,
@@ -29,13 +31,24 @@ CrimeRateChart.prototype.initVisualization = function() {
     vis.width = (document.getElementById(vis.parentElement).offsetWidth) - vis.margin.right - vis.margin.left,
         vis.height = 600 - vis.margin.top - vis.margin.bottom;
 
+
+    vis.lineHeight = 200 - vis.margin.top - vis.margin.bottom;
+
+    //Timeline drawing area
+    vis.timelineGraph = d3.select('#' + vis.parentElement)
+        .append('svg')
+        .attr('width', vis.width + vis.margin.left + vis.margin.right)
+        .attr('height', vis.lineHeight)
+        .append('g')
+        .attr('transform', 'translate(' + vis.margin.left + ',0)');
+
     // SVG drawing area
     vis.svg = d3.select('#' + vis.parentElement)
         .append('svg')
         .attr('width', vis.width + vis.margin.left + vis.margin.right)
         .attr('height', vis.height + vis.margin.top + vis.margin.bottom)
         .append('g')
-        .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
+        .attr('transform', 'translate(' + vis.margin.left + ',' + (vis.margin.top-20) + ')');
 
     // Axes
     vis.x = d3.scaleTime()
@@ -50,16 +63,21 @@ CrimeRateChart.prototype.initVisualization = function() {
 
     vis.svg.append('g')
         .attr('class', 'x-axis axis')
-        .attr('transform', 'translate(0, ' + vis.height + ')')
-        .transition()
-        .duration(2000);
+        .attr('transform', 'translate(0, ' + vis.height + ')');
 
     vis.svg.append('g')
-        .attr('class', 'y-axis axis')
-        .transition()
-        .duration(2000);
+        .attr('class', 'y-axis axis');
+
+    vis.timelineGraph.append('g')
+        .attr('class', 'timeline-axis axis')
+        .attr('transform', 'translate(0, ' + (vis.lineHeight/2) + ')');
 
     // Axis labels
+    vis.timelineGraph.append('text')
+        .attr('class', 'axis-label x-label')
+        .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 2) + ',' + vis.margin.top + ')')
+        .text('Events of Interest');
+
     vis.svg.append('text')
         .attr('class', 'axis-label x-label')
         .attr('transform', 'translate(' + (vis.width / 2) + ',' + (vis.height + vis.margin.top) + ')')
@@ -87,15 +105,6 @@ CrimeRateChart.prototype.wrangleData = function() {
 
     vis.displayData = vis.data;
 
-/*    // Convert strings to numeric values
-    vis.displayData.forEach(function(d) {
-        d["All Offenses"] = +d["All Offenses"].replace(/,/g, '');
-        d["Drug Abuse Violations -Total"] = +d["Drug Abuse Violations -Total"].replace(/,/g, '');
-        d["Drug-Sale-Manufacturing-Total"] = +d["Drug-Sale-Manufacturing-Total"].replace(/,/g, '');
-        d["Drug-Possession-SubTotal"] = +d["Drug-Possession-SubTotal"].replace(/,/g, '');
-        d.Year = +d.Year;
-    });*/
-
     // Convert strings to percentage values
     vis.displayData.forEach(function(d) {
         d["All Races"] = parseFloat((d["All Races"].replace(/,/g, ''))*100).toFixed(2);
@@ -120,11 +129,9 @@ CrimeRateChart.prototype.wrangleData = function() {
 CrimeRateChart.prototype.updateVisualization = function() {
     var vis = this;
 
-
   //  var offenses = ["All Offenses", "Drug Abuse Violations -Total", "Drug-Sale-Manufacturing-Total", "Drug-Possession-SubTotal"];
-    var races = ["All Races", "Whites", "Blacks", "Native Americans", "Asians"];
-    var colors = ["green", "blue", "red", "yellow", "purple"];
-
+    var races = ["Asians", "Native Americans", "Whites", "All Races", "Blacks"];
+    var colors = ["#eff3ff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"];
 
     // Do data exist for this unit and drug type?
     if ('undefined' === typeof vis.displayData) {
@@ -158,14 +165,48 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
     // Call axis functions
     vis.svg.select('.x-axis').call(vis.xAxis);
+    vis.timelineGraph.select('.timeline-axis').call(vis.xAxis);
     vis.svg.select('.y-axis').call(vis.yAxis);
 
-    // Line chart
-    vis.svg.append('clipPath')
-        .attr('id', 'clip')
-        .append('rect')
-        .attr('width', vis.width)
-        .attr('height', vis.height);
+
+
+
+    //Timeline w/ Events of interest
+    var events = vis.timelineGraph.selectAll('#event')
+        .data(vis.timeline);
+    events.enter()
+        .append('circle')
+        .on("mouseover", function(d){
+            vis.svg.append("line")
+                .attr("class", "event-line")
+                .attr("x1", vis.x(d.Year))  //<<== change your code here
+                .attr("y1", 0)
+                .attr("x2", vis.x(d.Year))  //<<== and here
+                .attr("y2", vis.height)
+                .style("stroke-width", 2)
+                .style("stroke", "red")
+                .style("fill", "none");
+        })
+        .on("mouseout", function(d){
+            vis.svg.selectAll(".event-line").remove();
+        })
+        .on("click", function(d){
+            document.getElementById('crime-rates-text').innerHTML=
+                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "<br>" + d.Year +"</strong></span></center><br><br> " +
+                "<span style='color:white'>" + d.Description + "</span><br>";
+        })
+        .transition()
+        .delay(function(t,j){return 583*j})
+        .attr("id", "event")
+        .attr('r', 5)
+        .attr('fill', 'white')
+        .attr('cx', function(a) {
+            return vis.x(a.Year);
+        })
+        .attr('cy', (vis.lineHeight / 2));
+
+
+
 
     // Initialize tooltip
     // Thanks to http://bl.ocks.org/Caged/6476579
@@ -180,9 +221,9 @@ CrimeRateChart.prototype.updateVisualization = function() {
                 "<center><strong>Rate of Population That <br> " +
                 "Committed a Drug Offense in " + d.Year +"</strong> <span style='color:black'></span><br><br>";
 
+            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
             vis.yeartipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
             vis.yeartipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
-            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
             vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
             vis.yeartipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
 
@@ -195,33 +236,14 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
         });
 
+    // Line chart
     // Call the tool tip
     vis.svg.call(vis.yeartip);
-
-
-    // Initialize tooltip
-    // Thanks to http://bl.ocks.org/Caged/6476579
-    vis.eventtip = d3.tip()
-        .attr('class', 'd3-tip')
-        .attr('id', 'events-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-
-            // String to return for tooltip
-            vis.eventtipString =
-                "<center><strong>" + d.Event + "<br>" + d.Year +"</strong> <span style='color:black'></span><br><br>";
-            vis.eventtipString += "<span style='color:white'>" + d.Description + "</span><br>";
-
-            vis.eventtipString +=  "</center>";
-            return vis.eventtipString;
-
-        });
-
-    // Call the tool tip
-    vis.svg.call(vis.eventtip);
-
-
-
+    vis.svg.append('clipPath')
+        .attr('id', 'clip')
+        .append('rect')
+        .attr('width', vis.width)
+        .attr('height', vis.height);
 
     //Draw each dataset's line
     races.forEach(function(d, i){
@@ -261,7 +283,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
             .attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(10000)
+            .duration(7000)
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0);
 
@@ -277,14 +299,13 @@ CrimeRateChart.prototype.updateVisualization = function() {
         // Draw circles
         var years = vis.svg.selectAll('#year' + i)
             .data(vis.displayData);
-        //TODO make this data for interesting historical event data
 
        years.enter()
             .append('circle')
             .on("mouseover", vis.yeartip.show)
             .on("mouseout", vis.yeartip.hide)
             .transition()
-                .delay(function(t,j){return 285*j})
+                .delay(function(t,j){return 200*j})
            .attr("id", "year" + i)
             .attr('r', 3)
             .attr('fill', colors[i])
@@ -294,26 +315,5 @@ CrimeRateChart.prototype.updateVisualization = function() {
             .attr('cy', function(a) {
                 return vis.y(a[d]);
             });
-
-        var events = vis.svg.selectAll('#event' + i)
-            .data(vis.timeline);
-        events.enter()
-            .append('circle')
-            .on("mouseover", vis.eventtip.show)
-            .on("mouseout", vis.eventtip.hide)
-            .transition()
-            .delay(function(t,j){return 875*j})
-            .attr("id", "event" + i)
-            .attr('r', 5)
-            .attr('fill', 'white')
-            .attr('cx', function(a) {
-                return vis.x(a.Year);
-            })
-            .attr('cy', function(a) {
-                var year_index = a.Year - 1980;
-                var line = vis.displayData[year_index];
-                return vis.y(line[d]);
-            });
-
     });
 }
