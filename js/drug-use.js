@@ -90,9 +90,7 @@ DrugUseChart.prototype.initVisualization = function() {
               .attr('class', 'd3-tip')
               .offset([-10, 0])
               .html(function(d) {
-                var tooltipString = d.Percent;
-
-                return vis.tooltipString;
+                return d.percent + '%';
               });
 
   vis.svg.call(vis.tip);
