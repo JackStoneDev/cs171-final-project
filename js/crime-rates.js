@@ -179,9 +179,9 @@ CrimeRateChart.prototype.updateVisualization = function() {
         .on("mouseover", function(d){
             vis.svg.append("line")
                 .attr("class", "event-line")
-                .attr("x1", vis.x(d.Year))  //<<== change your code here
+                .attr("x1", vis.x(d.Year))
                 .attr("y1", 0)
-                .attr("x2", vis.x(d.Year))  //<<== and here
+                .attr("x2", vis.x(d.Year))
                 .attr("y2", vis.height)
                 .style("stroke-width", 2)
                 .style("stroke", "red")
@@ -193,8 +193,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
         .on("click", function(d){
             document.getElementById('crime-rates-text').innerHTML=
                 "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "</span><br>" +
-                "<span style='font-size:16px;'>" + d.Year +"</strong></span></center><br><br> " +
-                "<span style='color:white'>" + d.Description + "</span><br>";
+                "<span style='font-size:16px;'>" + d.Year +"</strong></span></center><br><br> " + d.Description + "<br>";
         })
         .transition()
         .delay(function(t,j){return 583*j})
@@ -227,10 +226,6 @@ CrimeRateChart.prototype.updateVisualization = function() {
             vis.yeartipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
             vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
             vis.yeartipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
-
-            //TODO can integrate ODs that year as well
-//            vis.yeartipString += "Deaths: <span style='color:white'>" + d.properties.Deaths.toLocaleString() + "</span><br>";
-//            vis.yeartipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br>";
 
             vis.yeartipString +=  "</center>";
             return vis.yeartipString;
