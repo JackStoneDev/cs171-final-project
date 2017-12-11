@@ -82,13 +82,8 @@ DrugUseChart.prototype.initVisualization = function() {
          .attr('width', vis.width)
          .attr('height', vis.height);
 
-  vis.svg.append('path')
-         .datum(vis.data)
-         .attr('id', 'line-chart')
-         .attr('fill', 'none')
-         .attr('stroke', '#af070d')
-         .attr('stroke-width', 2.0)
-         .attr('clip-path', 'url(#clip)');
+  // Color palette
+  vis.colorPalette = d3.scaleOrdinal(d3.schemeCategory10);
 
   // Tooltip
   vis.tip = d3.tip()
@@ -112,6 +107,7 @@ DrugUseChart.prototype.wrangleData = function() {
   var vis = this;
 
   vis.displayData = {};
+  vis.races = [];
 
   // Nest by race.
   var raceNested = d3.nest()
@@ -121,9 +117,15 @@ DrugUseChart.prototype.wrangleData = function() {
                       .object(vis.data);
 
   for (race in raceNested) {
+    vis.races.push(race);
+
     vis.displayData[race] = [];
 
     for (year in raceNested[race][0]) {
+      if (isNaN(year)) {
+        continue;
+      }
+
       vis.displayData[race].push({
         year: year,
         percent: raceNested[race][0][year]
@@ -142,12 +144,10 @@ DrugUseChart.prototype.updateVisualization = function() {
 
   // Axis domains
   vis.x.domain([2002, 2013]);
+  vis.y.domain([0, 12]);
 
-  var maxY = d3.max(vis.displayData, function(d) {
-    return d.Quantity;
-  });
-
-  vis.y.domain([0, maxY * 1.2]);
+  // Color domain
+  vis.colorPalette.domain(vis.races);
 
   // Scale axes
   vis.xAxis.scale(vis.x);
@@ -157,41 +157,47 @@ DrugUseChart.prototype.updateVisualization = function() {
   vis.svg.select('.x-axis').call(vis.xAxis);
   vis.svg.select('.y-axis').call(vis.yAxis);
 
-  // Draw line chart
-  vis.svg.select('#line-chart')
-         .datum(vis.displayData[drug][unit]);
+  // Draw lines
+  for (race in vis.displayData) {
+    var line = d3.line()
+                 .x(function(d) {
+                   return vis.x(d.year);
+                 })
+                 .y(function(d) {
+                   return vis.y(d.percent);
+                 });
 
-  var line = d3.line()
-               .x(function(d) {
-                 return vis.x(d.Year);
-               })
-               .y(function(d) {
-                 return vis.y(d.Quantity);
-               });
+    // Draw line chart
+    vis.svg.append('path')
+           .attr('id', 'line-chart')
+           .attr('fill', 'none')
+           .attr('stroke-width', 2.0)
+           .attr('clip-path', 'url(#clip)')
+           .datum(vis.displayData[race])
+           .attr('stroke', vis.colorPalette(race))
+           .attr('d', line);
 
-  vis.svg.select('#line-chart')
-         .attr('d', line);
+    // Draw circles
+    var circle = vis.svg.selectAll('circle')
+                        .data(vis.displayData[race], function(d, i) {
+                          return i
+                        });
 
-  // Draw circles
-  var circle = vis.svg.selectAll('circle')
-                      .data(vis.displayData, function(d, i) {
-                        return i
-                      });
+    circle.enter()
+          .append('circle')
+          .merge(circle)
+          .attr('r', 3)
+          .attr('fill', '#c3c3c3')
+          .attr('cx', function(d) {
+            return vis.x(d.year);
+          })
+          .attr('cy', function(d) {
+            return vis.y(d.percent);
+          })
+          .on('mouseover', vis.tip.show)
+          .on('mouseout', vis.tip.hide);
 
-  circle.enter()
-        .append('circle')
-        .merge(circle)
-        .attr('r', 5)
-        .attr('fill', '#c3c3c3')
-        .attr('cx', function(d) {
-          return vis.x(d.Year);
-        })
-        .attr('cy', function(d) {
-          return vis.y(d.Quantity);
-        })
-        .on('mouseover', vis.tip.show)
-        .on('mouseout', vis.tip.hide);
-
-  circle.exit()
-        .remove();
+    circle.exit()
+          .remove();
+  }
 }
