@@ -173,7 +173,6 @@ CompareDemographics.prototype.wrangleData = function(){
         }
     }
     vis.profileString += "<br>State: " + vis.stateSelect;
-    console.log(vis.profileString);
 
     $("#demographic-selector-profile-recap-header").html(vis.profileString);
 
