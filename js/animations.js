@@ -15,7 +15,7 @@ function animatePage() {
         }, 500);
       }
       // Transition to crime rates graph
-      else if (nextIndex === 6) {
+      else if (nextIndex === 7) {
         if (crimeRatesAnimated) {
           return;
         }

@@ -37,13 +37,16 @@ DrugUseChart.prototype.initVisualization = function() {
               .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
 
   // Axes
-  vis.x = d3.scaleTime()
+  vis.x = d3.scaleLinear()
             .range([0, vis.width]);
 
   vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
 
-  vis.xAxis = d3.axisBottom();
+  vis.xAxis = d3.axisBottom()
+                .tickFormat(d3.format('d'))
+                .ticks(5);
+
   vis.yAxis = d3.axisLeft();
 
   vis.svg.append('g')
@@ -64,7 +67,7 @@ DrugUseChart.prototype.initVisualization = function() {
          .attr('transform', 'rotate(-90)')
          .attr('x', -vis.height / 2)
          .attr('y', -vis.margin.left + 10)
-         .text('Percent Using in Past Month');
+         .text('Percent');
 
   // Axis title
   vis.svg.append('text')
@@ -79,22 +82,15 @@ DrugUseChart.prototype.initVisualization = function() {
          .attr('width', vis.width)
          .attr('height', vis.height);
 
-  vis.svg.append('path')
-         .datum(vis.data)
-         .attr('id', 'line-chart')
-         .attr('fill', 'none')
-         .attr('stroke', '#af070d')
-         .attr('stroke-width', 2.0)
-         .attr('clip-path', 'url(#clip)');
+  // Color palette
+  vis.colorPalette = d3.scaleOrdinal(d3.schemeCategory10);
 
   // Tooltip
   vis.tip = d3.tip()
               .attr('class', 'd3-tip')
               .offset([-10, 0])
               .html(function(d) {
-                var tooltipString = d.Percent;
-
-                return vis.tooltipString;
+                return d.percent + '%';
               });
 
   vis.svg.call(vis.tip);
@@ -108,7 +104,32 @@ DrugUseChart.prototype.initVisualization = function() {
 DrugUseChart.prototype.wrangleData = function() {
   var vis = this;
 
-  vis.displayData = vis.data;
+  vis.displayData = {};
+  vis.races = [];
+
+  // Nest by race.
+  var raceNested = d3.nest()
+                      .key(function(d) {
+                        return d.Race;
+                      })
+                      .object(vis.data);
+
+  for (race in raceNested) {
+    vis.races.push(race);
+
+    vis.displayData[race] = [];
+
+    for (year in raceNested[race][0]) {
+      if (isNaN(year)) {
+        continue;
+      }
+
+      vis.displayData[race].push({
+        year: year,
+        percent: raceNested[race][0][year]
+      })
+    }
+  }
 
   vis.updateVisualization();
 }
@@ -121,12 +142,10 @@ DrugUseChart.prototype.updateVisualization = function() {
 
   // Axis domains
   vis.x.domain([2002, 2013]);
+  vis.y.domain([0, 12]);
 
-  var maxY = d3.max(vis.displayData, function(d) {
-    return d.Quantity;
-  });
-
-  vis.y.domain([0, maxY * 1.2]);
+  // Color domain
+  vis.colorPalette.domain(vis.races);
 
   // Scale axes
   vis.xAxis.scale(vis.x);
@@ -136,41 +155,48 @@ DrugUseChart.prototype.updateVisualization = function() {
   vis.svg.select('.x-axis').call(vis.xAxis);
   vis.svg.select('.y-axis').call(vis.yAxis);
 
-  // Draw line chart
-  vis.svg.select('#line-chart')
-         .datum(vis.displayData[drug][unit]);
+  // Draw lines
+  for (race in vis.displayData) {
+    var line = d3.line()
+                 .x(function(d) {
+                   return vis.x(d.year);
+                 })
+                 .y(function(d) {
+                   return vis.y(d.percent);
+                 });
 
-  var line = d3.line()
-               .x(function(d) {
-                 return vis.x(d.Year);
-               })
-               .y(function(d) {
-                 return vis.y(d.Quantity);
-               });
+    // Draw line chart
+    vis.svg.append('path')
+           .attr('id', 'line-chart')
+           .attr('fill', 'none')
+           .attr('stroke-width', 2.0)
+           .attr('clip-path', 'url(#clip)')
+           .datum(vis.displayData[race])
+           .attr('stroke', vis.colorPalette(race))
+           .attr('d', line);
 
-  vis.svg.select('#line-chart')
-         .attr('d', line);
+    // Draw circles
+    var circle = vis.svg.selectAll('circle#' + race)
+                        .data(vis.displayData[race], function(d, i) {
+                          return i
+                        });
 
-  // Draw circles
-  var circle = vis.svg.selectAll('circle')
-                      .data(vis.displayData, function(d, i) {
-                        return i
-                      });
+    circle.enter()
+          .append('circle')
+          .merge(circle)
+          .attr('id', race)
+          .attr('r', 3)
+          .attr('fill', '#c3c3c3')
+          .attr('cx', function(d) {
+            return vis.x(d.year);
+          })
+          .attr('cy', function(d) {
+            return vis.y(d.percent);
+          })
+          .on('mouseover', vis.tip.show)
+          .on('mouseout', vis.tip.hide);
 
-  circle.enter()
-        .append('circle')
-        .merge(circle)
-        .attr('r', 5)
-        .attr('fill', '#c3c3c3')
-        .attr('cx', function(d) {
-          return vis.x(d.Year);
-        })
-        .attr('cy', function(d) {
-          return vis.y(d.Quantity);
-        })
-        .on('mouseover', vis.tip.show)
-        .on('mouseout', vis.tip.hide);
-
-  circle.exit()
-        .remove();
+    circle.exit()
+          .remove();
+  }
 }
