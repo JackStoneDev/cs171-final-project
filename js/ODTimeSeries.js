@@ -315,7 +315,10 @@ ODTimeSeries.prototype.updateVisualization = function() {
 
     // Call axis functions
     vis.svg.select('.x-axis').call(vis.xAxis);
-    vis.svg.select('.y-axis').call(vis.yAxis);
+    vis.svg.select('.y-axis')
+        .transition()
+        .duration(300)
+        .call(vis.yAxis);
 
     // Update y-axis text
     vis.svg.select('.y-label')
@@ -344,6 +347,8 @@ ODTimeSeries.prototype.updateVisualization = function() {
         });
 
     vis.svg.select('#od-line-chart')
+        .transition()
+        .duration(300)
         .attr('d', vis.line);
 
     // Draw line chart -- OVERALL
@@ -351,6 +356,8 @@ ODTimeSeries.prototype.updateVisualization = function() {
         .datum(vis.displayDataOverall);
 
     vis.svg.select('#od-line-chart2')
+        .transition()
+        .duration(300)
         .attr('d', vis.line)
         .attr('stroke', '#c3c3c3');
 
@@ -364,43 +371,46 @@ ODTimeSeries.prototype.updateVisualization = function() {
         .append('circle')
         .attr("id", "circles1")
         .merge(circle)
+        .on('mouseover', vis.tip.show)
+        .on('mouseout', vis.tip.hide)
         .attr('r', 3)
         .attr('fill', '#BD0026')
+        .transition()
+        .duration(300)
         .attr('cx', function(d) {
             return vis.x(d.Year);
         })
         .attr('cy', function(d) {
             return vis.y(d.Rate);
-        })
-        .on('mouseover', vis.tip.show)
-        .on('mouseout', vis.tip.hide);
+        });
 
     circle.exit()
         .remove();
 
     // Draw circles for all states
-    var circle2 = vis.svg.selectAll('#circles2')
+    vis.circle2 = vis.svg.selectAll('#circles2')
         .data(vis.displayDataOverall, function(d, i) {
             return i
         });
 
-    circle2.enter()
+    vis.circle2.enter()
         .append('circle')
         .attr("id", "circles2")
-        .merge(circle2)
+        .merge(vis.circle2)
+        .on('mouseover', vis.tip2.show)
+        .on('mouseout', vis.tip2.hide)
         .attr('r', 3)
         .attr('fill', '#c3c3c3')
+        .transition()
+        .duration(300)
         .attr('cx', function(d) {
             return vis.x(d.Year);
         })
         .attr('cy', function(d) {
             return vis.y(d.Rate);
-        })
-        .on('mouseover', vis.tip2.show)
-        .on('mouseout', vis.tip2.hide);
+        });
 
-    circle2.exit()
+    vis.circle2.exit()
         .remove();
-
 
 }

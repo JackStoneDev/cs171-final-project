@@ -81,6 +81,9 @@ body {
 }
 
 .label-filter {
+  display: inline;
+  font-weight: normal;
+  margin-bottom: 0;
   margin-left: 5px;
 }
 
@@ -185,11 +188,18 @@ text.legend {
   padding-top: 40px;
 }
 
+#demographic-selector-profile-recap-header{
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  padding-top: 10px;
+}
+
 #demographic-selector-number-header {
   font-size: 25px;
   font-weight: bold;
   color: white;
-  padding-top: 100px;
+  padding-top: 10px;
 }
 
 #state-select{

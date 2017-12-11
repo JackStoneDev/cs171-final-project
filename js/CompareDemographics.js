@@ -71,26 +71,34 @@ CompareDemographics.prototype.wrangleData = function(){
     // For profile A ....
     // Sex
     vis.sexSelect = [];
+    vis.sexSelectFull = [];
 	if (document.getElementById("AMale").checked){
         vis.sexSelect.push("M");
+        vis.sexSelectFull.push("Male");
 	}
     if (document.getElementById("AFemale").checked){
         vis.sexSelect.push("F");
+        vis.sexSelectFull.push("Female");
     }
 
     // Race
     vis.raceSelect = [];
+    vis.raceSelectFull = [];
     if (document.getElementById("AWhite").checked){
         vis.raceSelect.push("White");
+        vis.raceSelectFull.push("White");
     }
     if (document.getElementById("ABlack").checked){
         vis.raceSelect.push("Black or African American");
+        vis.raceSelectFull.push("Black");
     }
     if (document.getElementById("AAsian").checked){
         vis.raceSelect.push("Asian or Pacific Islander");
+        vis.raceSelectFull.push("Asian");
     }
     if (document.getElementById("AOriginalAmerican").checked){
         vis.raceSelect.push("American Indian or Alaska Native");
+        vis.raceSelectFull.push("Original American");
     }
 
     // Age
@@ -140,6 +148,33 @@ CompareDemographics.prototype.wrangleData = function(){
                 vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
         });
     }
+
+    // Print profile
+    vis.profileString = "";
+    vis.profileString += "Sex: ";
+    for (var ai = 0; ai < vis.sexSelectFull.length; ai++){
+        vis.profileString += vis.sexSelectFull[ai];
+        if (ai + 1 < vis.sexSelectFull.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>Race: ";
+    for (var ai = 0; ai < vis.raceSelectFull.length; ai++){
+        vis.profileString += vis.raceSelectFull[ai];
+        if (ai + 1 < vis.raceSelectFull.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>Ages: ";
+    for (var ai = 0; ai < vis.ageSelect.length; ai++){
+        vis.profileString += vis.ageSelect[ai];
+        if (ai + 1 < vis.ageSelect.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>State: " + vis.stateSelect;
+
+    $("#demographic-selector-profile-recap-header").html(vis.profileString);
 
     // // For profile B ....
     // vis.BdisplayData = vis.data;
