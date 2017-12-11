@@ -38,7 +38,7 @@ DrugUseChart.prototype.initVisualization = function() {
 
   // Axes
   vis.x = d3.scaleLinear()
-            .range([0, vis.width]);
+            .range([0, vis.width - 50]);
 
   vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
@@ -157,12 +157,20 @@ DrugUseChart.prototype.updateVisualization = function() {
 
   // Draw lines
   for (race in vis.displayData) {
+    // Store last values for later use in line labels.
+    var lastX = 0;
+    var lastY = 0;
+
     var line = d3.line()
                  .x(function(d) {
-                   return vis.x(d.year);
+                   lastX = vis.x(d.year);
+
+                   return lastX;
                  })
                  .y(function(d) {
-                   return vis.y(d.percent);
+                   lastY = vis.y(d.percent);
+
+                   return lastY;
                  });
 
     // Draw line chart
@@ -198,5 +206,12 @@ DrugUseChart.prototype.updateVisualization = function() {
 
     circle.exit()
           .remove();
+
+    // Draw line labels
+    vis.svg.append('text')
+           .text(race)
+           .attr('fill', vis.colorPalette(race))
+           .attr('x', lastX + 10)
+           .attr('y', lastY + 3);
   }
 }
