@@ -1,4 +1,4 @@
-=====TITLE=====
+## TITLE
 The United States of Drugs
 
 Authors
@@ -6,7 +6,7 @@ Christian Kardish
 Benjamin Molin
 Jack Stone
 
-=====SUBMISSION=====
+## SUBMISSION
 We have submitted a zip file with two files
 1. Project Files Folder
 	- All the code to render the live website
@@ -14,13 +14,13 @@ We have submitted a zip file with two files
 	- README
 2. Process Book PDF
 
-=====ABOUT=====
+## ABOUT
 This was the final project for a Harvard Visualization class, CS171: Visualization. We used D3 to create a website
 
 TF
 Charlene Hwang
 
-=====LINKS=====
+## LINKS
 Live Website - https://jackstonedev.github.io/cs171-final-project/
 
 Process book - https://docs.google.com/document/d/1dQqIP2BuFho94HvQORJIcJCAz79O230XJEafC6sDwVY/edit
@@ -29,12 +29,12 @@ GitHub - https://github.com/JackStoneDev/cs171-final-project
 
 Screencast - 
 
-====DATA=====
+## DATA
 1. CDC Wonder Multiple Cause of Death (for all charts relating to deaths)
 2. Bureau of Justice Statistics (for arrests by race category)
 3. Substance Abuse and Mental Health Services Administration (for drug usage rates by race category)
 
-====WALKTHROUGH=====
+## WALKTHROUGH
 1. Hero
 
 2. Intro Text
@@ -65,5 +65,5 @@ Screencast -
 
 8. About
 
-=====NOTES=====
+## NOTES
 1. There is no mention of the hispanic population in any of the overdose charts. This is because the dataset does not have hispanic as a race, but just categorizes each datapoint as "hispanic" or "non-hispanic". We chose to exclude this category for simplicity.
