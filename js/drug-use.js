@@ -59,7 +59,7 @@ DrugUseChart.prototype.initVisualization = function() {
   // Axis labels
   vis.svg.append('text')
          .attr('class', 'axis-label x-label')
-         .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 2) + ',' + (vis.height + vis.margin.top) + ')')
+         .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 2) + ',' + (vis.height + 50) + ')')
          .text('Year');
 
   vis.svg.append('text')
