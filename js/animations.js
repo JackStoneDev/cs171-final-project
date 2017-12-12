@@ -43,7 +43,7 @@ function animateLeadCopy() {
       'Since the War on Drugs began in the 1970s, drug usage has been declared a national epidemic in the United States.',
       'Over the last 45 years, the United States has spent over $1 trillion on this "War" in addition to causing a 500% increase in its prison population.  ',
       'Even with all of this effort, last year alone 64,000 Americans died from a drug overdose &mdash; and the overdose rate shows no sign of slowing down.',
-      'This webpage looks into what demographics are hit the hardest, and to demonstrate the ineffectiveness of current policies. Scroll down to learn more.'
+      'This webpage looks into what demographics are hit the hardest, and seeks to demonstrate the ineffectiveness of current policies. Scroll down to learn more.'
 ];
 
   leadCopyText.forEach(function(d, i) {
@@ -51,7 +51,7 @@ function animateLeadCopy() {
 
     $('#lead-copy #lead-' + i).delay(2700 * i)
                               .animate({
-                                'margin-top': -190 + (i * 110),
+                                'margin-top': -210 + (i * 110),
                                 'opacity': 1
                               }, 1000);
   });
