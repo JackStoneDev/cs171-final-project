@@ -208,9 +208,9 @@ InnovativeChart.prototype.updateVisualization = function() {
             .merge(legendText)
             .transition(1000)
             .attr('class', 'legend')
-            .attr('x', -250)
+            .attr('x', -200)
             .attr('y', function(d, i) {
-              return i * 50 + 30;
+              return i * 50
             })
             .attr('height', 50)
             .attr('width', 100)

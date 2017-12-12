@@ -71,6 +71,18 @@ body {
   text-align: left;
 }
 
+.section-text {
+  margin-top: 15px;
+}
+
+.header-filter {
+  margin-bottom: 20px;
+}
+
+.label-filter {
+  font-size: 18px;
+}
+
 .axis line,
 .axis path {
   stroke: #ffffff;

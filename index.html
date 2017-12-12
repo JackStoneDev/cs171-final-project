@@ -33,26 +33,28 @@
           <h2 class="chart-header">For Every 100 People Who Die from Overdoses...</h2>
           <div class="row">
             <div class="col-md-3">
-              <p>
+              <p class="section-text">
                 While it is easy to understand that there is an drug epidemic in America,
                 for some it is difficult to visualize who is truly affected by it. It is important
                 to identify those populations with the highest risk, so that we can better
                 understand underlying factors of the epidemic, and make sure those populations
-                are given the proper resources to beat drug addiction and prevent overdose.<br>
+                are given the proper resources to beat drug addiction and prevent overdose.<br><br>
                 In the chart to the right, you can break down overdose deaths by different
                 demographic features. As can be seen, even though white Americans make up
-                a majority of the United States, 9/10 overdose deaths are white Americans.
+                about 70% of the United States, 9/10 overdose deaths are white Americans.
               </p>
+              <div class="container-filter">
+                <h3 class="header-filter">Display:</h3>
+                <input type="radio" name="innovative-category" id="Innovative-Gender" value="Gender" checked="">
+                <label class="label-filter" for="Innovative-Gender">Sex</label><br>
+                <input type="radio" name="innovative-category" id="Innovative-Age" value="Age">
+                <label class="label-filter" for="Innovative-Age">Age</label><br>
+                <input type="radio" name="innovative-category" id="Innovative-Race" value="Race">
+                <label class="label-filter" for="Innovative-Race">Race</label><br>
+              </div>
             </div>
-            <div style="padding-top:140px" class="col-md-3">
-              <input type="radio" name="innovative-category" id="Innovative-Gender" value="Gender" checked="">
-              <label for="Innovative-Gender">Sex</label><br>
-              <input type="radio" name="innovative-category" id="Innovative-Age" value="Age">
-              <label for="Innovative-Age">Age</label><br>
-              <input type="radio" name="innovative-category" id="Innovative-Race" value="Race">
-              <label for="Innovative-Race">Race</label><br>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
               <div class="align-content-center" id="innovative-chart"></div>
             </div>
           </div>
