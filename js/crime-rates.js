@@ -91,6 +91,9 @@ CrimeRateChart.prototype.initVisualization = function() {
         .text('Population Rate %')
         .attr("transform", "rotate(-90)");
 
+    // Color palette
+    vis.colorPalette = d3.scaleOrdinal(d3.schemeCategory10);
+
     d3.csv("data/crime rates/War on Drugs Timeline.csv", function(error, csvData) {
         vis.timeline = csvData;
         vis.wrangleData();
@@ -131,7 +134,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
   //  var offenses = ["All Offenses", "Drug Abuse Violations -Total", "Drug-Sale-Manufacturing-Total", "Drug-Possession-SubTotal"];
     var races = ["Asian Americans", "Native Americans", "White Americans", "All Races", "Black Americans"];
-    var colors = ["#eff3ff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"];
+    vis.colorPalette.domain(races);
 
     // Do data exist for this unit and drug type?
     if ('undefined' === typeof vis.displayData) {
@@ -258,7 +261,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
             .datum(vis.displayData)
             .attr('id', 'line-chart' + i)
             .attr('fill', 'none')
-            .attr('stroke', colors[i])
+            .attr('stroke', vis.colorPalette(d))
             .attr('stroke-width', 2.0)
             .attr('clip-path', 'url(#clip' + i + ')');
 
@@ -297,7 +300,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
         vis.svg.append("text")
             .text(d)
             .attr("class", "race-labels")
-            .attr('fill', colors[i])
+            .attr('fill', vis.colorPalette(d))
             .attr('x', lastX + 10)
             .attr('y', lastY + 3);
 
@@ -314,7 +317,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
                 .delay(function(t,j){return 200*j})
            .attr("id", "year" + i)
             .attr('r', 3)
-            .attr('fill', colors[i])
+            .attr('fill', vis.colorPalette(d))
             .attr('cx', function(a) {
                 return vis.x(a.Year);
             })
