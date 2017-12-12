@@ -20,7 +20,7 @@ InnovativeChart.prototype.initVisualization = function() {
 
   vis.margin = {
     top: 40,
-    right: 40,
+    right: 0,
     bottom: 60,
     left: 60
   };
