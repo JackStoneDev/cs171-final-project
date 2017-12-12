@@ -233,7 +233,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
             vis.yeartipString += "Black Americans: <span style='color:white'>" + d['Black Americans'] + "%" + "</span><br>";
             vis.yeartipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
-            vis.yeartipString += "White Americans: <span style='color:white'>" + d['White American'] + "%" + "</span><br>";
+            vis.yeartipString += "White Americans: <span style='color:white'>" + d['White Americans'] + "%" + "</span><br>";
             vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
             vis.yeartipString += "Asian Americans: <span style='color:white'>" + d['Asian Americans'] + "%" + "</span><br>";
 
