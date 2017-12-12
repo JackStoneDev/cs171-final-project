@@ -175,23 +175,22 @@ text.legend {
   text-decoration: underline;
 }
 
-/*For compare demographics*/
 #compare-demographics-average-number, #compare-demographics-compare-number {
   font-size: 135px;
   font-weight: bolder;
   color: #fdff65;
-  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
-.compare-demographics-number-text-risk {
+#compare-demographics-number-text-risk {
   font-size: 50px;
   font-weight: bold;
   color: white;
 }
 
-.compare-demographics-number-text-compared {
-  font-size: 30px;
-  font-weight: bold;
+#compare-demographics-number-text-compared {
+  font-size: 25px;
+  font-weight: 200;
   color: white;
 }
 
@@ -205,14 +204,18 @@ text.legend {
 
 #demographic-selector-profile-recap-header{
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 200;
   color: white;
   padding-top: 10px;
 }
 
+.recap-identifier {
+  font-weight: 500;
+}
+
 #demographic-selector-number-header {
   font-size: 25px;
-  font-weight: bold;
+  font-weight: 200;
   color: white;
   padding-top: 10px;
 }

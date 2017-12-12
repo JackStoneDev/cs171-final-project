@@ -151,28 +151,28 @@ CompareDemographics.prototype.wrangleData = function(){
 
     // Print profile
     vis.profileString = "";
-    vis.profileString += "Sex: ";
+    vis.profileString += "<span class=\"recap-identifier\">Sex:</span> ";
     for (var ai = 0; ai < vis.sexSelectFull.length; ai++){
         vis.profileString += vis.sexSelectFull[ai];
         if (ai + 1 < vis.sexSelectFull.length) {
             vis.profileString += ", "
         }
     }
-    vis.profileString += "<br>Race: ";
+    vis.profileString += "<br><span class=\"recap-identifier\">Race:</span> ";
     for (var ai = 0; ai < vis.raceSelectFull.length; ai++){
         vis.profileString += vis.raceSelectFull[ai];
         if (ai + 1 < vis.raceSelectFull.length) {
             vis.profileString += ", "
         }
     }
-    vis.profileString += "<br>Ages: ";
+    vis.profileString += "<br><span class=\"recap-identifier\">Ages:</span> ";
     for (var ai = 0; ai < vis.ageSelect.length; ai++){
         vis.profileString += vis.ageSelect[ai];
         if (ai + 1 < vis.ageSelect.length) {
             vis.profileString += ", "
         }
     }
-    vis.profileString += "<br>State: " + vis.stateSelect;
+    vis.profileString += "<br><span class=\"recap-identifier\">State:</span> " + vis.stateSelect;
 
     $("#demographic-selector-profile-recap-header").html(vis.profileString);
 
