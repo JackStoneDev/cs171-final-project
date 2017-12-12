@@ -7,25 +7,20 @@ var crimeRatesAnimated = false;
 function animatePage() {
   $('#fullpage').fullpage({
     navigation: true,
-    onLeave: function(index, nextIndex, direction) {
-      // Transition from hero to lead copy
-      if (nextIndex === 2) {
+    lockAnchors: true,
+    afterLoad: function(anchorLink) {
+      if (anchorLink === 'lead') {
         setTimeout(function() {
           animateLeadCopy();
         }, 500);
       }
-      // Transition to crime rates graph
-      else if (nextIndex === 7) {
+      else if (anchorLink === 'crime-rates') {
         if (crimeRatesAnimated) {
           return;
         }
 
         renderCrimeRatesGraph();
         crimeRatesAnimated = true;
-      }
-      else if (nextIndex === 4){
-          $('select>option:eq(0)').prop('selected', true);
-          compDemographics.wrangleData();
       }
     }
   });
