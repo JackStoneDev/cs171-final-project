@@ -1,7 +1,7 @@
 ## TITLE
 The United States of Drugs
 
-Authors
+- Authors
 	- Christian Kardish
 	- Benjamin Molin
 	- Jack Stone
