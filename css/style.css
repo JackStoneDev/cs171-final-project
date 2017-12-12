@@ -224,6 +224,6 @@ text.legend {
   color: lightgray;
 }
 
-#event{
+#event, .counties{
   cursor: pointer;
 }
