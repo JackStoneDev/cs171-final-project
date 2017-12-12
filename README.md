@@ -27,7 +27,7 @@ Process book - https://docs.google.com/document/d/1dQqIP2BuFho94HvQORJIcJCAz79O2
 
 GitHub - https://github.com/JackStoneDev/cs171-final-project
 
-Screencast - 
+Screencast - https://www.youtube.com/watch?v=xCdJsis_bAI
 
 ## DATA
 1. CDC Wonder Multiple Cause of Death (for all charts relating to deaths)
