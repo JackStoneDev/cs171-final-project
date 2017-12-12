@@ -35,7 +35,6 @@ body {
 
 .chart-subheader {
   font-size: 25px;
-  margin-bottom: 60px;
 }
 
 #headline {
@@ -69,6 +68,11 @@ body {
 
 .align-content-left {
   text-align: left;
+}
+
+.large-copy {
+  font-size: 20px;
+  font-weight: 200;
 }
 
 .section-text {
@@ -243,11 +247,14 @@ text.legend {
   color: lightgray;
 }
 
-#about-sources{
-  font-size : 22px;
-  color: lightgray;
-}
-
 #event{
   cursor: pointer;
+}
+
+.list-content {
+  font-size: 15px;
+}
+
+#youtube-embed {
+  margin-top: 100px;
 }
