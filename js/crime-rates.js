@@ -1,5 +1,5 @@
 /**
- * SeizuresChart
+ * CrimeRateChart
  * @param _parentElement -- the HTML element in which to draw the visualization
  * @param _data          -- the data
  */

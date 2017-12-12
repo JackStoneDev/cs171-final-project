@@ -1,7 +1,6 @@
 $(document).ready(function() {
   queue()
       .defer(d3.csv, 'data/drug-use-rates.csv')
-      .defer(d3.csv, 'data/drug-seizures.csv')
       .defer(d3.csv, 'data/drug-overdoses-innovative.csv')
       .await(createVisualization);
 
@@ -11,9 +10,8 @@ $(document).ready(function() {
 /**
  * Render visualizations
  */
-function createVisualization(error, drugUseData, drugSeizuresData, drugOverdoseInnovativeData) {
+function createVisualization(error, drugUseData, drugOverdoseInnovativeData) {
   drugUseChart = new DrugUseChart('drug-use-chart', drugUseData);
-  seizuresChart = new SeizuresChart('drug-seizures-chart', drugSeizuresData);
   InnovativeChart = new InnovativeChart('innovative-chart', drugOverdoseInnovativeData);
 }
 

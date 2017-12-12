@@ -91,11 +91,6 @@ body {
   cursor: pointer;
 }
 
-#drug-seizures-chart .axis-label {
-  font-size: 14px;
-  text-anchor: middle;
-}
-
 input[type="radio"] {
   margin-right: 5px;
 }
