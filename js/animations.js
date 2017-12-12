@@ -50,7 +50,7 @@ function animateLeadCopy() {
 
     $('#lead-copy #lead-' + i).delay(2000 * i)
                               .animate({
-                                'margin-top': -140 + (i * 110),
+                                'margin-top': -180 + (i * 110),
                                 'opacity': 1
                               }, 1000);
   });
