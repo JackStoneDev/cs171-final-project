@@ -25,7 +25,7 @@ CrimeRateChart.prototype.initVisualization = function() {
         top: 40,
         right: 120,
         bottom: 60,
-        left: 100
+        left: 60
     };
 
     vis.width = (document.getElementById(vis.parentElement).offsetWidth) - vis.margin.right - vis.margin.left,
@@ -70,12 +70,12 @@ CrimeRateChart.prototype.initVisualization = function() {
 
     vis.timelineGraph.append('g')
         .attr('class', 'timeline-axis axis')
-        .attr('transform', 'translate(0, ' + (vis.lineHeight/2) + ')');
+        .attr('transform', 'translate(0, ' + (vis.margin.top + 20) + ')');
 
     // Axis labels
     vis.timelineGraph.append('text')
         .attr('class', 'axis-label x-label')
-        .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 3) + ',' + vis.margin.top + ')')
+        .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 3) + ',' + (vis.margin.top - 10) + ')')
         .text('Events of Interest - Click to Learn More');
 
     vis.svg.append('text')
@@ -185,7 +185,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
                 .attr("x2", vis.x(d.Year))
                 .attr("y2", vis.height)
                 .style("stroke-width", 2)
-                .style("stroke", "red")
+                .style("stroke", "#d62628")
                 .style("fill", "none");
         })
         .on("mouseout", function(d){
@@ -193,8 +193,8 @@ CrimeRateChart.prototype.updateVisualization = function() {
         })
         .on("click", function(d){
             document.getElementById('crime-rates-text').innerHTML=
-                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "</span><br>" +
-                "<span style='font-size:16px;'>" + d.Year +"</strong></span></center><br><br> " + d.Description + "<br>";
+                "<h4 id=\"header-crime-rate-event\">" + d.Year + ": " + d.Event + "</h4>" +
+                d.Description + "<br>";
             vis.svg.append("line")
                 .attr("class", "event-line-clicked")
                 .attr("x1", vis.x(d.Year))
@@ -209,7 +209,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
         .delay(function(t,j){return 583*j})
         .attr("id", "event")
         .attr('r', 5)
-        .attr('fill', 'white')
+        .attr('fill', '#d62628')
         .attr('cx', function(a) {
             return vis.x(a.Year);
         })
