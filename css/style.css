@@ -79,6 +79,10 @@ body {
   margin-bottom: 20px;
 }
 
+label.label-filter {
+  font-weight: 200;
+}
+
 .label-filter-large {
   font-size: 18px;
 }
