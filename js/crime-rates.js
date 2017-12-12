@@ -1,5 +1,5 @@
 /**
- * SeizuresChart
+ * CrimeRateChart
  * @param _parentElement -- the HTML element in which to draw the visualization
  * @param _data          -- the data
  */
@@ -75,8 +75,8 @@ CrimeRateChart.prototype.initVisualization = function() {
     // Axis labels
     vis.timelineGraph.append('text')
         .attr('class', 'axis-label x-label')
-        .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 2) + ',' + vis.margin.top + ')')
-        .text('Events of Interest');
+        .attr('transform', 'translate(' + ((vis.width - vis.margin.left) / 3) + ',' + vis.margin.top + ')')
+        .text('Events of Interest - Click to Learn More');
 
     vis.svg.append('text')
         .attr('class', 'axis-label x-label')
@@ -88,7 +88,7 @@ CrimeRateChart.prototype.initVisualization = function() {
         .attr('transform', 'rotate(-90)')
         .attr('x', -vis.height / 2)
         .attr('y', -vis.margin.left + 10)
-        .text('Population Rate')
+        .text('Population Rate %')
         .attr("transform", "rotate(-90)");
 
     d3.csv("data/crime rates/War on Drugs Timeline.csv", function(error, csvData) {
@@ -108,10 +108,10 @@ CrimeRateChart.prototype.wrangleData = function() {
     // Convert strings to percentage values
     vis.displayData.forEach(function(d) {
         d["All Races"] = parseFloat((d["All Races"].replace(/,/g, ''))*100).toFixed(2);
-        d["Whites"] = parseFloat((d["Whites"].replace(/,/g, ''))*100).toFixed(2);
-        d["Blacks"] = parseFloat((d["Blacks"].replace(/,/g, ''))*100).toFixed(2);
+        d["White Americans"] = parseFloat((d["White Americans"].replace(/,/g, ''))*100).toFixed(2);
+        d["Black Americans"] = parseFloat((d["Black Americans"].replace(/,/g, ''))*100).toFixed(2);
         d["Native Americans"] = parseFloat((d["Native Americans"].replace(/,/g, ''))*100).toFixed(2);
-        d["Asians"] = parseFloat((d["Asians"].replace(/,/g, ''))*100).toFixed(2);
+        d["Asian Americans"] = parseFloat((d["Asian Americans"].replace(/,/g, ''))*100).toFixed(2);
         d.Year = +d.Year;
     });
 
@@ -130,7 +130,7 @@ CrimeRateChart.prototype.updateVisualization = function() {
     var vis = this;
 
   //  var offenses = ["All Offenses", "Drug Abuse Violations -Total", "Drug-Sale-Manufacturing-Total", "Drug-Possession-SubTotal"];
-    var races = ["Asians", "Native Americans", "Whites", "All Races", "Blacks"];
+    var races = ["Asian Americans", "Native Americans", "White Americans", "All Races", "Black Americans"];
     var colors = ["#eff3ff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"];
 
     // Do data exist for this unit and drug type?
@@ -149,10 +149,10 @@ CrimeRateChart.prototype.updateVisualization = function() {
 
     //For datasets with all races for one drug violation
     var offenseMaxes = [
-        d3.max(vis.displayData, function(d) { return d["Whites"]; }),
-        d3.max(vis.displayData, function(d) { return d["Blacks"]; }),
+        d3.max(vis.displayData, function(d) { return d["White Americans"]; }),
+        d3.max(vis.displayData, function(d) { return d["Black Americans"]; }),
         d3.max(vis.displayData, function(d) { return d["Native Americans"]; }),
-        d3.max(vis.displayData, function(d) { return d["Asians"]; })
+        d3.max(vis.displayData, function(d) { return d["Asian Americans"]; })
     ];
 
     var maxY = d3.max(offenseMaxes);
@@ -177,11 +177,12 @@ CrimeRateChart.prototype.updateVisualization = function() {
     events.enter()
         .append('circle')
         .on("mouseover", function(d){
+            vis.svg.selectAll(".event-line-clicked").remove();
             vis.svg.append("line")
                 .attr("class", "event-line")
-                .attr("x1", vis.x(d.Year))  //<<== change your code here
+                .attr("x1", vis.x(d.Year))
                 .attr("y1", 0)
-                .attr("x2", vis.x(d.Year))  //<<== and here
+                .attr("x2", vis.x(d.Year))
                 .attr("y2", vis.height)
                 .style("stroke-width", 2)
                 .style("stroke", "red")
@@ -192,8 +193,17 @@ CrimeRateChart.prototype.updateVisualization = function() {
         })
         .on("click", function(d){
             document.getElementById('crime-rates-text').innerHTML=
-                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "<br>" + d.Year +"</strong></span></center><br><br> " +
-                "<span style='color:white'>" + d.Description + "</span><br>";
+                "<center><span style='color:red; font-size:20px;'><strong>" + d.Event + "</span><br>" +
+                "<span style='font-size:16px;'>" + d.Year +"</strong></span></center><br><br> " + d.Description + "<br>";
+            vis.svg.append("line")
+                .attr("class", "event-line-clicked")
+                .attr("x1", vis.x(d.Year))
+                .attr("y1", 0)
+                .attr("x2", vis.x(d.Year))
+                .attr("y2", vis.height)
+                .style("stroke-width", 2)
+                .style("stroke", "red")
+                .style("fill", "none");
         })
         .transition()
         .delay(function(t,j){return 583*j})
@@ -221,15 +231,11 @@ CrimeRateChart.prototype.updateVisualization = function() {
                 "<center><strong>Rate of Population That <br> " +
                 "Committed a Drug Offense in " + d.Year +"</strong> <span style='color:black'></span><br><br>";
 
-            vis.yeartipString += "Black Americans: <span style='color:white'>" + d.Blacks + "%" + "</span><br>";
+            vis.yeartipString += "Black Americans: <span style='color:white'>" + d['Black Americans'] + "%" + "</span><br>";
             vis.yeartipString += "All Americans: <span style='color:white'>" + d['All Races'] + "%" + "</span><br>";
-            vis.yeartipString += "White Americans: <span style='color:white'>" + d.Whites + "%" + "</span><br>";
+            vis.yeartipString += "White Americans: <span style='color:white'>" + d['White American'] + "%" + "</span><br>";
             vis.yeartipString += "Native Americans: <span style='color:white'>" + d['Native Americans'] + "%" + "</span><br>";
-            vis.yeartipString += "Asian Americans: <span style='color:white'>" + d.Asians + "%" + "</span><br>";
-
-            //TODO can integrate ODs that year as well
-//            vis.yeartipString += "Deaths: <span style='color:white'>" + d.properties.Deaths.toLocaleString() + "</span><br>";
-//            vis.yeartipString += "Population: <span style='color:white'>" + d.properties.Population.toLocaleString() + "</span><br>";
+            vis.yeartipString += "Asian Americans: <span style='color:white'>" + d['Asian Americans'] + "%" + "</span><br>";
 
             vis.yeartipString +=  "</center>";
             return vis.yeartipString;

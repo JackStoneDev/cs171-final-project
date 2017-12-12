@@ -17,18 +17,36 @@
   </head>
   <body>
     <div id="fullpage">
-      <div class="section" id="hero">
+      <div class="section" id="hero" data-anchor="hero">
         <div class="container">
           <h1 id="headline">The United States of Drugs</h1>
-          <h3><center>Scroll Down to Visualize the Epidemic</center></h3>
+          <h3 id="subheadline">Scroll Down to Visualize the Epidemic.</h3>
         </div>
       </div>
-      <div class="section">
+      <div class="section" data-anchor="lead">
         <div class="container">
           <p id="lead-copy"></p>
         </div>
       </div>
-      <div class="section">
+      <div class="section" data-anchor="innovative">
+        <div class="container">
+          <h2 class="chart-header">For Every 100 People Who Die from Overdoses...</h2>
+          <div class="row">
+            <div style="padding-top:140px" class="col-md-4">
+              <input type="radio" name="innovative-category" id="Innovative-Gender" value="Gender" checked="">
+              <label for="Innovative-Gender">Sex</label><br>
+              <input type="radio" name="innovative-category" id="Innovative-Age" value="Age">
+              <label for="Innovative-Age">Age</label><br>
+              <input type="radio" name="innovative-category" id="Innovative-Race" value="Race">
+              <label for="Innovative-Race">Race</label><br>
+            </div>
+            <div class="col-md-8">
+              <div class="align-content-center" id="innovative-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section" data-anchor="drug-overdoses">
         <div class="container">
           <div class="row">
             <div id="od-choropleth-div">
@@ -44,26 +62,25 @@
               </div>
 
               <div class="col-md-1">
-                <!-- Checkboxes -->
                 <p class="demographic-selector-header">Sex</p>
-                <input type="checkbox" id="Male" checked="checked" onchange="odChoropleth.wrangleData()"> Male<br>
-                <input type="checkbox" id="Female" checked="checked" onchange="odChoropleth.wrangleData()"> Female<br>
+                <input type="checkbox" id="Male" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="Male">Male</label><br>
+                <input type="checkbox" id="Female" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="Female">Female</label><br>
                 <br>
                 <p class="demographic-selector-header">Race</p>
-                <input type="checkbox" id="White" checked="checked" onchange="odChoropleth.wrangleData()"> White<br>
-                <input type="checkbox" id="Black" checked="checked" onchange="odChoropleth.wrangleData()"> Black<br>
-                <input type="checkbox" id="Asian" checked="checked" onchange="odChoropleth.wrangleData()"> Asian<br>
-                <input type="checkbox" id="OriginalAmerican" checked="checked" onchange="odChoropleth.wrangleData()"> Original American<br>
+                <input type="checkbox" id="White" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="White">White</label><br>
+                <input type="checkbox" id="Black" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="Black">Black</label><br>
+                <input type="checkbox" id="Asian" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="Asian">Asian</label><br>
+                <input type="checkbox" id="OriginalAmerican" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="OriginalAmerican">Original American</label><br>
                 <br>
                 <p class="demographic-selector-header">Age</p>
-                <input type="checkbox" id="15-24" checked="checked" onchange="odChoropleth.wrangleData()"> 15-24<br>
-                <input type="checkbox" id="25-34" checked="checked" onchange="odChoropleth.wrangleData()"> 25-34<br>
-                <input type="checkbox" id="35-44" checked="checked" onchange="odChoropleth.wrangleData()"> 35-44<br>
-                <input type="checkbox" id="45-54" checked="checked" onchange="odChoropleth.wrangleData()"> 45-54<br>
-                <input type="checkbox" id="55-64" checked="checked" onchange="odChoropleth.wrangleData()"> 55-64<br>
-                <input type="checkbox" id="65-74" checked="checked" onchange="odChoropleth.wrangleData()"> 65-74<br>
-                <input type="checkbox" id="75-84" checked="checked" onchange="odChoropleth.wrangleData()"> 74-84<br>
-                <input type="checkbox" id="85+" checked="checked" onchange="odChoropleth.wrangleData()"> 85+<br>
+                <input type="checkbox" id="15-24" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="15-24">15-24</label><br>
+                <input type="checkbox" id="25-34" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="25-34">25-34</label><br>
+                <input type="checkbox" id="35-44" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="35-44">35-44</label><br>
+                <input type="checkbox" id="45-54" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="45-54">45-54</label><br>
+                <input type="checkbox" id="55-64" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="55-64">55-64</label><br>
+                <input type="checkbox" id="65-74" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="65-74">65-74</label><br>
+                <input type="checkbox" id="75-84" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="75-84">75-84</label><br>
+                <input type="checkbox" id="85+" checked="checked" onchange="odChoropleth.wrangleData()"><label class="label-filter" for="85+">85+</label><br>
               </div>
                 <div class="col-md-5">
                 <div id="OD-Time-Series"></div>
@@ -73,8 +90,7 @@
           </div>
         </div>
       </div>
-      <!-- Compare Demographics-->
-      <div class="section">
+      <div class="section" data-anchor="comparing-demographics">
         <div class="container">
           <div id = "compare-demographics-div">
             <div class="container-fluid">
@@ -94,27 +110,25 @@
                   </p>
                 </div>
                 <div class="col-md-2">
-                  <!--<p class="demographic-selector-profile-header">Profile A</p>-->
-                  <!-- Checkboxes -->
                   <p style="padding-top: 40px" class="demographic-selector-header">Sex</p>
-                  <input type="checkbox" id="AMale" checked="checked" onchange="compDemographics.wrangleData()"> Male<br>
-                  <input type="checkbox" id="AFemale" onchange="compDemographics.wrangleData()"> Female<br>
+                  <input type="checkbox" id="AMale" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="AMale">Male</label><br>
+                  <input type="checkbox" id="AFemale" onchange="compDemographics.wrangleData()"><label class="label-filter" for="AFemale">Female</label><br>
                   <br>
                   <p class="demographic-selector-header">Race</p>
-                  <input type="checkbox" id="AWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>
-                  <input type="checkbox" id="ABlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>
-                  <input type="checkbox" id="AAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>
-                  <input type="checkbox" id="AOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>
+                  <input type="checkbox" id="AWhite" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="AWhite">White</label><br>
+                  <input type="checkbox" id="ABlack" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="ABlack">Black</label><br>
+                  <input type="checkbox" id="AAsian"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="AAsian">Asian</label><br>
+                  <input type="checkbox" id="AOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="AOriginalAmerican">Original American</label><br>
                   <br>
                   <p class="demographic-selector-header">Age</p>
-                  <input type="checkbox" id="A15-24" onchange="compDemographics.wrangleData()"> 15-24<br>
-                  <input type="checkbox" id="A25-34" onchange="compDemographics.wrangleData()"> 25-34<br>
-                  <input type="checkbox" id="A35-44" onchange="compDemographics.wrangleData()"> 35-44<br>
-                  <input type="checkbox" id="A45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>
-                  <input type="checkbox" id="A55-64" onchange="compDemographics.wrangleData()"> 55-64<br>
-                  <input type="checkbox" id="A65-74" onchange="compDemographics.wrangleData()"> 65-74<br>
-                  <input type="checkbox" id="A75-84" onchange="compDemographics.wrangleData()"> 74-84<br>
-                  <input type="checkbox" id="A85+" onchange="compDemographics.wrangleData()"> 85+<br>
+                  <input type="checkbox" id="A15-24"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A15-24">15-24</label><br>
+                  <input type="checkbox" id="A25-34"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A25-34">25-34</label><br>
+                  <input type="checkbox" id="A35-44" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="A35-44">35-44</label><br>
+                  <input type="checkbox" id="A45-54" checked="checked" onchange="compDemographics.wrangleData()"><label class="label-filter" for="A45-54">45-54</label><br>
+                  <input type="checkbox" id="A55-64"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A55-64">55-64</label><br>
+                  <input type="checkbox" id="A65-74"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A65-74">65-74</label><br>
+                  <input type="checkbox" id="A75-84"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A75-84">75-84</label><br>
+                  <input type="checkbox" id="A85+"  onchange="compDemographics.wrangleData()"><label class="label-filter" for="A85+">85+</label><br>
                   <br>
                   <p class="demographic-selector-header">State</p>
                   <select name ="dropdown" id = "state-select">
@@ -171,30 +185,8 @@
                     <option value="Wyoming">Wyoming</option>
                   </select>
                 </div>
-                <!--<div class="col-md-2">-->
-                  <!--<p class="demographic-selector-profile-header">Profile B</p>-->
-                  <!--&lt;!&ndash; Checkboxes &ndash;&gt;-->
-                  <!--<p class="demographic-selector-header">Sex</p>-->
-                  <!--<input type="checkbox" id="BMale" onchange="compDemographics.wrangleData()"> Male<br>-->
-                  <!--<input type="checkbox" id="BFemale" checked="checked" onchange="compDemographics.wrangleData()"> Female<br>-->
-                  <!--<br>-->
-                  <!--<p class="demographic-selector-header">Race</p>-->
-                  <!--<input type="checkbox" id="BWhite" checked="checked" onchange="compDemographics.wrangleData()"> White<br>-->
-                  <!--<input type="checkbox" id="BBlack" checked="checked" onchange="compDemographics.wrangleData()"> Black<br>-->
-                  <!--<input type="checkbox" id="BAsian" checked="checked" onchange="compDemographics.wrangleData()"> Asian<br>-->
-                  <!--<input type="checkbox" id="BOriginalAmerican" checked="checked" onchange="compDemographics.wrangleData()"> Original American<br>-->
-                  <!--<br>-->
-                  <!--<p class="demographic-selector-header">Age</p>-->
-                  <!--<input type="checkbox" id="B15-24" onchange="compDemographics.wrangleData()"> 15-24<br>-->
-                  <!--<input type="checkbox" id="B25-34" onchange="compDemographics.wrangleData()"> 25-34<br>-->
-                  <!--<input type="checkbox" id="B35-44" onchange="compDemographics.wrangleData()"> 35-44<br>-->
-                  <!--<input type="checkbox" id="B45-54" checked="checked" onchange="compDemographics.wrangleData()"> 45-54<br>-->
-                  <!--<input type="checkbox" id="B55-64" onchange="compDemographics.wrangleData()"> 55-64<br>-->
-                  <!--<input type="checkbox" id="B65-74" onchange="compDemographics.wrangleData()"> 65-74<br>-->
-                  <!--<input type="checkbox" id="B75-84" onchange="compDemographics.wrangleData()"> 74-84<br>-->
-                  <!--<input type="checkbox" id="B85+" onchange="compDemographics.wrangleData()"> 85+<br>-->
-                <!--</div>-->
                 <div class="col-md-6">
+                  <p id="demographic-selector-profile-recap-header"></p>
                   <p id="demographic-selector-number-header">The rate of drug overdose for this profile is...</p>
                   <div class="col-md-12">
                     <div id="compare-demographics-average-number">1.00</div>
@@ -202,58 +194,50 @@
                     <div class="compare-demographics-number-text-compared">Compared to the Average American</div>
                     <p style = "padding-top : 40px">Note: Rates are less accurate for smaller populations.</p>
                   </div>
-                  <!--<div class="col-md-6">-->
-                    <!--<div id="compare-demographics-compare-number">1.00</div>-->
-                    <!--<div class="compare-demographics-number-text-risk">x Risk</div>-->
-                    <!--<div class="compare-demographics-number-text-compared">Compared to Profile B</div>-->
-                  <!--</div>-->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section" data-anchor="drug-usage">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <h2 class="chart-header header-offset-top align-content-left">Drug Seizures</h2>
+              <h2 class="chart-header header-offset-top align-content-left">Drug Usage</h2>
               <p>
-                Drug seizures is perhaps the most tangible aspect to the "success" on the United States' War on Drugs.
-                Though the range of this data is limited, it shows that seizures have not been all that consistent over the last five years,
-                and certainly does not correlate with the vast increase in ODs during this time period as demonstrated in the visualization
-                prior. This begs us to ask: is the current War on Drugs policies all that effective in saving lives?
+                As is evident in the last few visualizations, certain populations are affected disproportionately by overdose deaths
+                than others. Yet, what is immediately apparent in this graph is that drug usage rates are pretty consistent between
+                Black Americans, White Americans, and Hispanic Americans. <br/> <br/>
+                We find these statistics shocking, since it appears that drug usage alone does not present a valid risk for overdosing on drugs.
+                Rather, we believe that specific drug usage is a better measurement for overdose risk, as in cocaine and heroin will
+                have a higher risk than marijuanna. Additionally, we believe that perhaps certain populations in certain areas are more likely
+                to use one type of drug over another. <br/> <br/>
+                Therefore, while the War on Drugs is often thought of in a national context, we believe it is much more important
+                to comabt, prevent, and treat those affected by epidemics that are prevalent on a local and regional level.
               </p>
             </div>
             <div class="col-md-6">
-              <div id="drug-seizures-chart"></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <h4>Drug Type</h4>
-                  <div id="drug-seizures-filter-drug"></div>
-                </div>
-                <div class="col-md-6">
-                  <h4>Unit</h4>
-                  <div class="drug-seizures-filter" id="drug-seizures-filter-unit"></div>
-                </div>
-              </div>
+              <div id="drug-use-chart"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section" data-anchor="crime-rates">
         <div class="container">
           <div class="row">
             <div class="col-md-4">
               <h2 class="chart-header header-offset-top align-content-left">Drug Arrests by Race Population</h2>
               <div id="crime-rates-text">
-                While the the use of drugs has universally increased across all populations over the last 35 years,
-                The War on Drugs has drastically affected African Americans more so than any other populations, with
-                conviction rates twice the national average.
+                While the last visualization displayed how drug usage has remained pretty consistent amongst Black Americans, White Americans,
+                and Hispanic Americans since at least 2002, the War on Drugs has drastically affected Black Americans more so than any
+                other populations with conviction rates twice the national average. These stark differences can be attributed to
+                a number of political events since 1980, but it would be foolish to ignore that Black Americans are unjustly targeted by these
+                policies.
                 <br><br>
-
-                Take a look at the following visualization to understand the different arrest rates per year across all races since 1980,
-                as well as certain policies that have affected these rates over time.
+                We hope that the American government will soon realize the War on Drugs' failure and injustice to minority populations, and will
+                overhaul the penal system with an effective criminal justice reform that targets all populations equally and fairly and reduces
+                the rates in drug usage and overdoses in the years to come.
               </div>
             </div>
             <div class="col-md-8">
@@ -263,25 +247,7 @@
           </div>
         </div>
       </div>
-      <div class="section">
-        <div class="container">
-          <h2 class="chart-header">For Every 100 People Who Die from Overdoses...</h2>
-          <div class="row">
-            <div style="padding-top:140px" class="col-md-4">
-              <input type="radio" name="innovative-category" id="Innovative-Gender" value="Gender" checked="">
-              <label for="Innovative-Gender">Sex</label><br>
-              <input type="radio" name="innovative-category" id="Innovative-Age" value="Age">
-              <label for="Innovative-Age">Age</label><br>
-              <input type="radio" name="innovative-category" id="Innovative-Race" value="Race">
-              <label for="Innovative-Race">Race</label><br>
-            </div>
-            <div class="col-md-8">
-              <div class="align-content-center" id="innovative-chart"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section">
+      <div class="section" data-anchor="ctas">
         <div class="container">
           <h2 class="chart-header">How Can You Do Your Part?</h2>
           <div class="row" id="row-ctas">
@@ -340,26 +306,26 @@
           </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section" data-anchor="footer">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
               <h2 class="chart-header">About</h2>
               <div id="about-text"><center>This webpage was built as a final project for Harvard's CS 171: Visualization by
-                Benjamin Molin, Jack Stone, and Christian Kardish.</center></div>
+                Ben Molin, Jack Stone, and Christian Kardish.</center></div><br>
               <div class = "about-book-github">Links:</div>
               <div class = "about-book-github">- <a href="https://docs.google.com/a/college.harvard.edu/document/d/1dQqIP2BuFho94HvQORJIcJCAz79O230XJEafC6sDwVY/edit?usp=sharing" target ="_blank">Process Book</a></div>
-              <div class = "about-book-github">- <a href="https://github.com/JackStoneDev/cs171-final-project" target ="_blank">Github</a></div>
+              <div class = "about-book-github">- <a href="https://github.com/JackStoneDev/cs171-final-project" target ="_blank">GitHub</a></div>
               <br>
               <iframe width="560" height="315" src="https://www.youtube.com/embed/PqFFQB64JS8" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
             </div>
             <div class="col-md-6">
               <div><h2 class="chart-header">Sources</h2></div>
-              <ol id = "about-sources">
-                <li>CDC Wonder</li>
-                <li>Source 2</li>
-                <li>Source 3</li>
-              </ol>
+              <div id="about-sources">
+                <p>1. <a href="https://wonder.cdc.gov/mcd-icd10.html" target="_blank">Center for Disease Control and Prevention. Multiple Cause of Death, 1999-2015 Request. n.d. Accessed 3 Nov 2017.</a></p><br>
+                <p>2. <a href="https://www.bjs.gov/index.cfm?ty=datool&surl=/arrests/index.cfm#" target="_blank">Snyder, Howard N.; Cooper, Alexia D.; and Mulako-Wangota, Joseph. Bureau of Justice Statistics. Trend Tables by Race. Generated using the Arrest Data Analysis Tool at www.bjs.gov. Accessed 10 Nov 2017.</a></p><br>
+                <p>3. <a href="https://www.samhsa.gov/data/sites/default/files/NSDUHresultsPDFWHTML2013/Web/NSDUHresults2013.pdf" target="_blank">Substance Abuse and Mental Health Services Administration, Results from the 2013 National Survey on Drug Use and Health: Summary of National Findings, NSDUH Series H-48, HHS Publication No. (SMA) 14-4863. Rockville, MD: Substance Abuse and Mental Health Services Administration, 2014. Accessed 10 Dec 2017.</a></p>
+              </div>
             </div>
           </div>
         </div>
@@ -373,7 +339,7 @@
     <script src="js/vendor/jquery.fullpage.min.js"></script>
     <script src="js/vendor/queue.v1.min.js"></script>
     <script src="js/animations.js"></script>
-    <script src="js/seizures.js"></script>
+    <script src="js/drug-use.js"></script>
     <script src="js/ODChoropleth.js"></script>
     <script src="js/ODTimeSeries.js"></script>
     <script src="js/CompareDemographics.js"></script>

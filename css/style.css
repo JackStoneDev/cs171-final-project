@@ -1,4 +1,5 @@
 body {
+  display: none;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -44,6 +45,12 @@ body {
   text-align: center;
 }
 
+#subheadline {
+  font-weight: 200;
+  margin-top: 50px;
+  text-align: center;
+}
+
 #lead-copy {
   font-size: 30px;
   font-weight: 200;
@@ -80,9 +87,15 @@ body {
   text-anchor: middle;
 }
 
-#drug-seizures-chart .axis-label {
-  font-size: 14px;
-  text-anchor: middle;
+.label-filter {
+  display: inline;
+  font-weight: normal;
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+
+.label-filter:hover {
+  cursor: pointer;
 }
 
 input[type="radio"] {
@@ -132,20 +145,6 @@ text.legend {
   pointer-events: none;
 }
 
-/* Copied from http://bl.ocks.org/micahstubbs/8e15870eb432a21f0bc4d3d527b2d14f*/
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.6);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
 .race-labels{
   font-size: 13px;
 }
@@ -191,11 +190,18 @@ text.legend {
   padding-top: 40px;
 }
 
+#demographic-selector-profile-recap-header{
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  padding-top: 10px;
+}
+
 #demographic-selector-number-header {
   font-size: 25px;
   font-weight: bold;
   color: white;
-  padding-top: 100px;
+  padding-top: 10px;
 }
 
 #state-select{
@@ -203,7 +209,7 @@ text.legend {
 }
 
 #about-text {
-  font-size : 30px;
+  font-size : 25px;
   color: lightgray;
 }
 
@@ -213,7 +219,7 @@ text.legend {
 }
 
 #about-sources{
-  font-size : 30px;
+  font-size : 22px;
   color: lightgray;
 }
 

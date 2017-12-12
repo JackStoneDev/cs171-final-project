@@ -3,7 +3,7 @@
 /*
  * ODChoropleth - Object constructor function
  * @param _parentElement 	-- the HTML element in which to draw the visualization
- * @param _data						-- the  
+ * @param _data						-- the
  */
 
 CompareDemographics = function(_parentElement, _data){
@@ -71,26 +71,34 @@ CompareDemographics.prototype.wrangleData = function(){
     // For profile A ....
     // Sex
     vis.sexSelect = [];
+    vis.sexSelectFull = [];
 	if (document.getElementById("AMale").checked){
         vis.sexSelect.push("M");
+        vis.sexSelectFull.push("Male");
 	}
     if (document.getElementById("AFemale").checked){
         vis.sexSelect.push("F");
+        vis.sexSelectFull.push("Female");
     }
 
     // Race
     vis.raceSelect = [];
+    vis.raceSelectFull = [];
     if (document.getElementById("AWhite").checked){
         vis.raceSelect.push("White");
+        vis.raceSelectFull.push("White");
     }
     if (document.getElementById("ABlack").checked){
         vis.raceSelect.push("Black or African American");
+        vis.raceSelectFull.push("Black");
     }
     if (document.getElementById("AAsian").checked){
         vis.raceSelect.push("Asian or Pacific Islander");
+        vis.raceSelectFull.push("Asian");
     }
     if (document.getElementById("AOriginalAmerican").checked){
         vis.raceSelect.push("American Indian or Alaska Native");
+        vis.raceSelectFull.push("Original American");
     }
 
     // Age
@@ -140,6 +148,33 @@ CompareDemographics.prototype.wrangleData = function(){
                 vis.ageSelect.includes(d['Ten-Year Age Groups Code']));
         });
     }
+
+    // Print profile
+    vis.profileString = "";
+    vis.profileString += "Sex: ";
+    for (var ai = 0; ai < vis.sexSelectFull.length; ai++){
+        vis.profileString += vis.sexSelectFull[ai];
+        if (ai + 1 < vis.sexSelectFull.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>Race: ";
+    for (var ai = 0; ai < vis.raceSelectFull.length; ai++){
+        vis.profileString += vis.raceSelectFull[ai];
+        if (ai + 1 < vis.raceSelectFull.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>Ages: ";
+    for (var ai = 0; ai < vis.ageSelect.length; ai++){
+        vis.profileString += vis.ageSelect[ai];
+        if (ai + 1 < vis.ageSelect.length) {
+            vis.profileString += ", "
+        }
+    }
+    vis.profileString += "<br>State: " + vis.stateSelect;
+
+    $("#demographic-selector-profile-recap-header").html(vis.profileString);
 
     // // For profile B ....
     // vis.BdisplayData = vis.data;
@@ -295,73 +330,4 @@ CompareDemographics.prototype.updateVis = function(){
                     .transition()
             });
     }
-
-    // // For comparison to B...
-    // // Sum total of B
-    // vis.Bdeaths = 0;
-    // vis.Bpopulation = 0;
-    //
-    // for (var i = 0; i < vis.BdisplayData.length; i++) {
-    //     vis.Bdeaths = vis.Bdeaths + vis.BdisplayData[i].Deaths;
-    //     vis.Bpopulation = vis.Bpopulation + vis.BdisplayData[i].Population;
-    // }
-    //
-    // // Profile B rate
-    // vis.BRate = vis.Bdeaths / vis.Bpopulation;
-    //
-    // // Factor
-    // vis.Bfactor = (vis.ARate) /  (vis.BRate);
-    // if (isNaN(vis.Bfactor)) {
-    //     vis.Bfactor = 1;
-    // }
-    //
-    // // Transition the number
-    // // Thanks to https://bl.ocks.org/mbostock/7004f92cac972edef365
-    // d3.select("#compare-demographics-compare-number")
-    //     .transition()
-    //     .duration(2000)
-    //     .on("start", function repeat() {
-    //         var t = d3.active(this)
-    //             .remove();
-    //
-    //         d3.active(this)
-    //             .tween("text", function() {
-    //                 var that = d3.select(this),
-    //                     i = d3.interpolateNumber(that.text().replace(/,/g, ""), vis.Bfactor);
-    //                 return function(t) { that.text(format(i(t))); };
-    //             })
-    //             // Thanks to color brewer for color scale http://colorbrewer2.org/#type=diverging&scheme=RdYlGn&n=9
-    //             .style("color", function(d){
-    //                 if (vis.Bfactor > 1.6) {
-    //                     return "#d73027";
-    //                 }
-    //                 else if (vis.Bfactor > 1.4) {
-    //                     return "#f46d43";
-    //                 }
-    //                 else if (vis.Bfactor > 1.2) {
-    //                     return "#fdae61";
-    //                 }
-    //                 else if (vis.Bfactor > 1.1) {
-    //                     return "#fee08b";
-    //                 }
-    //                 else if (vis.Bfactor > .99) {
-    //                     return "#fdff65";
-    //                 }
-    //                 else if (vis.Bfactor > .9) {
-    //                     return "#d9ef8b";
-    //                 }
-    //                 else if (vis.Bfactor > .8) {
-    //                     return "#a6d96a";
-    //                 }
-    //                 else if (vis.Bfactor > .6) {
-    //                     return "#66bd63";
-    //                 }
-    //                 else {
-    //                     return "#1a9850";
-    //                 }
-    //             })
-    //             .transition(t)
-    //             .transition()
-    //     });
-
 };
