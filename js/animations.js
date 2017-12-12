@@ -8,6 +8,9 @@ function animatePage() {
   $('#fullpage').fullpage({
     navigation: true,
     lockAnchors: true,
+    afterRender: function() {
+      $('body').fadeIn(1200);
+    },
     afterLoad: function(anchorLink) {
       if (anchorLink === 'lead') {
         setTimeout(function() {
