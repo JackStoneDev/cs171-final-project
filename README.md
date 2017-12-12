@@ -2,9 +2,9 @@
 The United States of Drugs
 
 Authors
-Christian Kardish
-Benjamin Molin
-Jack Stone
+	- Christian Kardish
+	- Benjamin Molin
+	- Jack Stone
 
 ## SUBMISSION
 We have submitted a zip file with two files
@@ -18,7 +18,7 @@ We have submitted a zip file with two files
 This was the final project for a Harvard Visualization class, CS171: Visualization. We used D3 to create a website
 
 TF
-Charlene Hwang
+	- Charlene Hwang
 
 ## LINKS
 Live Website - https://jackstonedev.github.io/cs171-final-project/
